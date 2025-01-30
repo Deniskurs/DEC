@@ -24,7 +24,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
           <div className="flex-1 text-center md:text-left">
             {/* Urgency Indicator */}
-            <div className="flex items-center gap-2 mb-4 justify-center md:justify-LuStart">
+            <div className="flex items-center gap-2 mb-4 justify-left md:justify-start">
               <LuTimer
                 className={`h-5 w-5 ${
                   darkMode ? "text-cream-50" : "text-rich-blue-600"

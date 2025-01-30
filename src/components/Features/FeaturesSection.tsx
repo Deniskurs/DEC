@@ -7,6 +7,7 @@ import {
   LuLock,
   LuShield,
   LuZap,
+  LuStar,
 } from "react-icons/lu";
 import FeatureCard from "./FeatureCard";
 import SectionCTA from "../CTA/SectionCTA";
@@ -47,6 +48,31 @@ const features = [
     iconLabel: "Always On",
   },
 ];
+
+// New TrustRating component to be passed to SectionCTA
+const TrustRating = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    className="flex flex-col items-center space-y-2 mt-4"
+  >
+    <div className="flex items-center gap-1">
+      {[...Array(5)].map((_, i) => (
+        <LuStar key={i} className="w-4 h-4 fill-current text-yellow-400" />
+      ))}
+    </div>
+    <a
+      href="#"
+      className="text-cream-50/90 text-sm hover:text-cream-50 transition-colors duration-200"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      4.8/5 on Trustpilot
+    </a>
+  </motion.div>
+);
 
 const FeaturesSection: React.FC = () => {
   return (
@@ -106,7 +132,7 @@ const FeaturesSection: React.FC = () => {
                   className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
                 >
                   Your Wealth, 24/7
-                  <span className="bLuLock mt-2 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  <span className="block mt-2 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                     Without Compromise
                   </span>
                 </motion.h2>
