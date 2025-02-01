@@ -40,7 +40,7 @@ const ProblemSection: React.FC = () => {
         className="relative py-24 lg:py-32"
       >
         <div className="max-w-7xl mx-auto px-8 lg:px-12">
-          {/* Title Section with Background Text */}
+          {/* Updated Title Section with Background Text */}
           <motion.div
             className="text-center mb-20"
             initial={{ opacity: 0, y: 30 }}
@@ -48,16 +48,17 @@ const ProblemSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 1 }}
           >
-            <div className="section-title relative" data-text="THE PROBLEM">
-              <div
-                className="absolute left-1/2 top-0 -translate-x-1/2 text-[clamp(3.5rem,8vw,5rem)] font-extrabold uppercase tracking-[0.1em] text-cream-50/10 whitespace-nowrap leading-none"
-                aria-hidden="true"
-              >
-                THE PROBLEM
-              </div>
-
+            <div
+              className="section-title relative"
+              data-text="THE PROBLEM"
+              style={
+                {
+                  "--section-title-color": "rgba(252, 249, 240, 0.1)",
+                } as React.CSSProperties
+              }
+            >
               <motion.h2
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cream-50 mb-8 relative"
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-cream-50 mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -137,7 +138,6 @@ const ProblemSection: React.FC = () => {
                             )}
                           </AnimatePresence>
                           <div className="relative flex items-center gap-3 p-4 rounded-xl border border-cream-50/10 transition-colors duration-300">
-                            {/* <Sparkles className="h-5 w-5 text-rich-blue-400" /> */}
                             <span className="text-cream-50">{item}</span>
                           </div>
                           {index < 2 && (
@@ -184,8 +184,6 @@ const ProblemSection: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-r from-rich-blue-500/0 via-rich-blue-400/10 to-rich-blue-500/0 animate-shimmer" />
 
                 <div className="relative p-8 lg:p-10 space-y-8">
-                  {/* <Rocket className="h-12 w-12 text-rich-blue-400 transform group-hover:scale-110 transition-transform duration-300" /> */}
-
                   <h3 className="text-2xl sm:text-3xl font-bold text-cream-50">
                     Let's Take It Further
                   </h3>
@@ -203,13 +201,11 @@ const ProblemSection: React.FC = () => {
                           label: "Monthly Returns",
                           value: "+1.76%",
                           desc: "Consistent Growth",
-                          // Icon: TrendingUp,
                         },
                         {
                           label: "Success Rate",
                           value: "88%",
                           desc: "Proven Track Record",
-                          // Icon: Zap,
                         },
                       ].map((stat, index) => (
                         <motion.div
@@ -221,7 +217,7 @@ const ProblemSection: React.FC = () => {
                             duration: 0.5,
                             delay: 0.7 + index * 0.1,
                           }}
-                          onMouseEnter={() => setHoveredItem(index + 10)} // Offset to avoid conflict with left card
+                          onMouseEnter={() => setHoveredItem(index + 10)}
                           onMouseLeave={() => setHoveredItem(null)}
                           className="relative overflow-hidden"
                         >
@@ -237,7 +233,6 @@ const ProblemSection: React.FC = () => {
                             )}
                           </AnimatePresence>
                           <div className="relative flex items-center gap-4 bg-cream-50/5 rounded-xl p-4 border border-cream-50/10">
-                            {/* <stat.Icon className="h-6 w-6 text-rich-blue-400" /> */}
                             <div className="flex-1">
                               <div className="text-sm text-cream-100/80">
                                 {stat.label}
@@ -258,21 +253,6 @@ const ProblemSection: React.FC = () => {
               </div>
             </motion.div>
           </div>
-
-          {/* Enhanced CTA */}
-          {/* <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="mt-16 text-center"
-          >
-            <button className="group relative inline-flex items-center gap-2 bg-cream-50 text-rich-blue-900 px-8 py-4 rounded-xl font-semibold overflow-hidden hover:bg-cream-100 transition-all duration-300">
-              <span className="relative z-10">Unlock Your Elite Advantage</span>
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              <div className="absolute inset-0 bg-gradient-to-r from-cream-50/0 via-cream-50/50 to-cream-50/0 animate-shimmer" />
-            </button>
-          </motion.div> */}
         </div>
       </motion.div>
     </div>
