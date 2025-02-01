@@ -77,9 +77,9 @@ const TrustRating = () => (
 const FeaturesSection: React.FC = () => {
   return (
     <>
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50">
         {/* Enhanced Background with Grid Parallax Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/80 via-white to-gray-50/50">
+        <div className="absolute inset-0">
           <motion.div
             className="absolute inset-0"
             animate={{
@@ -96,7 +96,7 @@ const FeaturesSection: React.FC = () => {
             }}
           />
 
-          {/* Grid Parallax Effect */}
+          {/* Grid Parallax Effect - keeping original color */}
           <div className="absolute inset-0 -z-0 bg-[linear-gradient(rgba(0,82,204,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,82,204,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
         </div>
 

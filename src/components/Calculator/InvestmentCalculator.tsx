@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,20 +8,20 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler
-} from 'chart.js';
-import { calculateMetrics } from '../../utils/calculatorUtils';
+  Filler,
+} from "chart.js";
+import { calculateMetrics } from "../../utils/calculatorUtils";
 import {
   DEFAULT_INVESTMENT,
   DEFAULT_MONTHS,
   getChartData,
-} from '../../constants/calculatorConfig';
-import CalculatorHeader from './components/CalculatorHeader';
-import CalculatorInputs from './components/CalculatorInputs';
-import PerformanceMetrics from './components/PerformanceMetrics';
-import PerformanceChart from './components/PerformanceChart';
-import OpportunityCostCard from './components/OpportunityCostCard';
-import { TooltipProvider } from '../ui/tooltip';
+} from "../../constants/calculatorConfig";
+import CalculatorHeader from "./components/CalculatorHeader";
+import CalculatorInputs from "./components/CalculatorInputs";
+import PerformanceMetrics from "./components/PerformanceMetrics";
+import PerformanceChart from "./components/PerformanceChart";
+import OpportunityCostCard from "./components/OpportunityCostCard";
+import { TooltipProvider } from "../ui/tooltip";
 
 ChartJS.register(
   CategoryScale,
@@ -37,19 +37,21 @@ ChartJS.register(
 const InvestmentCalculator: React.FC = () => {
   const [investment, setInvestment] = useState(DEFAULT_INVESTMENT);
   const [months, setMonths] = useState(DEFAULT_MONTHS);
-  const [metrics, setMetrics] = useState(calculateMetrics(DEFAULT_INVESTMENT, DEFAULT_MONTHS));
-  
+  const [metrics, setMetrics] = useState(
+    calculateMetrics(DEFAULT_INVESTMENT, DEFAULT_MONTHS)
+  );
+
   // Handle window resize for mobile optimization
   const [isMobile, setIsMobile] = useState(false);
-  
+
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   const updateMetrics = useCallback(() => {
@@ -60,11 +62,11 @@ const InvestmentCalculator: React.FC = () => {
     updateMetrics();
   }, [updateMetrics]);
 
-  const dailyOpportunityCost = (metrics.opportunityCost / (months * 30));
+  const dailyOpportunityCost = metrics.opportunityCost / (months * 30);
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-b from-white to-cream-50/50">
+      <div className="min-h-screen bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile-optimized padding */}
           <div className="py-8 sm:py-12 lg:py-16">
@@ -83,7 +85,7 @@ const InvestmentCalculator: React.FC = () => {
                       onMonthsChange={setMonths}
                     />
                   </div>
-                  
+
                   <div className="w-full lg:w-1/2">
                     <PerformanceMetrics metrics={metrics} />
                   </div>
@@ -91,8 +93,8 @@ const InvestmentCalculator: React.FC = () => {
 
                 {/* Chart section with mobile responsiveness */}
                 <div className="mt-8 sm:mt-12">
-                  <PerformanceChart 
-                    chartData={getChartData(investment, months)} 
+                  <PerformanceChart
+                    chartData={getChartData(investment, months)}
                     isMobile={isMobile}
                   />
                 </div>

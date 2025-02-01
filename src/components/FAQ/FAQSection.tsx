@@ -172,7 +172,7 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-white to-cream-50/50">
+    <section className="relative py-16 lg:py-24 bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,102,255,0.03),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(0,102,255,0.03),transparent_70%)]" />

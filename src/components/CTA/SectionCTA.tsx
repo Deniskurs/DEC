@@ -16,15 +16,26 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 }) => {
   return (
     <div
-      className={`reveal py-16 sm:py-20 ${
-        darkMode ? "bg-rich-blue-800" : "bg-cream-50/80"
+      className={`reveal py-16 sm:py-20 relative ${
+        darkMode
+          ? "bg-gradient-to-br from-rich-blue-900 via-rich-blue-800 to-rich-blue-900"
+          : "bg-gradient-to-br from-cream-50 via-cream-100 to-cream-50"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      {/* Gradient Overlay */}
+      <div
+        className={`absolute inset-0 ${
+          darkMode
+            ? "bg-gradient-to-r from-rich-blue-600/10 via-rich-blue-400/5 to-rich-blue-600/10"
+            : "bg-gradient-to-r from-cream-200/30 via-cream-300/20 to-cream-200/30"
+        } animate-pulse`}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
           <div className="flex-1 text-center md:text-left">
-            {/* Urgency Indicator */}
-            <div className="flex items-center gap-2 mb-4 justify-left md:justify-start">
+            {/* Urgency Indicator - Fixed alignment */}
+            <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
               <LuTimer
                 className={`h-5 w-5 ${
                   darkMode ? "text-cream-50" : "text-rich-blue-600"
@@ -79,7 +90,6 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 
             {/* Custom Trustpilot-style Rating */}
             <div className="mt-4 flex items-center justify-center gap-2">
-              {/* Trustpilot-style Logo */}
               <div
                 className={`flex items-center text-sm font-semibold ${
                   darkMode ? "text-cream-50" : "text-rich-blue-800"
