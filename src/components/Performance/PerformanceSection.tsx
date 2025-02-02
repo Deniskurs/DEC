@@ -10,7 +10,7 @@ const PerformanceSection: React.FC = () => {
         {/* Premium background with grid and gradient */}
         <div className="absolute inset-0">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-cream-50/50 to-white/30" />
 
           {/* Grid with hue gradient overlay */}
           <div
@@ -69,7 +69,6 @@ const PerformanceSection: React.FC = () => {
         title="Your Capital Is Waiting"
         description="Elite traders are leveraging our algorithms right now. Every moment of delay is quantifiable loss."
         buttonText="START GENERATING WEALTH"
-        darkMode={true}
       />
     </>
   );
