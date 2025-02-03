@@ -10,7 +10,7 @@ const PerformanceSection: React.FC = () => {
         {/* Premium background with grid and gradient */}
         <div className="absolute inset-0">
           {/* Base gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-cream-50/50 to-white/30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50" />
 
           {/* Grid with hue gradient overlay */}
           <div
