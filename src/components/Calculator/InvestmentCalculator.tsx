@@ -106,6 +106,7 @@ const InvestmentCalculator: React.FC = () => {
                   dailyOpportunityCost={dailyOpportunityCost}
                   totalOpportunityCost={metrics.opportunityCost}
                   months={months}
+                  typeformUrl="https://2znr0q4ymmj.typeform.com/to/CA5GAbp9"
                 />
               </div>
             </div>
