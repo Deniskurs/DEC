@@ -55,7 +55,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         change "top-0" and "z-?" – but be sure your navbar remains clickable (z-index).
       */}
       <div
-        className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/0"
         // Close menu when backdrop is clicked
         onClick={() => setIsMenuOpen(false)}
       />
