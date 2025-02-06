@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { LuLucideIcon } from "react-icons/lu";
+import { IconType } from "react-icons";
 import { useRef } from "react";
 
 interface FeatureCardProps {
-  Icon: LuLucideIcon;
+  Icon: IconType;
   title: string;
   description: string;
   stats: {
@@ -21,6 +21,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   stats,
   iconLabel,
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const cardRef = useRef(null);
@@ -55,6 +56,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           y: 0,
           transition: { duration: 0.5 },
         },
+        hover: {
+          opacity: 1,
+          transition: { duration: 0.3 },
+        },
       };
     }
     return {
@@ -62,6 +67,11 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       hover: {
         opacity: 1,
         transition: { duration: 0.3 },
+      },
+      animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5 },
       },
     };
   };
