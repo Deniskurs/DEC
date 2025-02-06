@@ -209,7 +209,7 @@ const FAQSection: React.FC = () => {
             <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-rich-blue-400" />
             <input
               type="text"
-              placeholder="LuSearch questions..."
+              placeholder="Search questions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 rounded-lg bg-white shadow focus:ring-2 focus:ring-rich-blue-400 focus:outline-none"
