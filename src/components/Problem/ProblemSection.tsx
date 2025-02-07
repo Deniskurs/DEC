@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 import { LuTarget } from "react-icons/lu";
+import { useAccountData } from "../../hooks/useAccountData";
 
 const ProblemSection: React.FC = () => {
   const { ref: sectionRef, controls: sectionControls } = useScrollAnimation({
@@ -10,6 +11,13 @@ const ProblemSection: React.FC = () => {
 
   const [activeCard, setActiveCard] = useState<"left" | "right" | null>(null);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+
+  const { accountQuery } = useAccountData();
+  const {
+    data: accountData,
+    isLoading: accountDataLoading,
+    isError: isErrorProcessing,
+  } = accountQuery;
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-b from-rich-blue-900 to-rich-blue-800">
@@ -199,12 +207,16 @@ const ProblemSection: React.FC = () => {
                       {[
                         {
                           label: "Monthly Returns",
-                          value: "+1.76%",
+                          value: accountData
+                            ? `+${accountData.monthly}%`
+                            : "+1.76%",
                           desc: "Consistent Growth",
                         },
                         {
                           label: "Success Rate",
-                          value: "88%",
+                          value: accountData
+                            ? `${accountData.successRate}%`
+                            : "88%",
                           desc: "Proven Track Record",
                         },
                       ].map((stat, index) => (

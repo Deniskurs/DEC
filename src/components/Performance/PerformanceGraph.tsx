@@ -67,11 +67,12 @@ const PerformanceGraph: React.FC = () => {
     isError: isErrorProcessing,
   } = equityQuery;
 
+  const { useDeadMarketDataQuery } = useDeadStrats();
   const {
     data: deadStrats,
     isLoading: loadingDeadStrats,
     isError: isErrorDeadStrats,
-  } = useDeadStrats(
+  } = useDeadMarketDataQuery(
     ["SPY", "GLD", "URTH"],
     equityData?.[0]?.date ?? "",
     equityData?.[equityData.length - 1]?.date ?? ""

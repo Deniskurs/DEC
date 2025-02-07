@@ -22,6 +22,9 @@ import PerformanceMetrics from "./components/PerformanceMetrics";
 import PerformanceChart from "./components/PerformanceChart";
 import OpportunityCostCard from "./components/OpportunityCostCard";
 import { TooltipProvider } from "../ui/tooltip";
+import { useAccountData } from "../../hooks/useAccountData";
+import { CalculatorMetrics } from "../../types/calculator";
+import { useDeadStrats } from "../../hooks/useDeadStrats";
 
 ChartJS.register(
   CategoryScale,
@@ -37,9 +40,47 @@ ChartJS.register(
 const InvestmentCalculator: React.FC = () => {
   const [investment, setInvestment] = useState(DEFAULT_INVESTMENT);
   const [months, setMonths] = useState(DEFAULT_MONTHS);
-  const [metrics, setMetrics] = useState(
-    calculateMetrics(DEFAULT_INVESTMENT, DEFAULT_MONTHS)
-  );
+  const [metrics, setMetrics] = useState<CalculatorMetrics | null>(null);
+
+  //  interface CalculatorMetrics {
+  //   monthlyReturn: number;
+  //   yearlyReturn: number;
+  //   totalReturn: number;
+  //   opportunityCost: number;
+  // }
+
+  const { accountQuery } = useAccountData();
+  const {
+    data: accountData,
+    isLoading: accountDataLoading,
+    isError: isErrorProcessing,
+  } = accountQuery;
+  const { useMonthlyGainQuery } = useDeadStrats();
+  const {
+    data: monthlyGainData,
+    isLoading: monthlyGainDataLoading,
+    isError: monthlyGainDataError,
+  } = useMonthlyGainQuery("URTH");
+
+  useEffect(() => {
+    if (accountData && monthlyGainData) {
+      setMetrics(
+        calculateMetrics(
+          accountData.monthly,
+          monthlyGainData.averageMonthlyGain,
+          investment,
+          months
+        )
+      );
+    }
+  }, [
+    accountData,
+    investment,
+    months,
+    accountDataLoading,
+    monthlyGainData,
+    isErrorProcessing,
+  ]);
 
   // Handle window resize for mobile optimization
   const [isMobile, setIsMobile] = useState(false);
@@ -55,14 +96,25 @@ const InvestmentCalculator: React.FC = () => {
   }, []);
 
   const updateMetrics = useCallback(() => {
-    setMetrics(calculateMetrics(investment, months));
-  }, [investment, months]);
+    if (accountData && monthlyGainData) {
+      setMetrics(
+        calculateMetrics(
+          accountData.monthly,
+          monthlyGainData.averageMonthlyGain,
+          investment,
+          months
+        )
+      );
+    }
+  }, [accountData, investment, months, monthlyGainData]);
 
   useEffect(() => {
     updateMetrics();
   }, [updateMetrics]);
 
-  const dailyOpportunityCost = metrics.opportunityCost / (months * 30);
+  const dailyOpportunityCost = metrics
+    ? metrics.opportunityCost / (months * 30)
+    : 0;
 
   return (
     <TooltipProvider>
@@ -87,27 +139,50 @@ const InvestmentCalculator: React.FC = () => {
                   </div>
 
                   <div className="w-full lg:w-1/2">
-                    <PerformanceMetrics metrics={metrics} />
+                    {metrics ? (
+                      <PerformanceMetrics metrics={metrics} />
+                    ) : (
+                      <div className="flex justify-center items-center h-full">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* Chart section with mobile responsiveness */}
                 <div className="mt-8 sm:mt-12">
-                  <PerformanceChart
-                    chartData={getChartData(investment, months)}
-                    isMobile={isMobile}
-                  />
+                  {accountData && monthlyGainData ? (
+                    <PerformanceChart
+                      chartData={getChartData(
+                        accountData.monthly,
+                        monthlyGainData.averageMonthlyGain,
+                        investment,
+                        months
+                      )}
+                      isMobile={isMobile}
+                    />
+                  ) : (
+                    <div className="flex justify-center items-center h-full">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* Opportunity Cost Card with mobile spacing */}
               <div className="mt-6 sm:mt-8 lg:mt-12">
-                <OpportunityCostCard
-                  dailyOpportunityCost={dailyOpportunityCost}
-                  totalOpportunityCost={metrics.opportunityCost}
-                  months={months}
-                  typeformUrl="https://2znr0q4ymmj.typeform.com/to/CA5GAbp9"
-                />
+                {metrics ? (
+                  <OpportunityCostCard
+                    dailyOpportunityCost={dailyOpportunityCost}
+                    totalOpportunityCost={metrics.opportunityCost}
+                    months={months}
+                    typeformUrl="https://2znr0q4ymmj.typeform.com/to/CA5GAbp9"
+                  />
+                ) : (
+                  <div className="flex justify-center items-center h-full">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
