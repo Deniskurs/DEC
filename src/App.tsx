@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navigation/Navbar";
 import HeroSection from "./components/Hero/HeroSection";
 import ProblemSection from "./components/Problem/ProblemSection";
@@ -13,13 +14,31 @@ import NewsletterController from "./components/Newsletter/NewsletterController";
 import { LoadingAndTerms } from "./components/LoadingandTerms";
 import { useScrollTrigger } from "./hooks/useScrollTrigger";
 import { termsManager } from "./utils/termsManager";
+import BlogSection from "./components/Blog/BlogSection";
+import BlogPost from "./pages/Blog/BlogPost";
 
 interface ScrollObserverEntry extends IntersectionObserverEntry {
   intersectionRatio: number;
 }
 
+const HomePage = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  return (
+    <>
+      <HeroSection ref={heroRef} />
+      <ProblemSection />
+      <InvestmentCalculator />
+      <FeaturesSection />
+      <PerformanceSection />
+      <LiquidityProviders />
+      <FAQSection />
+      <BlogSection />
+    </>
+  );
+};
+
 function App(): JSX.Element {
-  // Terms acceptance state
   const [hasAcceptedTerms, setHasAcceptedTerms] = useState<boolean>(() => {
     try {
       const { hasAccepted } = termsManager.checkAcceptance();
@@ -30,7 +49,6 @@ function App(): JSX.Element {
     }
   });
 
-  // UI states - Only initialize if terms are accepted
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isDarkBackground, setIsDarkBackground] = useState<boolean>(true);
@@ -39,9 +57,9 @@ function App(): JSX.Element {
   const lastScrollY = useRef<number>(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const showCTA = useScrollTrigger(800);
+  const location = useLocation();
 
   useEffect(() => {
-    // Only add scroll listeners if terms are accepted
     if (!hasAcceptedTerms) return;
 
     const handleScroll = () => {
@@ -76,13 +94,33 @@ function App(): JSX.Element {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
-  }, [hasAcceptedTerms]); // Added hasAcceptedTerms as dependency
+  }, [hasAcceptedTerms]);
+
+  useEffect(() => {
+    if (location.hash === "#blog-section") {
+      setTimeout(() => {
+        const section = document.querySelector("section#blog-section");
+        if (section) {
+          const headerOffset = 100;
+          const elementPosition = section.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.scrollY - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      }, 300); // Increased timeout to ensure DOM is ready
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
 
   const handleTermsAccept = (): void => {
     try {
       termsManager.acceptTerms();
       setHasAcceptedTerms(true);
-      // Reset UI states when terms are accepted
       setScrolled(window.scrollY > 20);
       setIsMenuOpen(false);
       setIsDarkBackground(true);
@@ -107,18 +145,16 @@ function App(): JSX.Element {
       />
 
       <main className="relative w-full">
-        <HeroSection ref={heroRef} />
-        <ProblemSection />
-        <InvestmentCalculator />
-        <FeaturesSection />
-        <PerformanceSection />
-        <LiquidityProviders />
-        <FAQSection />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+        </Routes>
       </main>
 
       <Footer />
-
-      {showCTA && <CTABanner isVisible={showCTA} />}
+      {showCTA && location.pathname === "/" && (
+        <CTABanner isVisible={showCTA} />
+      )}
       <NewsletterController />
     </div>
   );
