@@ -69,6 +69,7 @@ const PerformanceSection: React.FC = () => {
         title="Your Capital Is Waiting"
         description="Elite traders are leveraging our algorithms right now. Every moment of delay is quantifiable loss."
         buttonText="START GENERATING WEALTH"
+        darkMode={true}
       />
     </>
   );
