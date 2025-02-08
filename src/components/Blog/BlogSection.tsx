@@ -1,11 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  LuChevronLeft,
-  LuChevronRight,
-  LuArrowRight,
-  LuBookOpen,
-} from "react-icons/lu";
+import { LuChevronLeft, LuChevronRight, LuBookOpen } from "react-icons/lu";
 import BlogCard from "./BlogCard";
 import { blogPosts } from "../../data/blogData";
 
