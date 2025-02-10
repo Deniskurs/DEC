@@ -39,47 +39,35 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
   useEffect(() => {
     const status = termsManager.checkAcceptance();
     setTermsStatus(status);
-
     if (status.hasAccepted && !status.needsReaccept) {
       onAccept();
       return;
     }
-
     const timer = setTimeout(() => {
       setLoading(false);
       setShowTerms(true);
     }, 2500);
-
     return () => clearTimeout(timer);
   }, [onAccept]);
 
   // Mobile detection with debounce
   useEffect(() => {
     const handleResize = () => {
-      if (resizeTimeoutRef.current) {
-        clearTimeout(resizeTimeoutRef.current);
-      }
-
+      if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
       resizeTimeoutRef.current = setTimeout(() => {
         const isMobileView = window.innerWidth < 768;
         setIsMobile(isMobileView);
-
-        // Only set custom vh on mobile
         if (isMobileView) {
           const vh = window.innerHeight * 0.01;
           document.documentElement.style.setProperty("--vh", `${vh}px`);
         }
       }, 100);
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
-      if (resizeTimeoutRef.current) {
-        clearTimeout(resizeTimeoutRef.current);
-      }
+      if (resizeTimeoutRef.current) clearTimeout(resizeTimeoutRef.current);
     };
   }, []);
 
@@ -89,22 +77,18 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
       timerRef.current = setInterval(() => {
         setTimeSpent((prev) => prev + 1);
       }, 1000);
-
       return () => {
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-        }
+        if (timerRef.current) clearInterval(timerRef.current);
       };
     }
   }, [showTerms]);
 
-  // Handle scroll events with debounce
+  // Handle scroll events
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const element = e.currentTarget;
     const scrollPosition = element.scrollTop + element.clientHeight;
     const totalHeight = element.scrollHeight;
     const scrollPercentage = (scrollPosition / totalHeight) * 100;
-
     setReadTime(Math.max(readTime, scrollPercentage));
     setHasReachedBottom(Math.ceil(scrollPosition) >= totalHeight - 1);
   };
@@ -209,7 +193,6 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
                     repeatType: "loop",
                   }}
                 />
-
                 <motion.div
                   className="absolute w-[200%] h-[200%] -left-1/2 -top-1/2"
                   style={{
@@ -229,7 +212,6 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
                   }}
                 />
               </div>
-
               <div
                 className="absolute inset-0 opacity-5"
                 style={{
@@ -241,16 +223,9 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
                 }}
               />
             </div>
-
-            {/* Content Container */}
-            <div className="relative h-full p-4 md:p-6">
-              <div
-                className="overflow-y-auto h-full"
-                style={{
-                  paddingBottom:
-                    "calc(8rem + env(safe-area-inset-bottom, 20px))",
-                }}
-              >
+            {/* Use a flex-col layout to separate the scrollable TermsContent and the fixed AcceptanceSection */}
+            <div className="flex flex-col h-full p-4 md:p-6">
+              <div className="flex-grow overflow-y-auto">
                 <TermsContent
                   onScroll={handleScroll}
                   scrollRef={scrollRef}
@@ -260,7 +235,7 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
                   timeSpent={timeSpent}
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0">
+              <div className="mt-4">
                 <AcceptanceSection
                   accepted={accepted}
                   setAccepted={setAccepted}

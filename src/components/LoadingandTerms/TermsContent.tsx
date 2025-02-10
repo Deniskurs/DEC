@@ -25,28 +25,24 @@ const scrollbarStyles = css`
     scrollbar-color: rgba(252, 249, 240, 0.3) rgba(252, 249, 240, 0.1);
     will-change: transform;
   }
-
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
-
   .custom-scrollbar::-webkit-scrollbar-track {
     background: rgba(252, 249, 240, 0.1);
     border-radius: 3px;
   }
-
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: rgba(252, 249, 240, 0.3);
     border-radius: 3px;
     transform: translate3d(0, 0, 0);
   }
-
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(252, 249, 240, 0.5);
   }
 `;
 
-// Expanded disclaimer sections with comprehensive legal language (without performance numbers)
+// Expanded disclaimer sections with comprehensive legal language
 const disclaimerSections = [
   {
     title: "Risk Warning & Performance Disclaimer",
@@ -159,8 +155,6 @@ export const TermsContent: React.FC<TermsContentProps> = ({
           willChange: "scroll-position",
           transform: "translate3d(0, 0, 0)",
           overscrollBehavior: isMobile ? "contain" : "auto",
-          WebkitOverflowScrolling: "touch",
-          paddingBottom: "calc(8rem + env(safe-area-inset-bottom, 20px))",
         }}
         onScroll={onScroll}
       >
