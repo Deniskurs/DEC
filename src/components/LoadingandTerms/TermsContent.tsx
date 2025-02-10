@@ -152,7 +152,7 @@ export const TermsContent: React.FC<TermsContentProps> = ({
       {/* Scrollable Content */}
       <div
         ref={scrollRef}
-        className="bg-rich-blue-900/30 rounded-xl p-6 pb-16 custom-scrollbar overflow-y-auto backdrop-blur-sm border border-cream-50/10"
+        className="bg-rich-blue-900/30 rounded-xl p-6 custom-scrollbar overflow-y-auto backdrop-blur-sm border border-cream-50/10"
         css={scrollbarStyles}
         style={{
           maxHeight: isMobile ? "calc(var(--vh, 1vh) * 45)" : "40vh",
@@ -160,6 +160,8 @@ export const TermsContent: React.FC<TermsContentProps> = ({
           transform: "translate3d(0, 0, 0)",
           overscrollBehavior: isMobile ? "contain" : "auto",
           WebkitOverflowScrolling: "touch",
+          // Added extra bottom padding that accounts for the safe area inset on iOS devices.
+          paddingBottom: "calc(4rem + env(safe-area-inset-bottom, 20px))",
         }}
         onScroll={onScroll}
       >
