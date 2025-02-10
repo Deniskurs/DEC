@@ -91,7 +91,7 @@ const BlogSection: React.FC = () => {
 
               <div
                 className="section-title relative"
-                data-text="D.E.C Blogs"
+                data-text="D.E.C Articles"
                 style={
                   {
                     "--section-title-color": "rgba(252, 249, 240, 0.1)",
