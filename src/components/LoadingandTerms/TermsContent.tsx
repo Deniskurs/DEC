@@ -160,8 +160,7 @@ export const TermsContent: React.FC<TermsContentProps> = ({
           transform: "translate3d(0, 0, 0)",
           overscrollBehavior: isMobile ? "contain" : "auto",
           WebkitOverflowScrolling: "touch",
-          // Added extra bottom padding that accounts for the safe area inset on iOS devices.
-          paddingBottom: "calc(4rem + env(safe-area-inset-bottom, 20px))",
+          paddingBottom: "calc(8rem + env(safe-area-inset-bottom, 20px))",
         }}
         onScroll={onScroll}
       >

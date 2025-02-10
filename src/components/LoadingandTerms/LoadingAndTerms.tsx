@@ -243,9 +243,14 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
             </div>
 
             {/* Content Container */}
-            <div className="relative h-full flex flex-col p-4 md:p-6">
-              {/* Terms Content */}
-              <div className="flex-grow min-h-0">
+            <div className="relative h-full p-4 md:p-6">
+              <div
+                className="overflow-y-auto h-full"
+                style={{
+                  paddingBottom:
+                    "calc(8rem + env(safe-area-inset-bottom, 20px))",
+                }}
+              >
                 <TermsContent
                   onScroll={handleScroll}
                   scrollRef={scrollRef}
@@ -255,9 +260,7 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
                   timeSpent={timeSpent}
                 />
               </div>
-
-              {/* Acceptance Section */}
-              <div className="flex-shrink-0 mt-4">
+              <div className="absolute bottom-0 left-0 right-0">
                 <AcceptanceSection
                   accepted={accepted}
                   setAccepted={setAccepted}
