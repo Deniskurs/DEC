@@ -393,3 +393,63 @@
   background-clip: text;
   color: transparent;
 }
+
+/* New additions */
+
+/* Add to your global CSS */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s linear infinite;
+}
+
+/* Handle mobile viewport height */
+.mobile-height {
+  height: 100vh; /* Fallback */
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.mobile-container {
+  /* Prevent content from being hidden behind mobile browser chrome */
+  max-height: calc(var(--vh, 1vh) * 90);
+}
+
+/* Improve touch scrolling */
+@supports (-webkit-touch-callout: none) {
+  .custom-scrollbar {
+    /* Disable momentum scrolling on iOS devices */
+    -webkit-overflow-scrolling: auto;
+  }
+}
+
+/* Prevent pull-to-refresh on mobile */
+html,
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Optimize font rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Better tap targets for mobile */
+button,
+[role="button"],
+label {
+  min-height: 44px; /* iOS minimum tap target size */
+  min-width: 44px;
+}
