@@ -1,5 +1,7 @@
+// src/components/Navigation/MobileMenu.tsx
 import React, { useEffect } from "react";
 import { LuChevronRight } from "react-icons/lu";
+import { Link } from "react-router-dom";
 
 interface MobileMenuProps {
   isMenuOpen: boolean;
@@ -18,7 +20,6 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   buttonBgClass,
   isDarkBackground,
 }) => {
-  // Prevent scrolling on body when the menu is open
   useEffect(() => {
     document.body.style.overflow = isMenuOpen ? "hidden" : "";
     return () => {
@@ -26,22 +27,20 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     };
   }, [isMenuOpen]);
 
-  const menuItems = ["About", "Services", "Performance", "Contact"];
+  const menuItems = [
+    { label: "About", href: "#about" },
+    { label: "Problem", href: "#problem" },
+    { label: "Features", href: "#features" },
+    { label: "Performance", href: "#performance" },
+    { label: "Liquidity", href: "#liquidity" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Enquire", href: "/enquiry" },
+  ];
 
   return (
-    // The wrapper is always rendered. We toggle its visibility with Tailwind classes.
     <div
-      // Fix the container below the navbar (top-[5.5rem] – adjust to your navbar height).
-      // z-40 so the navbar (z-[100]) sits above it.
       className={`
-        fixed 
-        left-0 
-        right-0 
-        top-[5.5rem] 
-        bottom-0 
-        z-40
-        transition-all
-        duration-500
+        fixed left-0 right-0 top-[5.5rem] bottom-0 z-40 transition-all duration-500
         ${
           isMenuOpen
             ? "opacity-100 pointer-events-auto"
@@ -49,47 +48,27 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         }
       `}
     >
-      {/* 
-        The backdrop covers the entire region below the navbar. 
-        If you want the backdrop to cover the entire screen (including behind the navbar),
-        change "top-0" and "z-?" – but be sure your navbar remains clickable (z-index).
-      */}
+      {/* Original backdrop as provided */}
       <div
-        className="absolute inset-0 bg-black/0"
-        // Close menu when backdrop is clicked
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(252,249,240,0.15),transparent_60%)]"
         onClick={() => setIsMenuOpen(false)}
       />
-
-      {/* 
-        Slide-down container for the actual menu content. 
-        We start it slightly up ("-translate-y-10") 
-        and animate to "translate-y-0" for a downward motion.
-      */}
       <div
         className={`
-          relative 
-          w-full 
-          h-full
-          transform 
-          transition-transform 
-          duration-500
+          relative w-full h-full transform transition-transform duration-500
           ${isMenuOpen ? "translate-y-0" : "-translate-y-10"}
         `}
       >
         <div className="px-4 sm:px-8 mx-auto max-w-7xl mt-8">
           <div className="relative">
-            {/* Gradient Border */}
+            {/* Original animated gradient border */}
             <div className="absolute -inset-px rounded-[2.5rem] overflow-hidden pointer-events-none">
               <div className="absolute inset-0 bg-gradient-to-r from-cream-50/30 via-rich-blue-500/30 to-cream-50/30 animate-borderRotate" />
             </div>
-
-            {/* Menu Content */}
+            {/* Preserve original background */}
             <div
               className={`
-                rounded-[2.5rem] 
-                relative 
-                overflow-hidden 
-                backdrop-blur-xl 
+                rounded-[2.5rem] relative overflow-hidden backdrop-blur-xl 
                 ${
                   isDarkBackground
                     ? "bg-gradient-to-br from-rich-blue-900/80 via-rich-blue-800/80 to-rich-blue-900/80"
@@ -98,126 +77,52 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
               `}
             >
               <div className="relative z-10 px-6 py-8 sm:px-8">
-                {/* Navigation Links */}
                 <nav className="space-y-4">
                   {menuItems.map((item) => (
-                    <a
-                      key={item}
-                      href={`#${item.toLowerCase()}`}
-                      className={`
-                        group 
-                        flex 
-                        items-center 
-                        text-xl 
-                        font-medium 
-                        ${navTextColorClass} 
-                        ${navHoverColorClass} 
-                        transition-all 
-                        duration-300
-                      `}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <span className="relative">
-                        {item}
-                        <span
-                          className={`
-                            absolute 
-                            -bottom-1 
-                            left-0 
-                            w-full 
-                            h-[2px] 
-                            transform 
-                            origin-left 
-                            scale-x-0 
-                            transition-transform 
-                            duration-300 
-                            group-hover:scale-x-100
-                            ${
-                              isDarkBackground
-                                ? "bg-cream-50"
-                                : "bg-rich-blue-500"
-                            }
-                          `}
-                        />
-                      </span>
-                      <LuChevronRight
-                        className={`
-                          ml-2 
-                          h-5 
-                          w-5 
-                          opacity-0 
-                          transform 
-                          -translate-x-2 
-                          transition-all 
-                          duration-300 
-                          group-hover:opacity-100 
-                          group-hover:translate-x-0
-                          ${
-                            isDarkBackground
-                              ? "text-cream-50"
-                              : "text-rich-blue-500"
-                          }
-                        `}
-                      />
-                    </a>
+                    <div key={item.label} className="group relative">
+                      {item.href.startsWith("#") ? (
+                        <Link
+                          to={{ pathname: "/", hash: item.href }}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block text-xl font-medium text-cream-50 transition-transform duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 relative"
+                        >
+                          <span className="relative z-10">{item.label}</span>
+                          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+                        </Link>
+                      ) : (
+                        <Link
+                          to={item.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block text-xl font-medium text-cream-50 transition-transform duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 relative"
+                        >
+                          <span className="relative z-10">{item.label}</span>
+                          <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
+                        </Link>
+                      )}
+                    </div>
                   ))}
                 </nav>
-
-                {/* CTA Button */}
                 <div className="mt-8">
-                  <a
-                    href="/portal"
-                    className={`
-                      block 
-                      w-full 
-                      text-center 
-                      ${
-                        isDarkBackground
-                          ? "bg-cream-50 text-rich-blue-800 hover:bg-cream-100"
-                          : "bg-gradient-to-r from-rich-blue-600 to-rich-blue-700 text-white"
-                      } 
-                      px-8 
-                      py-4 
-                      rounded-xl 
-                      font-bold 
-                      shadow-lg 
-                      hover:shadow-xl 
-                      transform 
-                      hover:-translate-y-1 
-                      transition-all 
-                      duration-300 
-                      relative 
-                      overflow-hidden 
-                      group
-                    `}
+                  <Link
+                    to="/portal"
                     onClick={() => setIsMenuOpen(false)}
+                    className="block w-full text-center rounded-xl font-bold relative overflow-hidden group transition-transform duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 pointer-events-auto"
+                    style={{
+                      background: "linear-gradient(135deg, #1E3A8A, #1D4ED8)",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+                    }}
                   >
-                    <span className="relative z-10 flex items-center justify-center">
+                    <span className="relative z-10 inline-block">
                       Investor Portal
-                      <LuChevronRight className="ml-2 h-5 w-5 transform group-hover:translate-x-1 transition-transform" />
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-rich-blue-500/0 via-rich-blue-500/30 to-rich-blue-500/0 skeleton-animation" />
-                  </a>
-                </div>
-
-                {/* Social Links */}
-                <div className="mt-8 flex justify-center space-x-6">
-                  {["Twitter", "LinkedIn", "Instagram"].map((social) => (
-                    <a
-                      key={social}
-                      href={`#${social.toLowerCase()}`}
-                      className={`
-                        ${navTextColorClass} 
-                        ${navHoverColorClass} 
-                        transition-colors 
-                        duration-300 
-                        text-sm 
-                        font-medium
-                      `}
-                    >
-                      {social}
-                    </a>
-                  ))}
+                    <span
+                      className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+                      style={{
+                        background:
+                          "radial-gradient(circle at center, rgba(255,255,255,0.3), transparent)",
+                      }}
+                    ></span>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -26,6 +26,8 @@
 }
 
 .navbar-gradient::before {
+  pointer-events: none;
+  z-index: -5;
   content: "";
   position: absolute;
   inset: -1px;
@@ -57,8 +59,8 @@
 .navbar-gradient.dark-mode {
   background: linear-gradient(
     135deg,
-    rgba(0, 82, 204, 0.15),
-    rgba(0, 61, 153, 0.12)
+    rgba(0, 27, 68, 0.693),
+    rgba(0, 27, 68, 0.693)
   );
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -396,7 +398,11 @@
 
 /* New additions */
 
-/* Add to your global CSS */
+/* Add to your global CSS: Ensure sections scroll into view below the fixed navbar */
+section {
+  scroll-margin-top: 100px; /* Adjust this value if needed */
+}
+
 @keyframes gradient {
   0% {
     background-position: 0% 50%;

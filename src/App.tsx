@@ -1,3 +1,4 @@
+// src/App.tsx
 import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navigation/Navbar";
@@ -16,23 +17,35 @@ import { useScrollTrigger } from "./hooks/useScrollTrigger";
 import { termsManager } from "./utils/termsManager";
 import BlogSection from "./components/Blog/BlogSection";
 import BlogPost from "./pages/Blog/BlogPost";
-
-interface ScrollObserverEntry extends IntersectionObserverEntry {
-  intersectionRatio: number;
-}
+import EnquiryPage from "./components/Enquiry/EnquiryPage";
 
 const HomePage = () => {
+  // Create a ref for the hero section
   const heroRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      <HeroSection ref={heroRef} />
-      <ProblemSection />
-      <InvestmentCalculator />
-      <FeaturesSection />
-      <PerformanceSection />
-      <LiquidityProviders />
-      <FAQSection />
+      <section id="about">
+        <HeroSection ref={heroRef} />
+      </section>
+      <section id="problem">
+        <ProblemSection />
+      </section>
+      <section>
+        <InvestmentCalculator />
+      </section>
+      <section id="features">
+        <FeaturesSection />
+      </section>
+      <section id="performance">
+        <PerformanceSection />
+      </section>
+      <section id="liquidity">
+        <LiquidityProviders />
+      </section>
+      <section id="faq">
+        <FAQSection />
+      </section>
       <BlogSection />
     </>
   );
@@ -53,7 +66,6 @@ function App(): JSX.Element {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isDarkBackground, setIsDarkBackground] = useState<boolean>(true);
   const [hideNavbar, setHideNavbar] = useState<boolean>(false);
-
   const lastScrollY = useRef<number>(0);
   const heroRef = useRef<HTMLDivElement>(null);
   const showCTA = useScrollTrigger(800);
@@ -65,21 +77,22 @@ function App(): JSX.Element {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 20);
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setHideNavbar(true);
-      } else {
-        setHideNavbar(false);
-      }
+      setHideNavbar(
+        currentScrollY > lastScrollY.current && currentScrollY > 100
+      );
       lastScrollY.current = currentScrollY;
     };
 
+    // Create an IntersectionObserver to watch the hero section
     const observer = new IntersectionObserver(
-      ([entry]: IntersectionObserverEntry[]) => {
-        setIsDarkBackground(entry.intersectionRatio > 0.05);
+      ([entry]) => {
+        // When the hero section is mostly out of view (intersection ratio < 0.05),
+        // assume the background behind the navbar is dark.
+        setIsDarkBackground(entry.intersectionRatio < 0.05);
       },
       {
-        threshold: [0.05, 0.2],
-        rootMargin: "-80px 0px 0px 0px",
+        threshold: [0.05],
+        rootMargin: "-80px 0px 0px 0px", // adjust if needed to account for navbar height
       }
     );
 
@@ -89,31 +102,29 @@ function App(): JSX.Element {
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
     };
   }, [hasAcceptedTerms]);
 
+  // Scroll to the proper section when the hash changes on the homepage
   useEffect(() => {
-    if (location.hash === "#blog-section") {
-      setTimeout(() => {
-        const section = document.querySelector("section#blog-section");
-        if (section) {
-          const headerOffset = 100;
-          const elementPosition = section.getBoundingClientRect().top;
-          const offsetPosition =
-            elementPosition + window.scrollY - headerOffset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-        }
-      }, 300); // Increased timeout to ensure DOM is ready
-    } else {
-      window.scrollTo(0, 0);
+    if (location.pathname === "/") {
+      if (location.hash) {
+        setTimeout(() => {
+          const section = document.querySelector(location.hash);
+          if (section) {
+            const headerOffset = 100; // adjust to your navbar height
+            const elementPosition = section.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.scrollY - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+          }
+        }, 300);
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
   }, [location.pathname, location.hash]);
 
@@ -143,14 +154,13 @@ function App(): JSX.Element {
         setIsMenuOpen={setIsMenuOpen}
         hidden={hideNavbar}
       />
-
       <main className="relative w-full">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/enquiry" element={<EnquiryPage />} />
         </Routes>
       </main>
-
       <Footer />
       {showCTA && location.pathname === "/" && (
         <CTABanner isVisible={showCTA} />
