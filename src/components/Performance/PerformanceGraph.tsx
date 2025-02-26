@@ -81,14 +81,14 @@ const PerformanceGraph: React.FC = () => {
     equityData?.[0]?.date ?? "",
     equityData?.[equityData.length - 1]?.date ?? ""
   );
-
+  
   // Process and update chart data
   useEffect(() => {
     if (equityData && deadStrats) {
       const [sp500Data, goldData, msciWorldData] = deadStrats;
       try {
         // Map and process the data points
-        const processedData: ChartDataPoint[] = equityData.map((point) => ({
+        let processedData: ChartDataPoint[] = equityData.map((point) => ({
           date: point.date,
           deltaEdge: Number(point.percentageGain.toFixed(2)),
           sp500: sp500Data?.find((d) => d.date === point.date)?.value ?? null,
@@ -97,7 +97,17 @@ const PerformanceGraph: React.FC = () => {
             msciWorldData?.find((d) => d.date === point.date)?.value ?? null,
         }));
         
-        // Prepare chart data structure with hidden datasets logic
+        // Downsample data for mobile to improve performance
+        if (isMobile && processedData.length > 20) {
+          const step = Math.ceil(processedData.length / 20);
+          processedData = processedData.filter((_, index) => 
+            index === 0 || 
+            index === processedData.length - 1 || 
+            index % step === 0
+          );
+        }
+        
+        // Prepare chart data structure
         const data: ProcessedDataset = {
           labels: processedData.map((d) => d.date),
           datasets: [
@@ -124,23 +134,21 @@ const PerformanceGraph: React.FC = () => {
           ],
         };
 
-        // Apply highlight effects when a dataset is active
+        // Apply highlight effects for active dataset
         if (activeDataset !== null && !hiddenDatasets.has(activeDataset)) {
-          // Highlight the active dataset
           data.datasets = data.datasets.map((dataset, idx) => {
             if (idx === activeDataset) {
               return {
                 ...dataset,
-                borderWidth: dataset.borderWidth + 1,
-                backgroundColor: dataset.hoverBackgroundColor || dataset.backgroundColor,
-                z: 10, // Bring active dataset to front
+                borderWidth: (dataset.borderWidth || 2) + 1,
+                backgroundColor: dataset.backgroundColor,
+                z: 10,
               };
             } else if (!dataset.hidden) {
-              // Dim other visible datasets
               return {
                 ...dataset,
-                borderColor: `${dataset.borderColor}99`, // Add transparency
-                borderWidth: Math.max(dataset.borderWidth - 0.5, 1),
+                borderColor: `${dataset.borderColor}80`,
+                borderWidth: Math.max((dataset.borderWidth || 2) - 0.5, 1),
                 backgroundColor: 'rgba(0,0,0,0.01)',
                 z: 1,
               };
@@ -172,78 +180,90 @@ const PerformanceGraph: React.FC = () => {
       }
     }
   }, [equityData, isMobile, deadStrats, activeDataset, hiddenDatasets]);
+  
   // Combined loading state
   const isLoading = equityDataLoading || loadingDeadStrats;
 
-  // Render loading state
-  if (isLoading) {
+  // Render loading spinner
+  const renderLoading = () => {
+    if (!isLoading) return null;
+    
     return (
-      <div className="relative h-[450px] w-full">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative">
-            <svg className="w-16 h-16" viewBox="0 0 100 100">
-              <circle
-                className="text-rich-blue-100"
-                stroke="currentColor"
-                strokeWidth="8"
-                fill="none"
-                cx="50"
-                cy="50"
-                r="40"
-              />
-              <motion.circle
-                className="text-rich-blue-600"
-                stroke="currentColor"
-                strokeWidth="8"
-                fill="none"
-                cx="50"
-                cy="50"
-                r="40"
-                strokeDasharray="0, 251.2"
-                animate={{
-                  strokeDasharray: ["251.2 0", "0 251.2"],
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-            </svg>
+      <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
+        <div className="relative">
+          <svg className="w-16 h-16" viewBox="0 0 100 100">
+            <circle
+              className="text-rich-blue-100"
+              stroke="currentColor"
+              strokeWidth="8"
+              fill="none"
+              cx="50"
+              cy="50"
+              r="40"
+            />
+            <motion.circle
+              className="text-rich-blue-600"
+              stroke="currentColor"
+              strokeWidth="8"
+              fill="none"
+              cx="50"
+              cy="50"
+              r="40"
+              strokeDasharray="0, 251.2"
+              animate={{
+                strokeDasharray: ["251.2 0", "0 251.2"],
+                rotate: 360,
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+          </svg>
+        </div>
+      </div>
+    );
+  };
+
+  // Error display component
+  const ErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
+    return (
+      <div className="flex items-center justify-center h-full w-full">
+        <div className="max-w-md p-6 rounded-2xl bg-white shadow-xl border border-rich-blue-100">
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 mb-4 rounded-full bg-rich-blue-50 flex items-center justify-center">
+              <LuMessageCircleReply className="w-6 h-6 text-rich-blue-600" />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Performance Data Temporarily Unavailable
+            </h3>
+            <p className="text-gray-600 mb-4">
+              {error.includes("Failed to process") 
+                ? "We're experiencing temporary issues retrieving performance data."
+                : "Our performance visualization is temporarily unavailable."}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-rich-blue-600 text-white rounded-lg hover:bg-rich-blue-700 transition-colors"
+              >
+                Retry
+              </button>
+              <a 
+                href="/contact" 
+                className="px-4 py-2 bg-white text-rich-blue-600 border border-rich-blue-200 rounded-lg hover:bg-rich-blue-50 transition-colors"
+              >
+                Contact Support
+              </a>
+            </div>
           </div>
         </div>
       </div>
     );
-  }
+  };
 
-  // Error handling component
-  const ErrorDisplay: React.FC<{ error: string }> = ({ error }) => (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="absolute inset-0 flex items-center justify-center z-20"
-    >
-      <div className="max-w-md p-6 rounded-2xl bg-white/95 backdrop-blur-xl shadow-2xl border border-rich-blue-100/30">
-        <div className="flex flex-col items-center text-center">
-          <div className="w-12 h-12 mb-4 rounded-full bg-rich-blue-50 flex items-center justify-center">
-            <LuMessageCircleReply className="w-6 h-6 text-rich-blue-600" />
-          </div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            Performance Data Unavailable
-          </h3>
-          <p className="text-gray-600 mb-4">{error}</p>
-          <button
-            onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-  // Chart container onMouseEnter/Leave handlers
+  // Chart container handlers
   const handleMouseEnter = () => {
     setIsHovering(true);
   };
@@ -261,10 +281,13 @@ const PerformanceGraph: React.FC = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Responsive Legend */}
-        <div className="relative z-10 flex flex-wrap items-center justify-start gap-x-4 gap-y-3 sm:gap-x-6 sm:gap-y-4 pb-4 mb-4 sm:pb-5 sm:mb-6 border-b border-gray-100">
-          {chartData &&
-            chartData.datasets.map((dataset, index) => {
+        {/* Show loading spinner */}
+        {renderLoading()}
+        
+        {/* Legend */}
+        {chartData && (
+          <div className="relative z-10 flex flex-wrap items-center justify-start gap-x-4 gap-y-3 sm:gap-x-6 sm:gap-y-4 pb-4 mb-4 sm:pb-5 sm:mb-6 border-b border-gray-100">
+            {chartData.datasets.map((dataset, index) => {
               const isHidden = hiddenDatasets.has(index);
               const isActive = activeDataset === index;
               
@@ -286,29 +309,11 @@ const PerformanceGraph: React.FC = () => {
                     ${isActive ? 'bg-gray-50' : 'hover:bg-gray-50/60'}`}
                 >
                   <div className="relative flex-shrink-0">
-                    {/* Color dot with simple pulse */}
                     <div
                       className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full"
                       style={{ backgroundColor: dataset.borderColor }}
                     />
-                    <motion.div
-                      className="absolute inset-0 rounded-full"
-                      animate={{
-                        opacity: [0.6, 0.2, 0.6],
-                        scale: [1, 1.5, 1]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                      style={{
-                        backgroundColor: dataset.borderColor,
-                        filter: "blur(4px)",
-                      }}
-                    />
                     
-                    {/* Simple X when hidden */}
                     {isHidden && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="w-[2px] h-[8px] sm:h-[10px] bg-gray-500 rotate-45" />
@@ -323,11 +328,28 @@ const PerformanceGraph: React.FC = () => {
                 </div>
               );
             })}
-        </div>
+          </div>
+        )}
 
-        {/* Responsive Chart */}
-        <div className="relative h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] w-full">
-          {chartData && options && (
+        {/* Chart or Error Container */}
+        <div className="relative h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] w-full bg-gray-50/30 rounded-md">
+          {/* Error Message Layer */}
+          {(error || isErrorProcessing || isErrorDeadStrats) && (
+            <div className="absolute inset-0 z-20">
+              {error && (
+                <ErrorDisplay error={error} />
+              )}
+              {!error && isErrorProcessing && (
+                <ErrorDisplay error="We couldn't retrieve your performance data." />
+              )}
+              {!error && !isErrorProcessing && isErrorDeadStrats && (
+                <ErrorDisplay error="Market comparison data is temporarily unavailable." />
+              )}
+            </div>
+          )}
+          
+          {/* Chart Layer */}
+          {!error && !isErrorProcessing && !isErrorDeadStrats && chartData && options && (
             <Line 
               ref={chartRef} 
               options={options} 
@@ -336,11 +358,6 @@ const PerformanceGraph: React.FC = () => {
             />
           )}
         </div>
-
-        {/* Error handling */}
-        {(error || isErrorProcessing || isErrorDeadStrats) && (
-          <ErrorDisplay error={error || "Unknown error"} />
-        )}
       </div>
     </div>
   );

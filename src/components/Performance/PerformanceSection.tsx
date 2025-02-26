@@ -8,23 +8,15 @@ import SectionCTA from "../CTA/SectionCTA";
 const PerformanceSection: React.FC = () => {
   return (
     <>
-      <div className="pt-20 pb-24 lg:pb-32 relative overflow-hidden">
-        {/* Premium Luxury Background - Cream Base */}
+      <div id="performance" className="performance-section pt-16 pb-20 lg:pb-28 relative overflow-hidden">
+        {/* Simplified Premium Background - Cream Base */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Cream gradient backdrop matching other sections */}
           <div className="absolute inset-0 bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50" />
 
-          {/* Animated subtle premium grid pattern */}
-          <motion.div
+          {/* Static grid pattern instead of animated one */}
+          <div
             className="absolute inset-0 opacity-10"
-            animate={{
-              backgroundPosition: ["0px 0px", "20px 20px", "0px 0px"]
-            }}
-            transition={{
-              duration: 20,
-              ease: "linear",
-              repeat: Infinity
-            }}
             style={{
               backgroundImage: `
                 linear-gradient(to right, rgba(0, 82, 204, 0.1) 1px, transparent 1px),
@@ -34,135 +26,31 @@ const PerformanceSection: React.FC = () => {
             }}
           />
 
-          {/* Elegant radial gradients for depth with subtle motion */}
-          <motion.div 
+          {/* Static radial gradients for depth instead of animated ones */}
+          <div 
             className="absolute inset-0"
-            animate={{
-              background: [
-                "radial-gradient(ellipse at 30% 20%, rgba(0,82,204,0.04), transparent 70%)",
-                "radial-gradient(ellipse at 32% 22%, rgba(0,82,204,0.05), transparent 72%)",
-                "radial-gradient(ellipse at 30% 20%, rgba(0,82,204,0.04), transparent 70%)"
-              ]
-            }}
-            transition={{
-              duration: 15,
-              ease: "easeInOut",
-              repeat: Infinity
-            }}
-          />
-          <motion.div 
-            className="absolute inset-0"
-            animate={{
-              background: [
-                "radial-gradient(ellipse at 70% 80%, rgba(0,82,204,0.05), transparent 70%)",
-                "radial-gradient(ellipse at 68% 78%, rgba(0,82,204,0.06), transparent 72%)",
-                "radial-gradient(ellipse at 70% 80%, rgba(0,82,204,0.05), transparent 70%)"
-              ]
-            }}
-            transition={{
-              duration: 18,
-              ease: "easeInOut",
-              repeat: Infinity,
-              delay: 2
+            style={{
+              background: `
+                radial-gradient(ellipse at 30% 20%, rgba(0,82,204,0.04), transparent 70%),
+                radial-gradient(ellipse at 70% 80%, rgba(0,82,204,0.05), transparent 70%)
+              `
             }}
           />
 
-          {/* Enhanced animated glow effects */}
-          <motion.div
+          {/* Simplified glow effects - static instead of animated */}
+          <div
             className="absolute -top-40 -left-40 w-96 h-96 bg-rich-blue-500/10 rounded-full blur-[100px]"
-            animate={{
-              opacity: [0.1, 0.2, 0.1],
-              scale: [1, 1.1, 1],
-              x: [0, 20, 0],
-              y: [0, -20, 0]
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
           />
-          <motion.div
+          <div
             className="absolute -bottom-40 -right-40 w-96 h-96 bg-rich-blue-400/10 rounded-full blur-[100px]"
-            animate={{
-              opacity: [0.1, 0.2, 0.1],
-              scale: [1, 1.05, 1],
-              x: [0, -20, 0],
-              y: [0, 15, 0]
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
           />
           
-          {/* New floating particles */}
-          {Array.from({ length: 12 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 rounded-full bg-rich-blue-500/20"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                y: [0, -40, 0],
-                x: [0, Math.random() * 20 - 10, 0],
-                opacity: [0, 0.3, 0],
-                scale: [0, Math.random() * 2 + 0.5, 0],
-              }}
-              transition={{
-                duration: 10 + Math.random() * 10,
-                repeat: Infinity,
-                delay: Math.random() * 10,
-                ease: "easeInOut"
-              }}
-            />
-          ))}
-
-          {/* Animated sophisticated line accents - blue tinted */}
-          <motion.div 
+          {/* Reduced number of static decorative elements */}
+          <div 
             className="absolute top-20 left-20 w-40 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent"
-            animate={{
-              width: ["40%", "30%", "40%"],
-              opacity: [0.2, 0.3, 0.2],
-              x: [0, 20, 0]
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
           />
-          <motion.div 
+          <div 
             className="absolute top-40 right-20 w-60 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent"
-            animate={{
-              width: ["60%", "40%", "60%"],
-              opacity: [0.2, 0.3, 0.2],
-              x: [0, -30, 0]
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 4
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-60 left-40 w-20 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent"
-            animate={{
-              width: ["20%", "10%", "20%"],
-              opacity: [0.2, 0.3, 0.2],
-              x: [0, 15, 0]
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2
-            }}
           />
         </div>
 
@@ -184,64 +72,25 @@ const PerformanceSection: React.FC = () => {
               </div>
 
               <div className="overflow-hidden">
-                <motion.h2
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 relative"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                >
-                  <motion.span 
-                    className="block bg-gradient-to-r from-rich-blue-800 to-rich-blue-600 bg-clip-text text-transparent relative font-bold"
-                    initial={{ y: 80 }}
-                    whileInView={{ y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 1.2, 
-                      ease: [0.19, 1, 0.22, 1],
-                      delay: 0.1 
-                    }}
-                  >
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 relative">
+                  {/* First line - simplified animation for better performance */}
+                  <span className="block bg-gradient-to-r from-rich-blue-800 to-rich-blue-600 bg-clip-text text-transparent relative font-bold">
                     Unrivaled Performance.
-                    {/* Animated highlight underline */}
-                    <motion.div
-                      className="absolute h-[3px] bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-500/60 to-rich-blue-600/0 bottom-1 left-0"
-                      initial={{ width: "0%", left: "50%" }}
-                      whileInView={{ width: "60%", left: "20%" }}
-                      viewport={{ once: true }}
-                      transition={{ 
-                        duration: 1.5, 
-                        ease: "easeOut",
-                        delay: 1 
-                      }}
+                    {/* Static highlight underline */}
+                    <div
+                      className="absolute h-[3px] bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-500/60 to-rich-blue-600/0 bottom-1 left-[20%] w-[60%]"
                     />
-                  </motion.span>
-                  <motion.span 
-                    className="block mt-2 text-rich-blue-900 relative font-bold"
-                    initial={{ y: 80 }}
-                    whileInView={{ y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 1.2, 
-                      ease: [0.19, 1, 0.22, 1],
-                      delay: 0.3 
-                    }}
-                  >
+                  </span>
+                  
+                  {/* Second line - no animation to ensure visibility on mobile */}
+                  <span className="block mt-2 text-rich-blue-900 relative font-bold">
                     Verified Excellence.
-                    {/* Subtle animated dot accent */}
-                    <motion.div
-                      className="absolute w-1.5 h-1.5 rounded-full bg-rich-blue-500 right-0 bottom-3"
-                      initial={{ opacity: 0, scale: 0 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ 
-                        duration: 0.4,
-                        delay: 1.4
-                      }}
-                      style={{ right: "-10px" }}
+                    {/* Static dot accent */}
+                    <div
+                      className="absolute w-1.5 h-1.5 rounded-full bg-rich-blue-500 right-[-10px] bottom-3"
                     />
-                  </motion.span>
-                </motion.h2>
+                  </span>
+                </h2>
               </div>
 
               <motion.p

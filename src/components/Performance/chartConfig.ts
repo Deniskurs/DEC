@@ -29,6 +29,8 @@ export const getChartOptions = (
       },
       cornerRadius: 6,
       displayColors: true,
+      position: isMobile ? 'nearest' : 'average',
+      caretPadding: isMobile ? 12 : 8,
       callbacks: {
         // Format date in tooltip
         title: function(tooltipItems) {
@@ -54,8 +56,8 @@ export const getChartOptions = (
         drawBorder: false,
       },
       ticks: {
-        maxRotation: isMobile ? 50 : 45,
-        minRotation: isMobile ? 50 : 45,
+        maxRotation: isMobile ? 40 : 45,
+        minRotation: isMobile ? 40 : 45,
         padding: isMobile ? 5 : 8,
         font: {
           size: isMobile ? 9 : 11,
@@ -66,7 +68,7 @@ export const getChartOptions = (
           const date = new Date(this.getLabelForValue(index));
           // Show fewer labels on mobile
           if (isMobile && values.length > 5) {
-            if (index === 0 || index === values.length - 1 || index % 3 === 0) {
+            if (index === 0 || index === values.length - 1 || index % 4 === 0) {
               return date.toLocaleDateString('en-US', {
                 month: 'short',
                 year: 'numeric'
@@ -80,7 +82,7 @@ export const getChartOptions = (
           });
         },
         autoSkip: true,
-        maxTicksLimit: isMobile ? 4 : 8,
+        maxTicksLimit: isMobile ? 3 : 8,
       },
     },
     y: {
@@ -107,26 +109,30 @@ export const getChartOptions = (
   },
   interaction: {
     intersect: false,
-    mode: "index",
+    mode: "nearest",
   },
   elements: {
     point: {
       radius: 0,
-      hoverRadius: 6,
+      hoverRadius: 5,
       hoverBorderWidth: 2,
       hoverBorderColor: '#fff',
     },
     line: {
-      tension: 0.4,
+      tension: 0.3,
       borderCapStyle: 'round',
       borderJoinStyle: 'round',
       fill: false,
-      // Highlight active dataset
+      // Reduce line thickness
       borderWidth: (ctx) => {
+        const baseWidth = isMobile ? 
+          (ctx.dataset.borderWidth ? Math.min(ctx.dataset.borderWidth as number, 2) : 2) : 
+          ctx.dataset.borderWidth;
+          
         if (ctx.datasetIndex === activeDatasetIndex) {
-          return ctx.dataset.borderWidth + 1;
+          return baseWidth as number + 0.5;
         }
-        return ctx.dataset.borderWidth;
+        return baseWidth;
       },
     },
   },
@@ -139,8 +145,9 @@ export const DATASET_STYLES = {
     backgroundColor: "rgba(0, 102, 204, 0.05)",
     pointBackgroundColor: "#0066cc",
     pointHoverBackgroundColor: "#0066cc",
+    hoverBackgroundColor: "rgba(0, 102, 204, 0.08)",
     order: 1,
-    borderWidth: 3.5,
+    borderWidth: 2.5,
   },
   sp500: {
     label: "S&P 500",
@@ -148,9 +155,10 @@ export const DATASET_STYLES = {
     backgroundColor: "rgba(230, 57, 70, 0.03)",
     pointBackgroundColor: "#e63946",
     pointHoverBackgroundColor: "#e63946",
+    hoverBackgroundColor: "rgba(230, 57, 70, 0.05)",
     borderDash: [5, 5],
     order: 3,
-    borderWidth: 2.5,
+    borderWidth: 1.8,
   },
   gold: {
     label: "Gold Index",
@@ -158,9 +166,10 @@ export const DATASET_STYLES = {
     backgroundColor: "rgba(255, 193, 7, 0.03)",
     pointBackgroundColor: "#ffc107",
     pointHoverBackgroundColor: "#ffc107",
+    hoverBackgroundColor: "rgba(255, 193, 7, 0.05)",
     borderDash: [3, 3],
     order: 4,
-    borderWidth: 2.5,
+    borderWidth: 1.8,
   },
   msciWorld: {
     label: "MSCI World ETF",
@@ -168,8 +177,9 @@ export const DATASET_STYLES = {
     backgroundColor: "rgba(42, 157, 143, 0.03)",
     pointBackgroundColor: "#2a9d8f",
     pointHoverBackgroundColor: "#2a9d8f",
+    hoverBackgroundColor: "rgba(42, 157, 143, 0.05)",
     borderDash: [8, 4],
     order: 2,
-    borderWidth: 2.5,
+    borderWidth: 1.8,
   },
 };

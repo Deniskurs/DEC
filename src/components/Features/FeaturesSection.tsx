@@ -78,45 +78,37 @@ const FeaturesSection: React.FC = () => {
   return (
     <>
       <div className="relative overflow-hidden bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50">
-        {/* Enhanced Background with Grid Parallax Effect */}
+        {/* Optimized background effects with reduced animations */}
         <div className="absolute inset-0">
-          <motion.div
+          {/* Static gradient instead of animated one for better performance */}
+          <div
             className="absolute inset-0"
-            animate={{
-              background: [
-                "radial-gradient(circle at 20% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.08) 0%, transparent 50%)",
-                "radial-gradient(circle at 20% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 50%)",
-              ],
-            }}
-            transition={{
-              duration: 15,
-              ease: "easeInOut",
-              repeat: Infinity,
+            style={{
+              background: "radial-gradient(circle at 30% 30%, rgba(0, 102, 255, 0.06) 0%, transparent 60%), radial-gradient(circle at 70% 70%, rgba(0, 102, 255, 0.06) 0%, transparent 60%)"
             }}
           />
 
-          {/* Grid Parallax Effect - keeping original color */}
-          <div className="absolute inset-0 -z-0 bg-[linear-gradient(rgba(0,82,204,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,82,204,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
+          {/* Simplified grid pattern */}
+          <div className="absolute inset-0 -z-0 bg-[linear-gradient(rgba(0,82,204,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,82,204,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)]" />
         </div>
 
-        {/* Additional Glow Effects */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
+        {/* Simplified glow effects */}
+        <div className="absolute inset-0 -z-10 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
         </div>
 
-        <div className="relative py-24 lg:py-32">
-          <div className="max-w-7xl mx-auto px-8 lg:px-12">
-            {/* Enhanced Header Section with Section Title */}
-            <div className="text-center mb-20">
+        <div className="relative py-20 lg:py-28">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Simplified Header Section with reduced animations */}
+            <div className="text-center mb-16">
               <div className="section-title" data-text="FEATURES">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="flex items-center justify-center gap-2 mb-6"
+                  transition={{ duration: 0.6 }}
+                  className="flex items-center justify-center gap-2 mb-4"
                 >
                   <LuShield className="h-5 w-5 text-blue-600" />
                   <span className="text-sm font-semibold tracking-wider text-blue-600 uppercase">
@@ -124,75 +116,57 @@ const FeaturesSection: React.FC = () => {
                   </span>
                 </motion.div>
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.1 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
-                >
+                <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-5">
                   Your Wealth, 24/7
                   <span className="block mt-2 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                     Without Compromise
                   </span>
-                </motion.h2>
+                </h2>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-                >
+                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                   At Delta Edge Capital, we've built a system that embodies what
                   the top 1% value most:{" "}
                   <span className="font-semibold">
                     PRECISION, SPEED, TRANSPARENCY
                   </span>
                   . Our AI isn't just advanced, it's evolving constantly.
-                </motion.p>
+                </p>
               </div>
             </div>
 
-            {/* Enhanced Feature Cards Grid */}
-            <div className="grid md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
+            {/* Optimized Feature Cards Grid with staggered loading */}
+            <div className="grid md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
+                  viewport={{ once: true, margin: "-50px 0px" }}
+                  transition={{ duration: 0.5, delay: 0.1 + Math.min(index * 0.1, 0.3) }}
                 >
                   <FeatureCard {...feature} />
                 </motion.div>
               ))}
             </div>
 
-            {/* Elite Status Indicators */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-20 text-center"
-            >
-              <div className="inline-flex items-center gap-8 px-8 py-4 bg-blue-50/50 rounded-full">
+            {/* Simplified Elite Status Indicators */}
+            <div className="mt-16 text-center">
+              <div className="inline-flex flex-wrap justify-center items-center gap-4 sm:gap-8 px-5 sm:px-8 py-3 sm:py-4 bg-blue-50/50 rounded-full">
                 <div className="flex items-center gap-2">
-                  <LuLock className="h-5 w-5 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-600">
+                  <LuLock className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                  <span className="text-sm font-medium text-blue-600 whitespace-nowrap">
                     Institutional Grade Security
                   </span>
                 </div>
-                <div className="w-px h-6 bg-blue-200" />
+                <div className="hidden sm:block w-px h-6 bg-blue-200" />
                 <div className="flex items-center gap-2">
-                  <LuZap className="h-5 w-5 text-blue-600" />
-                  <span className="text-sm font-medium text-blue-600">
+                  <LuZap className="h-5 w-5 text-blue-600 flex-shrink-0" />
+                  <span className="text-sm font-medium text-blue-600 whitespace-nowrap">
                     24/7 Algorithmic Trading
                   </span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
