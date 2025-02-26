@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useEffect, useRef, Suspense, lazy } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navigation/Navbar";
 import HeroSection from "./components/Hero/HeroSection";
@@ -17,10 +17,8 @@ import { useScrollTrigger } from "./hooks/useScrollTrigger";
 import { termsManager } from "./utils/termsManager";
 import BlogSection from "./components/Blog/BlogSection";
 import { throttle } from "./utils/throttle";
-
-// Handle SSR-friendly lazy loading 
-const BlogPost = lazy(() => import("./pages/Blog/BlogPost"));
-const EnquiryPage = lazy(() => import("./components/Enquiry/EnquiryPage"));
+import BlogPost from "./pages/Blog/BlogPost";
+import EnquiryPage from "./components/Enquiry/EnquiryPage";
 
 const HomePage = () => {
   // Create a ref for the hero section
@@ -185,16 +183,8 @@ function App(): JSX.Element {
       <main className="relative w-full">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/blog/:slug" element={
-            <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">Loading...</div>}>
-              <BlogPost />
-            </Suspense>
-          } />
-          <Route path="/enquiry" element={
-            <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">Loading...</div>}>
-              <EnquiryPage />
-            </Suspense>
-          } />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/enquiry" element={<EnquiryPage />} />
         </Routes>
       </main>
       <Footer />
