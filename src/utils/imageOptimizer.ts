@@ -1,9 +1,15 @@
 /**
  * Utility for optimizing image loading based on device type and screen size
+ * with SSR (Server-Side Rendering) compatibility
  */
 
-// Helper function to detect if current device is mobile
+// Check if code is running in browser environment
+const isBrowser = typeof window !== 'undefined';
+
+// Helper function to detect if current device is mobile (SSR-safe)
 export const isMobileDevice = (): boolean => {
+  if (!isBrowser) return false; // Default to desktop on server
+  
   return window.innerWidth < 768 || 
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
@@ -18,8 +24,11 @@ interface ResponsiveImage {
 /**
  * Returns the appropriate image source based on device type
  * Falls back to desktop image if specific size isn't available
+ * SSR-safe by defaulting to desktop
  */
 export const getResponsiveImage = (sources: ResponsiveImage): string => {
+  if (!isBrowser) return sources.desktop; // Default to desktop on server
+  
   if (isMobileDevice() && sources.mobile) {
     return sources.mobile;
   }
@@ -36,7 +45,7 @@ export const getResponsiveImage = (sources: ResponsiveImage): string => {
  * @param imagePaths Array of image paths to prefetch
  */
 export const prefetchImages = (imagePaths: string[]): void => {
-  if (typeof window === 'undefined') return;
+  if (!isBrowser) return; // Skip on server
   
   // Don't prefetch on mobile to save bandwidth
   if (isMobileDevice()) return;

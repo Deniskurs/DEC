@@ -8,9 +8,12 @@ interface IntersectionObserverOptions {
   disableOnMobile?: boolean;
 }
 
+// Check if code is running in browser environment
+const isBrowser = typeof window !== 'undefined';
+
 /**
  * Custom hook for using IntersectionObserver with performance optimization
- * for mobile devices
+ * for mobile devices and SSR compatibility
  */
 export const useIntersectionObserver = <T extends Element>(
   options: IntersectionObserverOptions = {},
@@ -21,12 +24,21 @@ export const useIntersectionObserver = <T extends Element>(
   const targetRef = elemRef || ref;
   
   useEffect(() => {
+    // Early return for SSR
+    if (!isBrowser) return;
+    
     const target = targetRef.current;
     if (!target) return;
     
     // Skip observer on mobile if specified in options
     if (options.disableOnMobile && window.innerWidth < 768) {
       setIsIntersecting(true); // Assume element is visible on mobile
+      return;
+    }
+    
+    // Browser check for IntersectionObserver
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsIntersecting(true); // Fallback for browsers without support
       return;
     }
     

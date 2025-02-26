@@ -18,7 +18,7 @@ import { termsManager } from "./utils/termsManager";
 import BlogSection from "./components/Blog/BlogSection";
 import { throttle } from "./utils/throttle";
 
-// Lazy load non-homepage components
+// Handle SSR-friendly lazy loading 
 const BlogPost = lazy(() => import("./pages/Blog/BlogPost"));
 const EnquiryPage = lazy(() => import("./components/Enquiry/EnquiryPage"));
 
@@ -75,7 +75,8 @@ function App(): JSX.Element {
   const location = useLocation();
 
   useEffect(() => {
-    if (!hasAcceptedTerms) return;
+    // Skip on server-side rendering
+    if (typeof window === 'undefined' || !hasAcceptedTerms) return;
 
     // Throttled scroll handler for better performance
     const handleScroll = throttle(() => {
@@ -91,30 +92,40 @@ function App(): JSX.Element {
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // When the hero section is mostly out of view (intersection ratio < 0.05),
-        // assume the background behind the navbar is dark.
-        setIsDarkBackground(entry.intersectionRatio < 0.05);
-      },
-      {
-        threshold: [0.05],
-        rootMargin: "-80px 0px 0px 0px", // adjust if needed to account for navbar height
+    // Only create observer if IntersectionObserver is available
+    if (typeof IntersectionObserver !== 'undefined') {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          // When the hero section is mostly out of view (intersection ratio < 0.05),
+          // assume the background behind the navbar is dark.
+          setIsDarkBackground(entry.intersectionRatio < 0.05);
+        },
+        {
+          threshold: [0.05],
+          rootMargin: "-80px 0px 0px 0px", // adjust if needed to account for navbar height
+        }
+      );
+      
+      if (heroRef.current) {
+        observer.observe(heroRef.current);
       }
-    );
-    
-    if (heroRef.current) {
-      observer.observe(heroRef.current);
+      
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+        observer.disconnect();
+      };
     }
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      observer.disconnect();
     };
   }, [hasAcceptedTerms]);
 
-  // Optimized scroll to section when hash changes
+  // Optimized scroll to section when hash changes (SSR-safe)
   useEffect(() => {
+    // Skip on server-side rendering
+    if (typeof window === 'undefined') return;
+    
     if (location.pathname === "/") {
       if (location.hash) {
         // Debounce hash-based scrolling for better performance
