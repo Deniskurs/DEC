@@ -17,6 +17,14 @@
 - **Naming**: PascalCase for components, camelCase for variables/functions, UPPER_CASE for constants
 - **State Management**: Use React Query for server state, React context for app-wide state
 
+## Performance Optimization
+- **Lazy Loading**: Use React.lazy and Suspense for non-critical components
+- **Image Optimization**: Use imageOptimizer.ts utilities for responsive images
+- **Event Handling**: Use throttle.ts for scroll events (100ms throttle)
+- **Intersection Observer**: Use useIntersectionObserver hook with disableOnMobile option
+- **Mobile Detection**: Use isMobileDevice() from imageOptimizer.ts to conditionally render
+- **Build Optimization**: Uses terser minification and imagemin compression
+
 ## Project Structure
 - Components are organized by feature/function with nested hierarchy
 - Shared utilities in utils/ and hooks/ directories

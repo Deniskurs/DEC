@@ -35,11 +35,21 @@ export default {
         "infinite-scroll-reverse": {
           from: { transform: "translateX(-50%)" },
           to: { transform: "translateX(0)" },
+        },
+        radialPulse1: {
+          '0%, 100%': { opacity: 0.3 },
+          '50%': { opacity: 0.5 },
+        },
+        radialPulse2: {
+          '0%, 100%': { opacity: 0.2 },
+          '50%': { opacity: 0.4 },
         }
       },
       animation: {
         "infinite-scroll": "infinite-scroll var(--animation-duration) linear infinite",
         "infinite-scroll-reverse": "infinite-scroll-reverse var(--animation-duration) linear infinite",
+        'radial-pulse1': 'radialPulse1 15s ease-in-out infinite',
+        'radial-pulse2': 'radialPulse2 18s ease-in-out infinite 2s',
       },
     },
   },
