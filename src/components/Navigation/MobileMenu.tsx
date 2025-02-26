@@ -44,9 +44,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
         ${
           isMenuOpen
             ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            : "opacity-0 pointer-events-none" 
         }
       `}
+      aria-hidden={!isMenuOpen}
     >
       {/* Original backdrop as provided */}
       <div
@@ -85,6 +86,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                           to={{ pathname: "/", hash: item.href }}
                           onClick={() => setIsMenuOpen(false)}
                           className="block text-xl font-medium text-cream-50 transition-transform duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 relative"
+                          tabIndex={isMenuOpen ? 0 : -1}
+                          aria-hidden={!isMenuOpen}
                         >
                           <span className="relative z-10">{item.label}</span>
                           <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
@@ -94,6 +97,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                           to={item.href}
                           onClick={() => setIsMenuOpen(false)}
                           className="block text-xl font-medium text-cream-50 transition-transform duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 relative"
+                          tabIndex={isMenuOpen ? 0 : -1}
+                          aria-hidden={!isMenuOpen}
                         >
                           <span className="relative z-10">{item.label}</span>
                           <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-blue-400 group-hover:w-full transition-all duration-300"></span>
@@ -106,21 +111,27 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   <Link
                     to="/portal"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block w-full text-center rounded-xl font-bold relative overflow-hidden group transition-transform duration-300 transform group-hover:-translate-y-1 group-hover:scale-105 pointer-events-auto"
+                    className="block w-full py-3.5 text-center rounded-xl font-bold relative overflow-hidden group transition-all duration-300 shadow-lg"
                     style={{
-                      background: "linear-gradient(135deg, #1E3A8A, #1D4ED8)",
-                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+                      background: "linear-gradient(135deg, #1E3A8A, #2563EB)",
                     }}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                    aria-hidden={!isMenuOpen}
                   >
-                    <span className="relative z-10 inline-block">
-                      Investor Portal
+                    <span className="relative z-10 inline-flex items-center justify-center text-white transform transition-transform duration-300 group-hover:scale-105">
+                      <span className="mr-2">Investor Portal</span>
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        className="h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1" 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </span>
                     <span
-                      className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300"
-                      style={{
-                        background:
-                          "radial-gradient(circle at center, rgba(255,255,255,0.3), transparent)",
-                      }}
+                      className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300 bg-gradient-to-r from-blue-600/40 to-blue-400/40"
                     ></span>
                   </Link>
                 </div>

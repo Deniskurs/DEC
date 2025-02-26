@@ -47,17 +47,28 @@ const NavLinks: React.FC<NavLinksProps> = ({
           )}
         </li>
       ))}
-      {/* Desktop CTA Button */}
+      {/* Desktop CTA Button - Enhanced Design */}
       <li>
         <Link
           to="/portal"
-          className={`relative inline-block px-6 py-2 rounded-xl font-bold overflow-hidden group transition-all duration-300 ${buttonBgClass}`}
+          className="relative inline-flex items-center px-6 py-2.5 rounded-xl font-bold overflow-hidden group transition-all duration-300 shadow-md"
+          style={{
+            background: "linear-gradient(135deg, #1E3A8A, #2563EB)",
+          }}
         >
-          <span className="relative z-10 transform transition-transform duration-300 group-hover:scale-105">
-            Investor Portal
+          <span className="relative z-10 text-white transform transition-transform duration-300 group-hover:scale-105 flex items-center">
+            <span>Investor Portal</span>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-4 w-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </span>
-          {/* Gradient overlay effect */}
-          <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-400 opacity-0 group-hover:opacity-70 transition-opacity duration-300"></span>
+          <span className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-blue-400/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         </Link>
       </li>
     </ul>

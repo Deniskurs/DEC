@@ -34,20 +34,20 @@ const Navbar: React.FC<NavbarProps> = ({
     <div
       className={`fixed top-0 left-0 right-0 z-[9999] transform transition-transform duration-300 ${
         hidden ? "-translate-y-full" : "translate-y-0"
-      } pointer-events-auto`}
+      }`}
     >
-      <div className="max-w-[100vw] mx-auto pointer-events-auto">
-        <div className="px-4 sm:px-8 py-4 sm:py-6 pointer-events-auto">
+      <div className="max-w-[100vw] mx-auto">
+        <div className="px-4 sm:px-8 py-4 sm:py-6">
           <nav
-            className={`navbar-gradient neumorphic mx-auto max-w-7xl rounded-[2.5rem] relative z-10 pointer-events-auto transition-all duration-500 ${
+            className={`navbar-gradient neumorphic mx-auto max-w-7xl rounded-[2.5rem] relative z-10 transition-all duration-500 ${
               scrolled ? "shadow-lg backdrop-blur-2xl" : ""
             } ${isDarkBackground ? "dark-mode" : "light-mode"}`}
           >
-            <div className="px-4 sm:px-8 py-4 pointer-events-auto">
-              <div className="flex justify-between items-center pointer-events-auto">
+            <div className="px-4 sm:px-8 py-4">
+              <div className="flex justify-between items-center">
                 <a
                   href="/"
-                  className="flex items-center group relative w-32 h-10 pointer-events-auto"
+                  className="flex items-center group relative w-32 h-10"
                 >
                   <img
                     src="/images/logolight.png"
@@ -56,7 +56,7 @@ const Navbar: React.FC<NavbarProps> = ({
                       isDarkBackground
                         ? "opacity-100 translate-y-0"
                         : "opacity-0 translate-y-1"
-                    } pointer-events-auto`}
+                    }`}
                   />
                   <img
                     src="/images/logodark.png"
@@ -65,7 +65,7 @@ const Navbar: React.FC<NavbarProps> = ({
                       isDarkBackground
                         ? "opacity-0 -translate-y-1"
                         : "opacity-100 translate-y-0"
-                    } pointer-events-auto`}
+                    }`}
                   />
                 </a>
                 <NavLinks
@@ -74,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   buttonBgClass={buttonBgClass}
                   isDarkBackground={isDarkBackground}
                 />
-                <div className="md:hidden pointer-events-auto">
+                <div className="md:hidden">
                   <Squeeze
                     toggled={isMenuOpen}
                     toggle={setIsMenuOpen}
@@ -85,7 +85,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     rounded
                     hideOutline={false}
                     label="Menu"
-                    className={`relative z-50 p-2 rounded-xl ${buttonBgClass} transition-all duration-300 pointer-events-auto`}
+                    className={`relative z-50 p-2 rounded-xl ${buttonBgClass} transition-all duration-300`}
                   />
                 </div>
               </div>

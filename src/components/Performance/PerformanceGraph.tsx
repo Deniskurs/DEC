@@ -59,6 +59,10 @@ const PerformanceGraph: React.FC = () => {
   const [chartData, setChartData] = useState<ProcessedDataset | null>(null);
   const [options, setOptions] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [activeDataset, setActiveDataset] = useState<number | null>(null);
+  const [hiddenDatasets, setHiddenDatasets] = useState<Set<number>>(new Set());
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  
   // Fetch account data
   const { equityQuery } = useAccountData();
   const {
@@ -92,49 +96,82 @@ const PerformanceGraph: React.FC = () => {
           msciWorld:
             msciWorldData?.find((d) => d.date === point.date)?.value ?? null,
         }));
-        // Prepare chart data structure
+        
+        // Prepare chart data structure with hidden datasets logic
         const data: ProcessedDataset = {
           labels: processedData.map((d) => d.date),
           datasets: [
             {
               ...DATASET_STYLES.deltaEdge,
               data: processedData.map((d) => d.deltaEdge),
+              hidden: hiddenDatasets.has(0),
             },
             {
               ...DATASET_STYLES.msciWorld,
               data: processedData.map((d) => d.msciWorld),
+              hidden: hiddenDatasets.has(1),
             },
             {
               ...DATASET_STYLES.sp500,
               data: processedData.map((d) => d.sp500),
+              hidden: hiddenDatasets.has(2),
             },
             {
               ...DATASET_STYLES.gold,
               data: processedData.map((d) => d.gold),
+              hidden: hiddenDatasets.has(3),
             },
           ],
         };
 
-        // Calculate min and max values across all datasets
-        const allValues = processedData.flatMap((d) =>
-          [d.deltaEdge, d.sp500, d.gold, d.msciWorld].filter(
-            (v): v is number => v !== null
-          )
-        );
+        // Apply highlight effects when a dataset is active
+        if (activeDataset !== null && !hiddenDatasets.has(activeDataset)) {
+          // Highlight the active dataset
+          data.datasets = data.datasets.map((dataset, idx) => {
+            if (idx === activeDataset) {
+              return {
+                ...dataset,
+                borderWidth: dataset.borderWidth + 1,
+                backgroundColor: dataset.hoverBackgroundColor || dataset.backgroundColor,
+                z: 10, // Bring active dataset to front
+              };
+            } else if (!dataset.hidden) {
+              // Dim other visible datasets
+              return {
+                ...dataset,
+                borderColor: `${dataset.borderColor}99`, // Add transparency
+                borderWidth: Math.max(dataset.borderWidth - 0.5, 1),
+                backgroundColor: 'rgba(0,0,0,0.01)',
+                z: 1,
+              };
+            }
+            return dataset;
+          });
+        }
 
-        const maxValue = Math.max(...allValues);
-        const minValue = Math.min(...allValues);
+        // Calculate min and max values across all datasets
+        const allValues = processedData.flatMap((d) => {
+          const values = [];
+          if (!hiddenDatasets.has(0)) values.push(d.deltaEdge);
+          if (!hiddenDatasets.has(1) && d.msciWorld !== null) values.push(d.msciWorld);
+          if (!hiddenDatasets.has(2) && d.sp500 !== null) values.push(d.sp500);
+          if (!hiddenDatasets.has(3) && d.gold !== null) values.push(d.gold);
+          return values.filter((v): v is number => v !== null);
+        });
+
+        const maxValue = allValues.length ? Math.max(...allValues) : 30;
+        const minValue = allValues.length ? Math.min(...allValues) : -10;
 
         // Update chart data and options
         setChartData(data);
-        setOptions(getChartOptions(isMobile, maxValue, minValue));
+        setOptions(getChartOptions(isMobile, maxValue, minValue, activeDataset));
         setError(null);
       } catch (err) {
         console.error("Error processing chart data:", err);
         setError("Failed to process chart data");
       }
     }
-  }, [equityData, isMobile, deadStrats]);
+  }, [equityData, isMobile, deadStrats, activeDataset, hiddenDatasets]);
   // Combined loading state
   const isLoading = equityDataLoading || loadingDeadStrats;
 
@@ -206,76 +243,101 @@ const PerformanceGraph: React.FC = () => {
       </div>
     </motion.div>
   );
+  // Chart container onMouseEnter/Leave handlers
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setActiveDataset(null);
+  };
+
   // Main render
   return (
     <div className="relative w-full">
-      <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/80 to-[#F8F7F3] backdrop-blur-xl shadow-2xl border border-rich-blue-100/20">
-        {/* Background effects */}
-        <div className="absolute inset-0 rounded-3xl overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(27,54,93,0.03),transparent_70%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(148,107,56,0.03),transparent_70%)]" />
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-[rgba(27,54,93,0.03)] to-transparent"
-            animate={{
-              x: ["-100%", "100%"],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        </div>
-
-        {/* Legend */}
-        <div className="relative z-10 flex flex-wrap items-center gap-6 mb-8">
+      <div 
+        className="relative p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white shadow-md sm:shadow-lg border border-gray-200"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Responsive Legend */}
+        <div className="relative z-10 flex flex-wrap items-center justify-start gap-x-4 gap-y-3 sm:gap-x-6 sm:gap-y-4 pb-4 mb-4 sm:pb-5 sm:mb-6 border-b border-gray-100">
           {chartData &&
-            chartData.datasets.map((dataset, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3"
-              >
-                <div className="relative">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: dataset.borderColor }}
-                  />
-                  <motion.div
-                    className="absolute inset-0 rounded-full"
-                    style={{
-                      backgroundColor: dataset.borderColor,
-                      filter: "blur(6px)",
-                      opacity: 0.3,
-                    }}
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.3, 0.6, 0.3],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+            chartData.datasets.map((dataset, index) => {
+              const isHidden = hiddenDatasets.has(index);
+              const isActive = activeDataset === index;
+              
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    const newHidden = new Set(hiddenDatasets);
+                    if (isHidden) {
+                      newHidden.delete(index);
+                    } else {
+                      newHidden.add(index);
+                    }
+                    setHiddenDatasets(newHidden);
+                  }}
+                  onMouseEnter={() => setActiveDataset(index)}
+                  onMouseLeave={() => setActiveDataset(null)}
+                  className={`flex items-center gap-2 sm:gap-3 px-2 py-1.5 rounded-full cursor-pointer transition-colors duration-150 
+                    ${isActive ? 'bg-gray-50' : 'hover:bg-gray-50/60'}`}
+                >
+                  <div className="relative flex-shrink-0">
+                    {/* Color dot with simple pulse */}
+                    <div
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full"
+                      style={{ backgroundColor: dataset.borderColor }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 rounded-full"
+                      animate={{
+                        opacity: [0.6, 0.2, 0.6],
+                        scale: [1, 1.5, 1]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      style={{
+                        backgroundColor: dataset.borderColor,
+                        filter: "blur(4px)",
+                      }}
+                    />
+                    
+                    {/* Simple X when hidden */}
+                    {isHidden && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-[2px] h-[8px] sm:h-[10px] bg-gray-500 rotate-45" />
+                        <div className="w-[2px] h-[8px] sm:h-[10px] bg-gray-500 -rotate-45" />
+                      </div>
+                    )}
+                  </div>
+                  
+                  <span className={`text-xs sm:text-sm font-medium whitespace-nowrap ${isHidden ? 'line-through text-gray-400' : 'text-gray-800'}`}>
+                    {dataset.label}
+                  </span>
                 </div>
-                <span className="text-sm font-medium text-gray-800">
-                  {dataset.label}
-                </span>
-              </motion.div>
-            ))}
+              );
+            })}
         </div>
 
-        {/* Chart */}
-        <div className="relative h-[450px]">
+        {/* Responsive Chart */}
+        <div className="relative h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] w-full">
           {chartData && options && (
-            <Line ref={chartRef} options={options} data={chartData} />
+            <Line 
+              ref={chartRef} 
+              options={options} 
+              data={chartData}
+              redraw={false}
+            />
           )}
         </div>
 
-        {/* Error overlay */}
+        {/* Error handling */}
         {(error || isErrorProcessing || isErrorDeadStrats) && (
           <ErrorDisplay error={error || "Unknown error"} />
         )}
