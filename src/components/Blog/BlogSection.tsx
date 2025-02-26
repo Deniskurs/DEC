@@ -50,25 +50,33 @@ const BlogSection: React.FC = () => {
         <div className="absolute inset-0 bg-rich-blue-900/10" />
 
         {/* Animated particles */}
-        {[...Array(30)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute h-1 w-1 bg-cream-50/20 rounded-full"
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
+        {[...Array(30)].map((_, i) => {
+          // Use fixed position values rather than generating them on each render
+          const left = `${Math.floor(i * 3.33)}%`;
+          const top = `${Math.floor((i * 7) % 100)}%`;
+          const duration = 2 + ((i % 5) * 0.5);
+          const delay = (i % 10) * 0.2;
+          
+          return (
+            <motion.div
+              key={`particle-${i}`}
+              className="absolute h-1 w-1 bg-cream-50/20 rounded-full"
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration,
+                repeat: Infinity,
+                delay,
+              }}
+              style={{
+                left,
+                top,
+              }}
+            />
+          );
+        })}
       </div>
 
       <div className="relative">
@@ -148,30 +156,36 @@ const BlogSection: React.FC = () => {
 
                 {/* Navigation Buttons - Hidden on mobile */}
                 {!isMobile && (
-                  <AnimatePresence>
-                    {isLeftVisible && (
-                      <motion.button
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        onClick={() => scroll("left")}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-rich-blue-800/80 backdrop-blur-sm hover:bg-rich-blue-700/90 transition-all duration-300 group"
-                      >
-                        <LuChevronLeft className="h-6 w-6 text-cream-50 transition-transform group-hover:-translate-x-0.5" />
-                      </motion.button>
-                    )}
-                    {isRightVisible && (
-                      <motion.button
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        onClick={() => scroll("right")}
-                        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-rich-blue-800/80 backdrop-blur-sm hover:bg-rich-blue-700/90 transition-all duration-300 group"
-                      >
-                        <LuChevronRight className="h-6 w-6 text-cream-50 transition-transform group-hover:translate-x-0.5" />
-                      </motion.button>
-                    )}
-                  </AnimatePresence>
+                  <>
+                    <AnimatePresence>
+                      {isLeftVisible && (
+                        <motion.button
+                          key="left-button"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          onClick={() => scroll("left")}
+                          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-rich-blue-800/80 backdrop-blur-sm hover:bg-rich-blue-700/90 transition-all duration-300 group"
+                        >
+                          <LuChevronLeft className="h-6 w-6 text-cream-50 transition-transform group-hover:-translate-x-0.5" />
+                        </motion.button>
+                      )}
+                    </AnimatePresence>
+                    <AnimatePresence>
+                      {isRightVisible && (
+                        <motion.button
+                          key="right-button"
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          onClick={() => scroll("right")}
+                          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-rich-blue-800/80 backdrop-blur-sm hover:bg-rich-blue-700/90 transition-all duration-300 group"
+                        >
+                          <LuChevronRight className="h-6 w-6 text-cream-50 transition-transform group-hover:translate-x-0.5" />
+                        </motion.button>
+                      )}
+                    </AnimatePresence>
+                  </>
                 )}
               </div>
             </div>

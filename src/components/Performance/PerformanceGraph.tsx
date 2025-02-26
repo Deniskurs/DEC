@@ -77,7 +77,7 @@ const PerformanceGraph: React.FC = () => {
     isLoading: loadingDeadStrats,
     isError: isErrorDeadStrats,
   } = useDeadMarketDataQuery(
-    ["SPY", "GLD", "URTH"],
+    ["SPY", "GLD", "URTH"], // Using exact Alpha Vantage symbols
     equityData?.[0]?.date ?? "",
     equityData?.[equityData.length - 1]?.date ?? ""
   );
@@ -86,6 +86,14 @@ const PerformanceGraph: React.FC = () => {
   useEffect(() => {
     if (equityData && deadStrats) {
       const [sp500Data, goldData, msciWorldData] = deadStrats;
+      
+      // Validate that we have actual data for all three indices
+      if (!sp500Data || !goldData || !msciWorldData) {
+        console.error("Missing data for one or more market indices");
+        setError("One or more market indices are missing data");
+        return;
+      }
+      
       try {
         // Map and process the data points
         let processedData: ChartDataPoint[] = equityData.map((point) => ({
@@ -93,8 +101,7 @@ const PerformanceGraph: React.FC = () => {
           deltaEdge: Number(point.percentageGain.toFixed(2)),
           sp500: sp500Data?.find((d) => d.date === point.date)?.value ?? null,
           gold: goldData?.find((d) => d.date === point.date)?.value ?? null,
-          msciWorld:
-            msciWorldData?.find((d) => d.date === point.date)?.value ?? null,
+          msciWorld: msciWorldData?.find((d) => d.date === point.date)?.value ?? null,
         }));
         
         // Downsample data for mobile to improve performance
@@ -228,6 +235,22 @@ const PerformanceGraph: React.FC = () => {
 
   // Error display component
   const ErrorDisplay: React.FC<{ error: string }> = ({ error }) => {
+    let errorMessage = "Our performance visualization is temporarily unavailable.";
+    let errorTitle = "Performance Data Temporarily Unavailable";
+    
+    if (error.includes("Failed to process")) {
+      errorMessage = "We're experiencing temporary issues retrieving performance data.";
+    } else if (error.includes("Failed to fetch market")) {
+      errorTitle = "Market Data Unavailable";
+      errorMessage = "We're having trouble retrieving market comparison data. Please try again later.";
+    } else if (error.includes("Missing data for one or more")) {
+      errorTitle = "Incomplete Market Data";
+      errorMessage = "Some market data points could not be retrieved. We're working to fix this issue.";
+    } else if (error.includes("API Limit")) {
+      errorTitle = "API Limit Reached";
+      errorMessage = "We've reached our data provider's rate limit. Please try again in a minute.";
+    }
+    
     return (
       <div className="flex items-center justify-center h-full w-full">
         <div className="max-w-md p-6 rounded-2xl bg-white shadow-xl border border-rich-blue-100">
@@ -236,12 +259,10 @@ const PerformanceGraph: React.FC = () => {
               <LuMessageCircleReply className="w-6 h-6 text-rich-blue-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Performance Data Temporarily Unavailable
+              {errorTitle}
             </h3>
             <p className="text-gray-600 mb-4">
-              {error.includes("Failed to process") 
-                ? "We're experiencing temporary issues retrieving performance data."
-                : "Our performance visualization is temporarily unavailable."}
+              {errorMessage}
             </p>
             <div className="flex gap-3">
               <button
@@ -343,7 +364,11 @@ const PerformanceGraph: React.FC = () => {
                 <ErrorDisplay error="We couldn't retrieve your performance data." />
               )}
               {!error && !isErrorProcessing && isErrorDeadStrats && (
-                <ErrorDisplay error="Market comparison data is temporarily unavailable." />
+                <ErrorDisplay error={
+                  deadStrats instanceof Error && deadStrats.message.includes("API Limit") 
+                    ? "API Limit reached. Please try again in a minute." 
+                    : "Failed to fetch market comparison data. Please try again later."
+                } />
               )}
             </div>
           )}
