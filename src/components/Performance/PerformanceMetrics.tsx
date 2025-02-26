@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import {
-  LuTrendingUp,
-  LuChartSpline,
-  LuRefreshCw,
-} from "react-icons/lu";
+import { LuTrendingUp, LuChartSpline, LuRefreshCw } from "react-icons/lu";
 import { useAccountData } from "../../hooks/useAccountData";
-import { formatCurrency } from "../../utils/formatters";
 
 interface MetricCardProps {
   icon: React.ReactNode;
@@ -29,12 +24,16 @@ const MetricCard: React.FC<MetricCardProps> = ({
   const [isMobile, setIsMobile] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [animateValue, setAnimateValue] = useState(false);
-  
+
   // Parse the numeric value from the string for animation
   const numericValue = parseFloat(value.replace(/[^0-9.-]+/g, ""));
-  const valueFormat = value.includes("%") ? "%" : value.includes("£") ? "£" : "";
+  const valueFormat = value.includes("%")
+    ? "%"
+    : value.includes("£")
+    ? "£"
+    : "";
   const hasPlus = value.includes("+");
-  
+
   // Generate a random number within 30% of the actual value
   const getRandomValue = () => {
     const min = numericValue * 0.7;
@@ -56,36 +55,41 @@ const MetricCard: React.FC<MetricCardProps> = ({
   // Number animation effect
   useEffect(() => {
     if (!animateValue || !valueRef.current) return;
-    
+
     let startValue = getRandomValue();
     const duration = 2000; // 2 seconds
     const startTime = Date.now();
-    
+
     const updateValue = () => {
       const currentTime = Date.now();
       const elapsed = currentTime - startTime;
-      
+
       if (elapsed < duration) {
         // Easing function for smooth animation
         const progress = 1 - Math.pow(1 - elapsed / duration, 3);
-        const currentValue = startValue + (numericValue - startValue) * progress;
-        
+        const currentValue =
+          startValue + (numericValue - startValue) * progress;
+
         // Format the value based on its type
         if (valueFormat === "%") {
-          valueRef.current!.textContent = `${hasPlus ? "+" : ""}${currentValue.toFixed(1)}%`;
+          valueRef.current!.textContent = `${
+            hasPlus ? "+" : ""
+          }${currentValue.toFixed(1)}%`;
         } else if (valueFormat === "£") {
-          valueRef.current!.textContent = `£${Math.round(currentValue).toLocaleString()}`;
+          valueRef.current!.textContent = `£${Math.round(
+            currentValue
+          ).toLocaleString()}`;
         } else {
           valueRef.current!.textContent = currentValue.toFixed(1);
         }
-        
+
         requestAnimationFrame(updateValue);
       } else {
         // Set final value
         valueRef.current!.textContent = value;
       }
     };
-    
+
     requestAnimationFrame(updateValue);
   }, [animateValue, numericValue, value, valueFormat]);
 
@@ -106,17 +110,17 @@ const MetricCard: React.FC<MetricCardProps> = ({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.5, 
+      transition: {
+        duration: 0.5,
         ease: [0.165, 0.84, 0.44, 1],
       },
     },
     hover: {
       y: -4,
       boxShadow: "0 20px 30px -10px rgba(0, 82, 204, 0.15)",
-      transition: { 
-        duration: 0.3, 
-        ease: [0.165, 0.84, 0.44, 1] 
+      transition: {
+        duration: 0.3,
+        ease: [0.165, 0.84, 0.44, 1],
       },
     },
   };
@@ -143,7 +147,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
       onMouseLeave={() => !isMobile && setIsHovered(false)}
     >
       {/* Enhanced background glow effect */}
-      <motion.div 
+      <motion.div
         className="absolute -inset-4 rounded-3xl opacity-0 bg-gradient-to-r from-rich-blue-500/5 via-rich-blue-400/10 to-rich-blue-500/5 blur-xl"
         variants={{
           hidden: { opacity: 0 },
@@ -151,7 +155,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
           hover: { opacity: 1 },
         }}
       />
-      
+
       {/* Refined Card Shadow - Professional & Subtle */}
       <motion.div
         className="absolute -inset-px rounded-2xl shadow-lg"
@@ -171,9 +175,9 @@ const MetricCard: React.FC<MetricCardProps> = ({
         variants={{
           hidden: { opacity: 0 },
           visible: { opacity: 0 },
-          hover: { 
+          hover: {
             opacity: 1,
-            transition: { duration: 0.2 }
+            transition: { duration: 0.2 },
           },
         }}
       >
@@ -184,12 +188,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
               "linear-gradient(90deg, rgba(0,82,204,0.1) 0%, rgba(59,130,246,0.2) 50%, rgba(0,82,204,0.1) 100%)",
               "linear-gradient(90deg, rgba(59,130,246,0.2) 0%, rgba(0,82,204,0.1) 50%, rgba(59,130,246,0.2) 100%)",
               "linear-gradient(90deg, rgba(0,82,204,0.1) 0%, rgba(59,130,246,0.2) 50%, rgba(0,82,204,0.1) 100%)",
-            ]
+            ],
           }}
           transition={{
             duration: 4,
             repeat: Infinity,
-            ease: "linear"
+            ease: "linear",
           }}
         />
       </motion.div>
@@ -200,10 +204,10 @@ const MetricCard: React.FC<MetricCardProps> = ({
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-white" />
           <div className="absolute inset-0 rounded-2xl border border-rich-blue-100" />
-          
+
           {/* Subtle top highlight for depth */}
           <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-rich-blue-100/0 via-rich-blue-200/50 to-rich-blue-100/0" />
-          
+
           {/* Particle effect background (subtle) */}
           <div className="absolute inset-0 overflow-hidden rounded-2xl opacity-10">
             {Array.from({ length: 8 }).map((_, i) => (
@@ -228,38 +232,34 @@ const MetricCard: React.FC<MetricCardProps> = ({
             ))}
           </div>
         </div>
-        
+
         <div className="relative p-6 md:p-8 h-full flex flex-col z-10">
           {/* Professional header with animated icon */}
           <div className="flex items-center mb-5">
             {/* Clean modern icon treatment with animation */}
             <div className="flex-shrink-0 mr-4">
-              <motion.div 
+              <motion.div
                 className="relative w-12 h-12 rounded-lg bg-gradient-to-br from-rich-blue-600 to-rich-blue-700 shadow-sm flex items-center justify-center"
                 whileHover={{
                   scale: 1.05,
-                  transition: { duration: 0.2 }
+                  transition: { duration: 0.2 },
                 }}
               >
                 <motion.div
-                  animate={
-                    isHovered 
-                      ? { rotateY: 360 }
-                      : { rotateY: 0 }
-                  }
-                  transition={{ 
-                    duration: 0.8, 
+                  animate={isHovered ? { rotateY: 360 } : { rotateY: 0 }}
+                  transition={{
+                    duration: 0.8,
                     ease: "easeInOut",
-                    type: "tween"
+                    type: "tween",
                   }}
                 >
                   {React.cloneElement(icon as React.ReactElement, {
                     className: "h-6 w-6 text-white",
                   })}
                 </motion.div>
-                
+
                 {/* Subtle accent line with animation */}
-                <motion.div 
+                <motion.div
                   className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-[2px] bg-rich-blue-500/30 rounded-full"
                   animate={{
                     width: isHovered ? "70%" : "60%",
@@ -267,14 +267,22 @@ const MetricCard: React.FC<MetricCardProps> = ({
                   }}
                   transition={{ duration: 0.8 }}
                 />
-                
+
                 {/* Pulse effect around icon */}
                 <motion.div
                   className="absolute inset-0 rounded-lg border border-rich-blue-400/20"
                   animate={
-                    isHovered 
-                      ? { scale: 1.1, opacity: 0.5, borderColor: "rgba(59,130,246,0.4)" }
-                      : { scale: 1, opacity: 0, borderColor: "rgba(0,82,204,0)" }
+                    isHovered
+                      ? {
+                          scale: 1.1,
+                          opacity: 0.5,
+                          borderColor: "rgba(59,130,246,0.4)",
+                        }
+                      : {
+                          scale: 1,
+                          opacity: 0,
+                          borderColor: "rgba(0,82,204,0)",
+                        }
                   }
                   transition={{
                     duration: 0.3,
@@ -283,27 +291,33 @@ const MetricCard: React.FC<MetricCardProps> = ({
                 />
               </motion.div>
             </div>
-            
+
             {/* Category label - clean professional design */}
             <div className="flex flex-col">
-              <motion.span 
+              <motion.span
                 className="text-xs font-semibold text-rich-blue-600 uppercase tracking-wide"
                 animate={
-                  isHovered 
-                    ? { color: ["rgb(0,82,204)", "rgb(59,130,246)", "rgb(0,82,204)"] }
+                  isHovered
+                    ? {
+                        color: [
+                          "rgb(0,82,204)",
+                          "rgb(59,130,246)",
+                          "rgb(0,82,204)",
+                        ],
+                      }
                     : { color: "rgb(0,82,204)" }
                 }
-                transition={{ 
-                  duration: 2, 
+                transition={{
+                  duration: 2,
                   ease: "easeInOut",
-                  type: "tween"
+                  type: "tween",
                 }}
               >
                 {label}
               </motion.span>
-              
+
               {/* Value with animated counter effect */}
-              <motion.span 
+              <motion.span
                 ref={valueRef}
                 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-rich-blue-800 to-rich-blue-600 bg-clip-text text-transparent"
               >
@@ -325,8 +339,8 @@ const MetricCard: React.FC<MetricCardProps> = ({
                     opacity: 1,
                     transition: { delay: idx * 0.1 + 0.2 },
                   },
-                  hover: { 
-                    y: 0, 
+                  hover: {
+                    y: 0,
                     opacity: 1,
                     x: isHovered ? [0, 2, 0] : 0,
                     transition: {
@@ -334,30 +348,30 @@ const MetricCard: React.FC<MetricCardProps> = ({
                         delay: idx * 0.05,
                         duration: 0.5,
                         ease: "easeInOut",
-                      }
-                    }
+                      },
+                    },
                   },
                 }}
               >
                 {/* Enhanced bullet point design */}
-                <motion.div 
+                <motion.div
                   className="flex-shrink-0 mt-1.5 w-1 h-1 rounded-full bg-rich-blue-500"
                   animate={
-                    isHovered 
-                      ? { 
-                          scale: 1.5, 
+                    isHovered
+                      ? {
+                          scale: 1.5,
                           opacity: 1,
-                          backgroundColor: "rgba(59,130,246,0.8)"
+                          backgroundColor: "rgba(59,130,246,0.8)",
                         }
-                      : { 
-                          scale: 1, 
+                      : {
+                          scale: 1,
                           opacity: 0.5,
-                          backgroundColor: "rgba(0,82,204,0.5)"
+                          backgroundColor: "rgba(0,82,204,0.5)",
                         }
                   }
-                  transition={{ 
-                    duration: 0.3, 
-                    ease: "easeOut"
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeOut",
                   }}
                 />
                 <p>
@@ -367,14 +381,12 @@ const MetricCard: React.FC<MetricCardProps> = ({
               </motion.div>
             ))}
           </div>
-          
+
           {/* Animated bottom accent */}
-          <motion.div 
+          <motion.div
             className="absolute bottom-3 right-3"
             animate={
-              isHovered 
-                ? { x: 0, opacity: 0.7 }
-                : { x: 0, opacity: 0.3 }
+              isHovered ? { x: 0, opacity: 0.7 } : { x: 0, opacity: 0.3 }
             }
             transition={{ duration: 0.3, ease: "easeOut" }}
           >
