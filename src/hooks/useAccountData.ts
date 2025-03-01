@@ -13,7 +13,7 @@ const fetchEquityData = async () => {
 
 const fetchAccountData = async () => {
   const { data } = await apiClient.get(
-    "https://myfxbook-api.vercel.app/api/account/11312543"
+    "https://myfxbook-api.vercel.app/api/account/11312543/"
   );
   return data;
 };
@@ -22,12 +22,12 @@ export const useAccountData = () => {
   const equityQuery = useQuery({
     queryKey: ["equityData"],
     queryFn: () => fetchEquityData(),
-    refetchInterval: 43200000, // 12 hours in milliseconds
+    refetchInterval: 432000, // 12 hours in milliseconds
   });
   const accountQuery = useQuery({
     queryKey: ["accountData"],
     queryFn: () => fetchAccountData(),
-    refetchInterval: 43200000, //  12 hours in milliseconds
+    refetchInterval: 432000, //  12 hours in milliseconds
   });
 
   return { equityQuery, accountQuery };

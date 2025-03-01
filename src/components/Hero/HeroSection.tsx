@@ -220,9 +220,17 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 
       <div className="bg-gradient-to-b from-cream-50/50 to-white">
         <SectionCTA
-          title="Why the top 1% Think Differently About Money"
-          description="You can't save faster than the FED can print. You don't create wealth by trading your hours. You create it by positioning yourself where the flow is strongest."
-          buttonText="JOIN THE 1% CLUB"
+          title="Algorithmic Precision for Superior Returns"
+          description="Our quantitative approach consistently outperforms traditional investment vehicles by identifying inefficiencies that conventional analysis misses."
+          buttonText="OPTIMIZE YOUR PORTFOLIO"
+          variant="premium"
+          urgencyType="exclusive-access"
+          useLiveData={true}
+          testimonial={{
+            quote: "The systematic approach has transformed my portfolio",
+            author: "Managing Director",
+            position: "Private Equity Firm",
+          }}
         />
       </div>
     </>

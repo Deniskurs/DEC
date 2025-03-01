@@ -7,7 +7,6 @@ import {
   LuLock,
   LuShield,
   LuZap,
-  LuStar,
 } from "react-icons/lu";
 import FeatureCard from "./FeatureCard";
 import SectionCTA from "../CTA/SectionCTA";
@@ -49,31 +48,6 @@ const features = [
   },
 ];
 
-// New TrustRating component to be passed to SectionCTA
-const TrustRating = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
-    className="flex flex-col items-center space-y-2 mt-4"
-  >
-    <div className="flex items-center gap-1">
-      {[...Array(5)].map((_, i) => (
-        <LuStar key={i} className="w-4 h-4 fill-current text-yellow-400" />
-      ))}
-    </div>
-    <a
-      href="#"
-      className="text-cream-50/90 text-sm hover:text-cream-50 transition-colors duration-200"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      4.8/5 on Trustpilot
-    </a>
-  </motion.div>
-);
-
 const FeaturesSection: React.FC = () => {
   return (
     <>
@@ -84,7 +58,8 @@ const FeaturesSection: React.FC = () => {
           <div
             className="absolute inset-0"
             style={{
-              background: "radial-gradient(circle at 30% 30%, rgba(0, 102, 255, 0.06) 0%, transparent 60%), radial-gradient(circle at 70% 70%, rgba(0, 102, 255, 0.06) 0%, transparent 60%)"
+              background:
+                "radial-gradient(circle at 30% 30%, rgba(0, 102, 255, 0.06) 0%, transparent 60%), radial-gradient(circle at 70% 70%, rgba(0, 102, 255, 0.06) 0%, transparent 60%)",
             }}
           />
 
@@ -142,7 +117,10 @@ const FeaturesSection: React.FC = () => {
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px 0px" }}
-                  transition={{ duration: 0.5, delay: 0.1 + Math.min(index * 0.1, 0.3) }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.1 + Math.min(index * 0.1, 0.3),
+                  }}
                 >
                   <FeatureCard {...feature} />
                 </motion.div>
@@ -195,10 +173,20 @@ const FeaturesSection: React.FC = () => {
         {/* Actual CTA Component */}
         <div className="relative">
           <SectionCTA
-            title="Time To Scale Your Empire"
-            description="Every second of hesitation is a missed opportunity. Your wealth demands elite-level algorithms."
-            buttonText="ACTIVATE ALGORITHMIC EDGE"
+            title="Technology-Driven Investment Excellence"
+            description="Our proprietary algorithms work 24/7 to identify opportunities and optimize positions, something traditional fund managers simply cannot match."
+            buttonText="ELEVATE YOUR INVESTMENTS"
             darkMode={true}
+            variant="compact"
+            urgencyType="exclusive-access"
+            useLiveData={true}
+            testimonial={{
+              quote:
+                "The algorithmic approach delivers results that traditional methods can't match",
+              author: "Investment Director",
+              position: "Family Office",
+            }}
+            disclaimerText="Investment strategies involve risk and are not suitable for all investors."
           />
         </div>
       </div>

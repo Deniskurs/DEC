@@ -46,8 +46,8 @@ export const useDeadStrats = () => {
     return useQuery({
       queryKey: ["monthlyGain", symbol],
       queryFn: () => fetchMonthlyGain(symbol),
-      refetchInterval: 43200000,
-      staleTime: 43200000,
+      refetchInterval: 432000,
+      staleTime: 432000,
       enabled: !!symbol,
     });
   };
@@ -61,8 +61,8 @@ export const useDeadStrats = () => {
       queryKey: ["allMarketData", symbols, start, end],
       queryFn: () => fetchAllMarketData({ symbols, start, end }),
       // Shared configuration
-      refetchInterval: 43200000,
-      staleTime: 43200000,
+      refetchInterval: 432000,
+      staleTime: 432000,
       // Validation
       enabled: !!start && symbols?.length > 0,
     });

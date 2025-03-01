@@ -8,7 +8,10 @@ import SectionCTA from "../CTA/SectionCTA";
 const PerformanceSection: React.FC = () => {
   return (
     <>
-      <div id="performance" className="performance-section pt-16 pb-20 lg:pb-28 relative overflow-hidden">
+      <div
+        id="performance"
+        className="performance-section pt-16 pb-20 lg:pb-28 relative overflow-hidden"
+      >
         {/* Simplified Premium Background - Cream Base */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Cream gradient backdrop matching other sections */}
@@ -27,31 +30,23 @@ const PerformanceSection: React.FC = () => {
           />
 
           {/* Static radial gradients for depth instead of animated ones */}
-          <div 
+          <div
             className="absolute inset-0"
             style={{
               background: `
                 radial-gradient(ellipse at 30% 20%, rgba(0,82,204,0.04), transparent 70%),
                 radial-gradient(ellipse at 70% 80%, rgba(0,82,204,0.05), transparent 70%)
-              `
+              `,
             }}
           />
 
           {/* Simplified glow effects - static instead of animated */}
-          <div
-            className="absolute -top-40 -left-40 w-96 h-96 bg-rich-blue-500/10 rounded-full blur-[100px]"
-          />
-          <div
-            className="absolute -bottom-40 -right-40 w-96 h-96 bg-rich-blue-400/10 rounded-full blur-[100px]"
-          />
-          
+          <div className="absolute -top-40 -left-40 w-96 h-96 bg-rich-blue-500/10 rounded-full blur-[100px]" />
+          <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-rich-blue-400/10 rounded-full blur-[100px]" />
+
           {/* Reduced number of static decorative elements */}
-          <div 
-            className="absolute top-20 left-20 w-40 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent"
-          />
-          <div 
-            className="absolute top-40 right-20 w-60 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent"
-          />
+          <div className="absolute top-20 left-20 w-40 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent" />
+          <div className="absolute top-40 right-20 w-60 h-[1px] bg-gradient-to-r from-transparent via-rich-blue-400/20 to-transparent" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -77,18 +72,14 @@ const PerformanceSection: React.FC = () => {
                   <span className="block bg-gradient-to-r from-rich-blue-800 to-rich-blue-600 bg-clip-text text-transparent relative font-bold">
                     Unrivaled Performance.
                     {/* Static highlight underline */}
-                    <div
-                      className="absolute h-[3px] bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-500/60 to-rich-blue-600/0 bottom-1 left-[20%] w-[60%]"
-                    />
+                    <div className="absolute h-[3px] bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-500/60 to-rich-blue-600/0 bottom-1 left-[20%] w-[60%]" />
                   </span>
-                  
+
                   {/* Second line - no animation to ensure visibility on mobile */}
                   <span className="block mt-2 text-rich-blue-900 relative font-bold">
                     Verified Excellence.
                     {/* Static dot accent */}
-                    <div
-                      className="absolute w-1.5 h-1.5 rounded-full bg-rich-blue-500 right-[-10px] bottom-3"
-                    />
+                    <div className="absolute w-1.5 h-1.5 rounded-full bg-rich-blue-500 right-[-10px] bottom-3" />
                   </span>
                 </h2>
               </div>
@@ -251,10 +242,14 @@ const PerformanceSection: React.FC = () => {
       </div>
 
       <SectionCTA
-        title="Your Capital Is Waiting"
-        description="Elite traders are leveraging our algorithms right now. Every moment of delay is quantifiable loss."
-        buttonText="START GENERATING WEALTH"
+        title="Your Capital Deserves Better Performance"
+        description="While traditional investments struggle with market volatility, our algorithms adapt continuously to deliver more consistent returns."
+        buttonText="OUTPERFORM THE MARKET"
         darkMode={true}
+        variant="compact"
+        urgencyType="time-limited"
+        useLiveData={true}
+        disclaimerText="Past performance is not indicative of future results. All investments involve risk and may lose value."
       />
     </>
   );

@@ -33,13 +33,13 @@ const HomePage = () => {
         <ProblemSection />
       </section>
       <section>
-        <InvestmentCalculator />
+        <PerformanceSection />
       </section>
       <section id="features">
         <FeaturesSection />
       </section>
-      <section id="performance">
-        <PerformanceSection />
+      <section id="calculator">
+        <InvestmentCalculator />
       </section>
       <section id="liquidity">
         <LiquidityProviders />
@@ -74,7 +74,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     // Skip on server-side rendering
-    if (typeof window === 'undefined' || !hasAcceptedTerms) return;
+    if (typeof window === "undefined" || !hasAcceptedTerms) return;
 
     // Throttled scroll handler for better performance
     const handleScroll = throttle(() => {
@@ -89,9 +89,9 @@ function App(): JSX.Element {
     // Create an IntersectionObserver to watch the hero section
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
+
     // Only create observer if IntersectionObserver is available
-    if (typeof IntersectionObserver !== 'undefined') {
+    if (typeof IntersectionObserver !== "undefined") {
       const observer = new IntersectionObserver(
         ([entry]) => {
           // When the hero section is mostly out of view (intersection ratio < 0.05),
@@ -103,17 +103,17 @@ function App(): JSX.Element {
           rootMargin: "-80px 0px 0px 0px", // adjust if needed to account for navbar height
         }
       );
-      
+
       if (heroRef.current) {
         observer.observe(heroRef.current);
       }
-      
+
       return () => {
         window.removeEventListener("scroll", handleScroll);
         observer.disconnect();
       };
     }
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -122,8 +122,8 @@ function App(): JSX.Element {
   // Optimized scroll to section when hash changes (SSR-safe)
   useEffect(() => {
     // Skip on server-side rendering
-    if (typeof window === 'undefined') return;
-    
+    if (typeof window === "undefined") return;
+
     if (location.pathname === "/") {
       if (location.hash) {
         // Debounce hash-based scrolling for better performance
@@ -136,7 +136,7 @@ function App(): JSX.Element {
               const elementPosition = section.getBoundingClientRect().top;
               const offsetPosition =
                 elementPosition + window.scrollY - headerOffset;
-              
+
               // Scroll with native API is faster than smooth behavior on mobile
               if (window.innerWidth < 768) {
                 window.scrollTo(0, offsetPosition);
@@ -146,7 +146,7 @@ function App(): JSX.Element {
             }
           });
         }, 10); // small delay to batch potential updates
-        
+
         return () => clearTimeout(scrollTimeout);
       } else {
         window.scrollTo(0, 0);
@@ -189,7 +189,7 @@ function App(): JSX.Element {
       </main>
       <Footer />
       {showCTA && location.pathname === "/" && (
-        <CTABanner isVisible={showCTA} />
+        <CTABanner isVisible={showCTA} variant="standard" />
       )}
       <NewsletterController />
     </div>
