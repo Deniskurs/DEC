@@ -10,6 +10,8 @@ import FeaturesSection from "./components/Features/FeaturesSection";
 import PerformanceSection from "./components/Performance/PerformanceSection";
 import FAQSection from "./components/FAQ/FAQSection";
 import CTABanner from "./components/CTA/CTABanner";
+import SectionCTA from "./components/CTA/SectionCTA";
+import ChooseYourPathCTA from "./components/CTA/ChooseYourPathCTA";
 import Footer from "./components/Footer/Footer";
 import NewsletterController from "./components/Newsletter/NewsletterController";
 import LoadingAndTerms from "./components/LoadingandTerms/LoadingAndTerms";
@@ -41,12 +43,34 @@ const HomePage = () => {
       <section id="calculator">
         <InvestmentCalculator />
       </section>
+      <SectionCTA
+        title="Don't Let Your Wealth Stagnate in Traditional Markets"
+        description="Our algorithmic trading strategies have consistently outperformed conventional investment vehicles. Every day you wait is another day of potential growth missed."
+        buttonText="START INVESTING NOW"
+        darkMode={true}
+        variant="premium"
+        urgencyType="limited-capacity"
+        performanceMetric={{
+          label: "Historical Annual Return",
+          value: "+24%",
+          trend: "up",
+        }}
+        testimonial={{
+          quote:
+            "Switching to DEC's strategies was the best financial decision I've made. The performance speaks for itself.",
+          author: "James R.",
+          position: "Client since 2022",
+        }}
+        disclaimerText="Past performance is not indicative of future results. Investment involves risk."
+        useLiveData={true}
+      />
       <section id="liquidity">
         <LiquidityProviders />
       </section>
       <section id="faq">
         <FAQSection />
       </section>
+      <ChooseYourPathCTA />
       <BlogSection />
     </>
   );
