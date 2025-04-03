@@ -1,7 +1,7 @@
 const TERMS_VERSION = "1.0.0"; // Internal version tracking
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
-interface TermsStatus {
+export interface TermsStatus {
   hasAccepted: boolean;
   needsReaccept: boolean;
   daysRemaining?: number;
@@ -11,44 +11,45 @@ interface TermsStatus {
 export const termsManager = {
   checkAcceptance(): TermsStatus {
     try {
-      // Check session storage first
-      const sessionAccepted = sessionStorage.getItem("termsAccepted");
-      if (!sessionAccepted) {
-        return { hasAccepted: false, needsReaccept: true };
-      }
-
-      // Check version and timestamp from localStorage
+      // Check localStorage first as it persists between browser sessions
       const storedVersion = localStorage.getItem("termsVersion");
       const acceptanceTimestamp = localStorage.getItem("termsTimestamp");
       const currentTime = new Date().getTime();
 
-      if (!storedVersion || !acceptanceTimestamp) {
-        return { hasAccepted: false, needsReaccept: true };
-      }
+      // If we have valid localStorage data
+      if (storedVersion && acceptanceTimestamp) {
+        const timestampMs = parseInt(acceptanceTimestamp);
+        const expiryDate = new Date(timestampMs + THIRTY_DAYS_MS);
+        const daysRemaining = Math.ceil(
+          (expiryDate.getTime() - currentTime) / (24 * 60 * 60 * 1000)
+        );
+        const hasExpired = currentTime - timestampMs > THIRTY_DAYS_MS;
 
-      const timestampMs = parseInt(acceptanceTimestamp);
-      const expiryDate = new Date(timestampMs + THIRTY_DAYS_MS);
-      const daysRemaining = Math.ceil(
-        (expiryDate.getTime() - currentTime) / (24 * 60 * 60 * 1000)
-      );
-      const hasExpired = currentTime - timestampMs > THIRTY_DAYS_MS;
+        // Version mismatch or expired
+        if (storedVersion !== TERMS_VERSION || hasExpired) {
+          return {
+            hasAccepted: false,
+            needsReaccept: true,
+            daysRemaining: hasExpired ? 0 : daysRemaining,
+            expiryDate: expiryDate.toISOString(),
+          };
+        }
 
-      // Version mismatch or expired
-      if (storedVersion !== TERMS_VERSION || hasExpired) {
+        // Valid acceptance in localStorage - update sessionStorage for this session if needed
+        if (!sessionStorage.getItem("termsAccepted")) {
+          sessionStorage.setItem("termsAccepted", "true");
+        }
+
         return {
-          hasAccepted: false,
-          needsReaccept: true,
-          daysRemaining: hasExpired ? 0 : daysRemaining,
+          hasAccepted: true,
+          needsReaccept: false,
+          daysRemaining,
           expiryDate: expiryDate.toISOString(),
         };
       }
 
-      return {
-        hasAccepted: true,
-        needsReaccept: false,
-        daysRemaining,
-        expiryDate: expiryDate.toISOString(),
-      };
+      // No valid localStorage data
+      return { hasAccepted: false, needsReaccept: true };
     } catch (e) {
       console.error("Error checking terms acceptance:", e);
       return { hasAccepted: false, needsReaccept: true };

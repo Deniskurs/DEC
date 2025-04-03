@@ -1,25 +1,29 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import {
-  LuTrendingUp,
-  LuDollarSign,
   LuShield,
-  LuUsers,
-  LuClock,
-  LuInfo,
-  LuCheck,
-  LuBadgePercent,
   LuZap,
-  LuArrowDown,
-  LuArrowUp,
+  LuCheck,
+  LuChevronRight,
+  LuUser,
+  LuInfo,
+  LuBell,
 } from "react-icons/lu";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 const ChooseYourPathCTA: React.FC = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
-  const isTablet = useMediaQuery("(max-width: 1024px) and (min-width: 769px)");
-  const isSmallScreen = useMediaQuery("(max-width: 1280px)");
-  const isExtraSmallScreen = useMediaQuery("(max-width: 640px)");
+  // For responsive design
+  const isMobileView = useMediaQuery("(max-width: 768px)");
+
+  // For parallax effect
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Transform values for parallax
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
 
   // Animation variants
   const containerVariants = {
@@ -28,516 +32,400 @@ const ChooseYourPathCTA: React.FC = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
+        delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+    },
   };
 
-  // Title underline animation variants
-  const underlineVariants = {
-    hidden: { width: 0, opacity: 0 },
+  const statsVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
     visible: {
-      width: "100%",
       opacity: 1,
-      transition: {
-        duration: 0.8,
-        delay: 0.3,
-        ease: "easeOut",
-      },
+      scale: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Fixed background gradient to match with BlogSection */}
-      <div className="absolute inset-0 bg-gradient-to-b from-cream-50 to-rich-blue-900"></div>
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-gradient-to-b from-rich-blue-900 to-black text-cream-50 py-20 md:py-32"
+    >
+      {/* Premium background effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Dark luxury gradient */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-black via-rich-blue-900 to-black opacity-90" />
 
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+        {/* Subtle gold accent */}
         <motion.div
-          className="text-center mb-12 sm:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <LuInfo className="h-5 w-5 text-rich-blue-600" />
-            <h3 className="text-sm sm:text-base font-semibold tracking-wider text-rich-blue-600 uppercase">
-              YOUR FINANCIAL FUTURE AT A CROSSROADS
-            </h3>
-          </div>
+          className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-300/30 to-transparent"
+          style={{ y: y1 }}
+        />
 
-          <h2
-            className={`relative ${
-              isExtraSmallScreen
-                ? "text-2xl"
-                : "text-3xl sm:text-4xl lg:text-5xl"
-            } font-bold text-rich-blue-800 mb-6 inline-block`}
-          >
-            <span className="relative z-10 px-1">
-              The Decision That Shapes Your Wealth
-            </span>
+        {/* Animated background elements */}
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: [
+              "radial-gradient(circle at 20% 20%, rgba(252, 249, 240, 0.05) 0%, transparent 50%)",
+              "radial-gradient(circle at 80% 80%, rgba(252, 249, 240, 0.05) 0%, transparent 50%)",
+              "radial-gradient(circle at 20% 20%, rgba(252, 249, 240, 0.05) 0%, transparent 50%)",
+            ],
+          }}
+          transition={{
+            duration: 8,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        />
 
-            {/* Elegant animated underline */}
-            <motion.div
-              className="absolute bottom-0 left-0 h-[0.15em] bg-gradient-to-r from-rich-blue-400/70 via-rich-blue-500/90 to-rich-blue-400/70 rounded-full z-0"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={underlineVariants}
-              style={{
-                filter: "drop-shadow(0 1px 2px rgba(0, 82, 204, 0.3))",
-                transformOrigin: "left",
-              }}
-            />
-          </h2>
-
-          <p className="text-base sm:text-lg text-rich-blue-600/90 max-w-3xl mx-auto">
-            Most investors face a critical choice: remain with conventional
-            vehicles that historically underperform, or embrace innovative
-            strategies designed to outpace market averages
-          </p>
-        </motion.div>
-
-        {/* Cards container with VS element */}
-        <div className="relative">
-          {/* VS Element - Responsive for all screen sizes */}
-          <div
-            className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 ${
-              isMobile ? "hidden" : "block"
-            }`}
-          >
-            <motion.div
-              className={`relative rounded-full bg-gradient-to-br from-rich-blue-600 to-rich-blue-800 flex items-center justify-center shadow-lg border-2 border-cream-50/30 ${
-                isTablet
-                  ? "w-14 h-14"
-                  : isSmallScreen
-                  ? "w-16 h-16"
-                  : "w-20 h-20"
-              }`}
-              initial={{ scale: 0.8, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-            >
-              <span
-                className={`text-cream-50 font-bold ${
-                  isTablet ? "text-lg" : isSmallScreen ? "text-xl" : "text-2xl"
-                }`}
-              >
-                VS
-              </span>
-            </motion.div>
-          </div>
-
+        {/* Premium particles - very subtle */}
+        {[...Array(15)].map((_, i) => (
           <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className={`grid ${
-              isMobile ? "grid-cols-1 gap-8" : "grid-cols-12 gap-6 lg:gap-10"
-            } items-stretch`}
-          >
-            {/* Traditional Path - Soul-draining effect */}
-            <motion.div
-              variants={itemVariants}
-              className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-100 to-gray-300 shadow-lg border border-gray-300 ${
-                isMobile ? "" : "col-span-6"
-              }`}
-              whileHover={{
-                y: -3,
-                boxShadow:
-                  "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
-                transition: { duration: 0.4, ease: "easeOut" },
-              }}
-            >
-              {/* Soul-draining visual effects */}
-              <div className="absolute inset-0 overflow-hidden">
-                {/* Desaturated overlay */}
-                <div className="absolute inset-0 bg-gradient-to-b from-gray-400/5 to-gray-600/20"></div>
+            key={`luxury-particle-${i}`}
+            className="absolute h-1 w-1 rounded-full bg-amber-300/20"
+            style={{
+              left: `${10 + i * 6}%`,
+              top: `${Math.floor(Math.random() * 100)}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0, 0.4, 0],
+              scale: [0.5, 1, 0.5],
+            }}
+            transition={{
+              duration: 4 + (i % 4),
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
 
-                {/* Dark shadow at the bottom - energy being pulled down */}
-                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-gray-700/30 to-transparent"></div>
-
-                {/* Downward flowing particles animation */}
-                {[...Array(10)].map((_, i) => (
-                  <motion.div
-                    key={`drain-${i}`}
-                    className="absolute w-1 h-1 bg-gray-400/30 rounded-full"
-                    style={{
-                      left: `${10 + i * 8}%`,
-                      top: "20%",
-                    }}
-                    animate={{
-                      y: [0, 100, 200],
-                      opacity: [0, 0.7, 0],
-                      scale: [1, 0.8, 0.5],
-                    }}
-                    transition={{
-                      duration: 3 + (i % 3),
-                      repeat: Infinity,
-                      delay: i * 0.2,
-                      ease: "easeIn",
-                    }}
-                  />
-                ))}
-              </div>
-
-              {/* "Most Common Choice" indicator */}
-              <div className="absolute top-0 left-0 right-0 bg-gray-400 py-1 px-4 text-xs font-medium text-gray-800 flex items-center justify-center">
-                <LuUsers className="mr-1 h-3 w-3" />
-                <span>CONVENTIONAL APPROACH</span>
-              </div>
-
-              {/* Content */}
-              <div className="relative p-6 sm:p-8 mt-6">
-                <div className="flex flex-col h-full">
-                  <div className="mb-6">
-                    {/* Drained icon */}
-                    <div className="relative inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-400 mb-4 border border-gray-500/30">
-                      <motion.div
-                        animate={{
-                          y: [0, 1, 0],
-                          opacity: [0.8, 0.7, 0.8],
-                        }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                      >
-                        <LuDollarSign className="h-6 w-6 text-gray-700" />
-                      </motion.div>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-700 mb-2">
-                      TRADITIONAL INVESTMENT FUNDS
-                    </h3>
-
-                    <div className="text-3xl sm:text-4xl font-bold text-gray-700 mb-4 flex items-baseline">
-                      <span className="text-red-600/90">3-5%</span>
-                      <span className="text-sm font-normal text-gray-500 ml-1">
-                        historical annual returns
-                      </span>
-                    </div>
-
-                    <div className="space-y-3 text-gray-600 mb-6">
-                      <div className="flex items-start">
-                        <LuClock className="h-5 w-5 text-gray-500 mt-0.5 mr-2 flex-shrink-0" />
-                        <p>
-                          <span className="font-medium">Years of waiting</span>{" "}
-                          for modest growth that barely keeps pace with
-                          inflation
-                        </p>
-                      </div>
-                      <div className="flex items-start">
-                        <LuInfo className="h-5 w-5 text-gray-500 mt-0.5 mr-2 flex-shrink-0" />
-                        <p>
-                          <span className="font-medium">Hidden fees</span> that
-                          silently erode your investment's true value
-                        </p>
-                      </div>
-                      <div className="flex items-start">
-                        <LuShield className="h-5 w-5 text-gray-500 mt-0.5 mr-2 flex-shrink-0" />
-                        <p>
-                          <span className="font-medium">False security</span>{" "}
-                          while market makers profit from your capital
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-auto">
-                    <div className="flex items-center gap-2 mb-4 bg-gray-300 p-2 rounded-lg">
-                      <LuArrowDown className="h-5 w-5 text-red-500/70" />
-                      <span className="text-sm text-gray-600">
-                        <span className="font-medium">Opportunity cost:</span>{" "}
-                        Potential growth lost with each passing year
-                      </span>
-                    </div>
-
-                    {/* Button with consistent height for alignment */}
-                    <div className="h-[56px]">
-                      <button
-                        className="w-full h-full py-3 px-6 rounded-lg bg-gray-600 text-gray-200 font-medium hover:bg-gray-500 transition-all duration-300 flex items-center justify-center opacity-80 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                        onClick={() => {}}
-                      >
-                        <span>Continue with Conventional Approach</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* DEC Path - Rejuvenation and prosperity effect */}
-            <motion.div
-              variants={itemVariants}
-              className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-rich-blue-800 to-rich-blue-900 shadow-xl border border-rich-blue-600 ${
-                isMobile ? "" : "col-span-6"
-              }`}
-              whileHover={{
-                y: -3,
-                boxShadow:
-                  "0 10px 25px -3px rgba(0, 82, 204, 0.3), 0 8px 10px -6px rgba(0, 82, 204, 0.2)",
-                transition: { duration: 0.4, ease: "easeOut" },
-              }}
-            >
-              {/* Enhanced background effects for rejuvenation */}
-              <div className="absolute inset-0 overflow-hidden">
-                {/* Radial glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-400/30 to-rich-blue-600/0 opacity-70"></div>
-
-                {/* Animated gradient overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-400/30 to-rich-blue-600/0"
-                  animate={{
-                    x: ["-100%", "100%"],
-                  }}
-                  transition={{
-                    duration: 8,
-                    ease: "linear",
-                    repeat: Infinity,
-                    repeatType: "loop",
-                  }}
-                />
-
-                {/* Upward flowing energy particles */}
-                {[...Array(10)].map((_, i) => {
-                  const colors = [
-                    "bg-green-400/60",
-                    "bg-green-300/60",
-                    "bg-blue-300/60",
-                    "bg-cream-50/60",
-                  ];
-                  const color = colors[i % colors.length];
-
-                  return (
-                    <motion.div
-                      key={`rejuv-${i}`}
-                      className={`absolute rounded-full ${color}`}
-                      style={{
-                        left: `${10 + i * 8}%`,
-                        bottom: "20%",
-                        width: 2 + (i % 3),
-                        height: 2 + (i % 3),
-                      }}
-                      animate={{
-                        y: [0, -100, -200],
-                        opacity: [0, 0.9, 0],
-                        scale: [0.5, 1, 1.5],
-                      }}
-                      transition={{
-                        duration: 3 + (i % 3),
-                        repeat: Infinity,
-                        delay: i * 0.2,
-                        ease: "easeOut",
-                      }}
-                    />
-                  );
-                })}
-
-                {/* Money symbols floating upward */}
-                {["$", "€", "£", "%"].map((symbol, i) => (
-                  <motion.div
-                    key={`money-${i}`}
-                    className="absolute text-green-300/40 font-bold"
-                    style={{
-                      left: `${20 + i * 15}%`,
-                      bottom: "30%",
-                      fontSize: `${12 + i * 2}px`,
-                    }}
-                    animate={{
-                      y: [0, -100, -200],
-                      opacity: [0, 0.7, 0],
-                      rotate: [0, i * 5 - 10],
-                    }}
-                    transition={{
-                      duration: 4 + i,
-                      repeat: Infinity,
-                      delay: i * 0.5,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {symbol}
-                  </motion.div>
-                ))}
-
-                {/* Energetic glow at the top - energy rising */}
-                <div className="absolute top-0 left-0 right-0 h-1/4 bg-gradient-to-b from-green-400/20 to-transparent"></div>
-              </div>
-
-              {/* "Recommended" indicator */}
-              <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-green-600 via-green-500 to-green-600 py-1.5 px-4 text-xs font-medium text-white flex items-center justify-center shadow-md">
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <LuCheck className="mr-1.5 h-3.5 w-3.5" />
-                </motion.div>
-                <span className="tracking-wide">
-                  RECOMMENDED BY FINANCIAL EXPERTS
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="relative p-6 sm:p-8 mt-6">
-                <div className="flex flex-col h-full">
-                  <div className="mb-6">
-                    {/* Enhanced icon with rejuvenation animation */}
-                    <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cream-50/40 to-cream-50/10 mb-4 border border-cream-50/30">
-                      <motion.div
-                        animate={{
-                          rotate: [0, 5, 0, -5, 0],
-                          scale: [1, 1.05, 1],
-                        }}
-                        transition={{ duration: 5, repeat: Infinity }}
-                      >
-                        <LuTrendingUp className="h-8 w-8 text-cream-50" />
-                      </motion.div>
-                    </div>
-
-                    <h3 className="text-xl sm:text-2xl font-bold text-cream-50 mb-3 tracking-wide">
-                      DEC ALGORITHMIC STRATEGY
-                    </h3>
-
-                    {/* Enhanced performance metric with energetic styling */}
-                    <div className="relative text-3xl sm:text-5xl font-bold text-cream-50 mb-5 flex items-baseline">
-                      <div className="flex items-center">
-                        <LuBadgePercent className="h-7 w-7 text-green-400 mr-2" />
-                        <span className="text-green-400 relative">
-                          20%+
-                          {/* Enhanced glow */}
-                          <div
-                            className="absolute -inset-1 rounded bg-green-400/20"
-                            style={{
-                              filter:
-                                "drop-shadow(0 0 5px rgba(74, 222, 128, 0.5))",
-                            }}
-                          />
-                        </span>
-                        <span className="text-sm font-normal text-cream-100/90 ml-2">
-                          historical annual returns
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4 text-cream-100/90 mb-6">
-                      <div className="flex items-start">
-                        <LuZap className="h-5 w-5 text-green-400 mt-0.5 mr-2 flex-shrink-0" />
-                        <p>
-                          <span className="font-medium text-green-300">
-                            Accelerated growth
-                          </span>{" "}
-                          through proprietary algorithmic trading strategies
-                        </p>
-                      </div>
-                      <div className="flex items-start">
-                        <LuCheck className="h-5 w-5 text-green-400 mt-0.5 mr-2 flex-shrink-0" />
-                        <p>
-                          <span className="font-medium text-green-300">
-                            Transparent fee structure
-                          </span>{" "}
-                          aligned with your investment success
-                        </p>
-                      </div>
-                      <div className="flex items-start">
-                        <LuShield className="h-5 w-5 text-green-400 mt-0.5 mr-2 flex-shrink-0" />
-                        <p>
-                          <span className="font-medium text-green-300">
-                            Risk management
-                          </span>{" "}
-                          built into every aspect of our investment approach
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-auto">
-                    <div className="relative flex items-center gap-2 mb-4 bg-rich-blue-700/50 p-3 rounded-lg border border-rich-blue-600/30">
-                      <LuArrowUp className="h-5 w-5 text-green-400" />
-                      <span className="text-sm text-cream-50 relative z-10">
-                        <span className="font-medium">
-                          Join 1,000+ investors
-                        </span>{" "}
-                        who have already made the switch
-                      </span>
-                    </div>
-
-                    {/* Button container with fixed height for alignment */}
-                    <div className="h-[56px]">
-                      {/* Refined button with more elegant hover effect */}
-                      <motion.button
-                        onClick={() =>
-                          window.open(
-                            "https://2znr0q4ymmj.typeform.com/to/CA5GAbp9",
-                            "_blank"
-                          )
-                        }
-                        className="relative w-full h-full py-3.5 px-6 rounded-lg bg-gradient-to-r from-cream-50 via-cream-100 to-cream-50 text-rich-blue-800 font-bold hover:bg-cream-100 transition-all duration-300 flex items-center justify-center shadow-lg overflow-hidden focus:outline-none focus:ring-2 focus:ring-cream-200 focus:ring-offset-1"
-                        whileHover={{
-                          y: -2,
-                          scale: 1.02,
-                          boxShadow:
-                            "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-                          transition: {
-                            duration: 0.3,
-                            ease: [0.25, 0.1, 0.25, 1],
-                          },
-                        }}
-                        whileTap={{
-                          scale: 0.98,
-                          boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
-                          transition: { duration: 0.1 },
-                        }}
-                      >
-                        {/* Enhanced shimmer effect */}
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -skew-x-20"
-                          animate={{
-                            x: ["-100%", "100%"],
-                          }}
-                          transition={{
-                            duration: 2.5,
-                            ease: "easeInOut",
-                            repeat: Infinity,
-                            repeatDelay: 3,
-                          }}
-                        />
-
-                        {/* Button text with creative treatment */}
-                        <span className="relative z-10 font-bold text-lg tracking-wide">
-                          Discover Your Potential
-                        </span>
-                      </motion.button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Disclaimer */}
-        <div className="text-center mt-10 max-w-3xl mx-auto">
-          <div className="relative py-3 px-4 rounded-lg bg-rich-blue-900/70 backdrop-blur-sm border border-rich-blue-800/50">
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <LuShield className="h-4 w-4 text-cream-50/80" />
-              <p className="text-xs text-cream-50/90 font-medium tracking-wide">
-                IMPORTANT INFORMATION
-              </p>
-            </div>
-            <p className="text-xs text-cream-50/80 leading-relaxed">
-              Past performance is not indicative of future results. Historical
-              returns shown are based on actual performance data. All
-              investments involve risk and may result in both profits and
-              losses. Please read all offering documents carefully before
-              investing.
+      {/* FCA Risk Warning - Prominent at the top */}
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 mb-8">
+        <div className="bg-rich-blue-800/70 border border-cream-50/10 rounded-lg p-4 text-center">
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <LuBell className="h-4 w-4 text-amber-300" />
+            <p className="text-sm text-amber-300 font-medium">
+              INVESTMENT RISK WARNING
             </p>
           </div>
+          <p className="text-sm text-cream-50/90 leading-relaxed max-w-3xl mx-auto">
+            The value of investments can go down as well as up. Past performance
+            is not a reliable indicator of future results. Investment strategies
+            involve risks and may not be suitable for all investors. Please seek
+            independent financial advice if you are unsure about the suitability
+            of this investment.
+          </p>
         </div>
+      </div>
+
+      {/* Main content container */}
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {/* Upper eyebrow text */}
+          <motion.div
+            className="flex justify-center mb-5"
+            variants={itemVariants}
+          >
+            <div className="inline-flex items-center py-1 px-3 rounded-full bg-cream-50/10 text-cream-50 text-xs font-semibold tracking-wider">
+              <LuInfo className="mr-1.5 h-3.5 w-3.5 text-amber-300" />
+              <span>INVESTMENT APPROACHES</span>
+            </div>
+          </motion.div>
+
+          {/* Main heading - bold and direct */}
+          <motion.h2
+            className="text-center text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight"
+            variants={itemVariants}
+          >
+            <span className="block">Two Investment Philosophies:</span>
+            <span className="block mt-3 bg-gradient-to-r from-amber-300 via-amber-200 to-amber-300 bg-clip-text text-transparent pb-2">
+              Conventional vs Strategic
+            </span>
+          </motion.h2>
+
+          {/* Subheading - direct and provocative */}
+          <motion.p
+            className="text-center text-lg md:text-xl text-cream-50/90 max-w-3xl mx-auto mb-10 md:mb-16"
+            variants={itemVariants}
+          >
+            Different investment approaches result in different investor
+            experiences.
+            <span className="block mt-3 font-medium">Compare the options:</span>
+          </motion.p>
+
+          {/* Key principles instead of specific stats */}
+          <motion.div
+            className="flex flex-wrap justify-center gap-6 md:gap-14 my-12 md:my-20"
+            variants={statsVariants}
+          >
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2 text-amber-300">
+                <LuShield className="w-5 h-5 mr-2" />
+                <span className="font-bold text-xl">Personalized Strategy</span>
+              </div>
+              <p className="text-sm text-cream-50/80 uppercase tracking-wide">
+                Tailored Approach
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2 text-amber-300">
+                <LuZap className="w-5 h-5 mr-2" />
+                <span className="font-bold text-xl">Algorithmic Analysis</span>
+              </div>
+              <p className="text-sm text-cream-50/80 uppercase tracking-wide">
+                Data-Driven Decisions
+              </p>
+            </div>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2 text-amber-300">
+                <LuCheck className="w-5 h-5 mr-2" />
+                <span className="font-bold text-xl">Rigorous Process</span>
+              </div>
+              <p className="text-sm text-cream-50/80 uppercase tracking-wide">
+                Quality Control
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Main content - two approaches with no cards */}
+          <div
+            className={`grid ${
+              isMobileView ? "grid-cols-1" : "md:grid-cols-2"
+            } gap-10 md:gap-16 my-12`}
+          >
+            {/* The Conventional Approach */}
+            <motion.div variants={itemVariants} className="relative">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 opacity-60">
+                Conventional Approach
+              </h3>
+
+              <ul className="space-y-5 opacity-70">
+                <li className="flex">
+                  <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  </div>
+                  <div className="ml-2">
+                    <p className="text-lg font-medium">
+                      Traditional investment vehicles
+                    </p>
+                    <p className="text-sm text-cream-50/70">
+                      Potentially vulnerable to inflation over time
+                    </p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  </div>
+                  <div className="ml-2">
+                    <p className="text-lg font-medium">
+                      Fee structures that may compound
+                    </p>
+                    <p className="text-sm text-cream-50/70">
+                      Potential impact on long-term growth
+                    </p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-1">
+                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  </div>
+                  <div className="ml-2">
+                    <p className="text-lg font-medium">
+                      Slower capital appreciation
+                    </p>
+                    <p className="text-sm text-cream-50/70">
+                      Extended timeframes for wealth accumulation
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              <div className="mt-8 opacity-50">
+                <button
+                  className="w-full py-4 px-8 rounded-lg bg-gray-700 text-cream-50/80 text-center font-medium hover:bg-gray-600 transition-colors duration-300"
+                  onClick={() => {}}
+                  disabled
+                >
+                  <span>Continue With Conventional Approach</span>
+                </button>
+              </div>
+            </motion.div>
+
+            {/* The Strategic Approach */}
+            <motion.div variants={itemVariants} className="relative">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 text-amber-300">
+                Strategic Approach
+              </h3>
+
+              <ul className="space-y-5">
+                <li className="flex">
+                  <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-1">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  </div>
+                  <div className="ml-2">
+                    <p className="text-lg font-medium">
+                      Algorithmic trading strategies
+                    </p>
+                    <p className="text-sm text-cream-50/70">
+                      Designed to seek opportunities in various market
+                      conditions
+                    </p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-1">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  </div>
+                  <div className="ml-2">
+                    <p className="text-lg font-medium">
+                      Quantitative analysis approach
+                    </p>
+                    <p className="text-sm text-cream-50/70">
+                      Removing emotional bias from investment decisions
+                    </p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center mt-1">
+                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  </div>
+                  <div className="ml-2">
+                    <p className="text-lg font-medium">
+                      Selective client model
+                    </p>
+                    <p className="text-sm text-cream-50/70">
+                      Personalized service and investment strategy
+                    </p>
+                  </div>
+                </li>
+              </ul>
+
+              {/* Application button */}
+              <div className="mt-8">
+                <motion.div
+                  className="relative group"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {/* Animated border */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-300 to-amber-400 rounded-lg opacity-75 group-hover:opacity-100 blur-sm transition duration-1000 group-hover:duration-200"></div>
+
+                  <button
+                    onClick={() =>
+                      window.open(
+                        "https://2znr0q4ymmj.typeform.com/to/CA5GAbp9",
+                        "_blank"
+                      )
+                    }
+                    className="relative w-full py-4 px-8 bg-rich-blue-900 rounded-lg flex items-center justify-between"
+                  >
+                    <span className="font-bold text-lg text-cream-50">
+                      REQUEST INFORMATION
+                    </span>
+
+                    <div className="flex items-center">
+                      <span className="mr-2 text-sm bg-amber-300/20 px-2 py-0.5 rounded text-amber-300">
+                        Consultation
+                      </span>
+                      <LuChevronRight className="h-5 w-5 text-amber-300 transition-transform group-hover:translate-x-1" />
+                    </div>
+
+                    {/* Motion effect on hover */}
+                    <motion.div
+                      className="absolute inset-0 rounded-lg bg-gradient-to-r from-rich-blue-900/0 via-rich-blue-800/10 to-rich-blue-900/0 opacity-0 group-hover:opacity-100"
+                      animate={{
+                        x: ["-100%", "100%"],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        ease: "linear",
+                        repeat: Infinity,
+                        repeatDelay: 0.5,
+                      }}
+                    />
+                  </button>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Testimonial - modified to be FCA compliant */}
+          <motion.div
+            className="mt-16 mb-10 max-w-3xl mx-auto bg-rich-blue-800/30 border border-cream-50/10 rounded-lg p-6 relative"
+            variants={itemVariants}
+          >
+            <div className="absolute top-0 left-0 transform -translate-y-1/2 translate-x-6">
+              <div className="w-12 h-12 rounded-full bg-rich-blue-800 border-2 border-amber-300/30 flex items-center justify-center">
+                <LuUser className="h-6 w-6 text-amber-300" />
+              </div>
+            </div>
+            <div className="pl-4">
+              <p className="italic text-cream-50/80 mb-4">
+                "I found the algorithmic approach at DEC refreshing after years
+                with traditional advisors. Their systematic strategy provides a
+                disciplined framework that helps me feel more confident about my
+                investment decisions."
+              </p>
+              <p className="font-medium text-amber-300">
+                — Michael R., Managing Director
+              </p>
+              <p className="text-sm text-cream-50/60">Client since 2024</p>
+              <p className="text-xs text-cream-50/40 mt-2">
+                Testimonials reflect individual experiences and are not
+                necessarily representative of all client experiences. Results
+                may vary.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Expanded Disclaimer - FCA compliant */}
+          <motion.div
+            className="text-center mt-16 max-w-3xl mx-auto"
+            variants={itemVariants}
+          >
+            <div className="relative py-4 px-5 bg-rich-blue-800/30 border border-cream-50/10 rounded-lg">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <LuShield className="h-3 w-3 text-cream-50/80" />
+                <p className="text-xs text-cream-50/80 font-medium">
+                  IMPORTANT INFORMATION
+                </p>
+              </div>
+              <p className="text-xs text-cream-50/80 leading-relaxed">
+                Past performance is not a reliable indicator of future results.
+                The value of investments and the income from them can go down as
+                well as up and investors may not get back the amount originally
+                invested. Investment strategies involve risk and may not be
+                suitable for all investors. DEC does not guarantee any
+                particular rate of return or the success of any investment
+                strategy. Financial services are offered by Delta Edge Capital
+                Ltd, which may be authorized and regulated by the Financial
+                Conduct Authority. Please read all offering documents carefully
+                before investing.
+              </p>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -3,7 +3,6 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { termsManager } from "../../utils/termsManager";
 import LoadingScreen from "./LoadingScreen";
 import TermsContent from "./TermsContent";
-import TermsStatus from "./TermsStatus";
 import AcceptanceSection from "./AcceptanceSection";
 
 export interface LoadingAndTermsProps {
@@ -35,18 +34,24 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
   // Hooks
   const prefersReducedMotion = useReducedMotion();
 
-  // Check existing terms acceptance on mount
+  // Check existing terms acceptance on mount - now prioritizes localStorage over sessionStorage
   useEffect(() => {
     const status = termsManager.checkAcceptance();
     setTermsStatus(status);
+
+    // If terms were previously accepted and don't need reacceptance, bypass the terms screen
     if (status.hasAccepted && !status.needsReaccept) {
+      // Immediately proceed to the main content
       onAccept();
       return;
     }
+
+    // Otherwise, show the loading screen and then the terms
     const timer = setTimeout(() => {
       setLoading(false);
       setShowTerms(true);
     }, 2500);
+
     return () => clearTimeout(timer);
   }, [onAccept]);
 
@@ -120,10 +125,12 @@ const LoadingAndTerms: React.FC<LoadingAndTermsProps> = ({
     };
   }, [hasReachedBottom, readTime, timeSpent, minReadTime, accepted]);
 
-  // Handle terms acceptance
+  // Handle terms acceptance - now ensures data is properly persisted for 30 days
   const handleAccept = () => {
     if (isAcceptanceValid) {
+      // Save acceptance to both localStorage (for 30-day persistence) and sessionStorage (for current session)
       termsManager.acceptTerms();
+      // Proceed to main content
       onAccept();
     }
   };

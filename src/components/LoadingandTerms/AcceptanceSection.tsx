@@ -16,23 +16,7 @@ interface AcceptanceSectionProps {
   };
 }
 
-const buttonVariants = {
-  initial: { scale: 1 },
-  hover: { scale: 1.05 },
-  tap: { scale: 0.98 },
-};
-
-const shimmerVariants = {
-  animate: {
-    x: ["0%", "200%"],
-    transition: {
-      duration: 1.5,
-      ease: "linear",
-      repeat: Infinity,
-      repeatDelay: 1,
-    },
-  },
-};
+// Animation configurations are now used directly in the components
 
 /* Enhanced Button Component */
 const ButtonEnhancement = ({
@@ -183,7 +167,7 @@ export const AcceptanceSection: React.FC<AcceptanceSectionProps> = ({
         <label className="flex items-start gap-3 cursor-pointer">
           <Checkbox
             checked={accepted}
-            onCheckedChange={(checked) => setAccepted(!!checked)}
+            onCheckedChange={(checked) => setAccepted(checked === true)}
             className="mt-1 w-5 h-5 border-2 border-cream-50/20 data-[state=checked]:border-cream-50 data-[state=checked]:bg-cream-50/20"
           />
           <span className="text-sm text-cream-50/90">
