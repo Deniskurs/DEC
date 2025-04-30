@@ -40,7 +40,7 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
 				/>
 				<MetricCard
 					icon={LuTrendingUp}
-					label="Annualized Projected Growth"
+					label="Annualised Projected Growth"
 					value={`+${metrics.yearlyReturn.toFixed(2)}%`}
 					description="Compound Acceleration Protocol"
 					tooltip="Experience exponential wealth growth through our compound acceleration protocol, maximizing your returns year over year."

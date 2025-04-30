@@ -43,9 +43,24 @@ const CTABanner: React.FC<CTABannerProps> = ({
 	// Get performance data
 	const getPerformanceValue = () => {
 		if (isLoading || !accountData) return "+24%";
-		return accountData.monthly
-			? `+${(accountData.monthly * 12).toFixed(1)}%`
-			: "+24%";
+
+		if (accountData.monthly) {
+			// First, log the raw value to help with debugging
+
+			// Determine if the monthly value is already decimal or percentage
+			// If accountData.monthly is something like 1.3 (meaning 1.3%)
+			const monthlyRateDecimal = accountData.monthly / 100;
+
+			// Calculate compound annual return
+			const compoundAnnualRate =
+				(Math.pow(1 + monthlyRateDecimal, 12) - 1) * 100;
+
+			// Log the calculated value
+
+			return `+${compoundAnnualRate.toFixed(2)}%`;
+		}
+
+		return "+24%";
 	};
 
 	// Minimal variant (compact design for mobile or less intrusive display)
