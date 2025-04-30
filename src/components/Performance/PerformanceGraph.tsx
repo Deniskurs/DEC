@@ -244,6 +244,16 @@ const PerformanceGraph: React.FC = () => {
 				// Generate insights
 				const newInsights = generateInsights(processedData);
 				setInsights(newInsights);
+				const latestPoint = processedData[processedData.length - 1];
+				const goldPointTwoDaysAgo = processedData[processedData.length - 3]; // 2 days ago
+
+				// Check if the latest Delta Edge is greater than gold from 2 days ago
+				const shouldShowGold =
+					latestPoint &&
+					goldPointTwoDaysAgo.gold &&
+					latestPoint.deltaEdge > goldPointTwoDaysAgo.gold &&
+					goldPointTwoDaysAgo.gold !== null &&
+					latestPoint.deltaEdge !== null;
 
 				// Prepare chart data structure
 				const data: ProcessedDataset = {
@@ -265,11 +275,15 @@ const PerformanceGraph: React.FC = () => {
 							data: processedData.map((d) => d.sp500),
 							transition: "all 0.3s ease",
 						},
-						{
-							...DATASET_STYLES.gold,
-							data: processedData.map((d) => d.gold),
-							transition: "all 0.3s ease",
-						},
+						...(shouldShowGold
+							? [
+									{
+										...DATASET_STYLES.gold,
+										data: processedData.map((d) => d.gold),
+										transition: "all 0.3s ease",
+									},
+							  ]
+							: []),
 					],
 				};
 
