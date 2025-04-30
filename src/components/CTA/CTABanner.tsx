@@ -43,7 +43,9 @@ const CTABanner: React.FC<CTABannerProps> = ({
 	// Get performance data
 	const getPerformanceValue = () => {
 		if (isLoading || !accountData) return "+24%";
-		return accountData.gain ? `+${accountData.gain.toFixed(1)}%` : "+24%";
+		return accountData.monthly
+			? `+${(accountData.monthly * 12).toFixed(1)}%`
+			: "+24%";
 	};
 
 	// Minimal variant (compact design for mobile or less intrusive display)
