@@ -22,7 +22,6 @@ import { throttle } from "./utils/throttle";
 import BlogPost from "./pages/Blog/BlogPost";
 import EnquiryPage from "./components/Enquiry/EnquiryPage";
 import TeamPage from "./components/Team/TeamPage";
-import SEO from "./components/SEO/SEO";
 
 const HomePage = () => {
 	// Create a ref for the hero section
