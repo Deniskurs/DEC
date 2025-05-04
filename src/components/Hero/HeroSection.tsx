@@ -200,7 +200,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 								whileTap={{ scale: 0.98 }}
 								onClick={() =>
 									window.open(
-										"https://2znr0q4ymmj.typeform.com/to/CA5GAbp9",
+										"https://calendly.com/deltaedgecapital/30min",
 										"_blank"
 									)
 								}

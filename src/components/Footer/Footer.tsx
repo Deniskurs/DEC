@@ -28,7 +28,11 @@ const Footer: React.FC = () => {
 							{["About", "Services", "Performance", "Contact"].map((item) => (
 								<li key={item}>
 									<a
-										href={`#${item.toLowerCase()}`}
+										href={`#${
+											item.toLowerCase() === "contact"
+												? "https://calendly.com/deltaedgecapital/30min"
+												: item.toLowerCase()
+										}`}
 										className="text-cream-100/80 hover:text-cream-50 transition-colors duration-200"
 									>
 										{item}
@@ -41,8 +45,12 @@ const Footer: React.FC = () => {
 					<div>
 						<h3 className="text-cream-50 font-semibold mb-4">Contact</h3>
 						<ul className="space-y-3 text-cream-100/80">
-							<li>info@deltaedgecapital.co.uk</li>
-							<li>+447554429741</li>
+							<li>
+								<a href="mailto:info@deltaedegecapital.co.uk">
+									info@deltaedgecapital.co.uk
+								</a>
+							</li>
+							{/* <li>+447554429741</li> */}
 							<li>
 								85 Great Portland Street
 								<br />

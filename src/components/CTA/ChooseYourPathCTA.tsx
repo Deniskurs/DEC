@@ -334,7 +334,7 @@ const ChooseYourPathCTA: React.FC = () => {
 									<button
 										onClick={() =>
 											window.open(
-												"https://2znr0q4ymmj.typeform.com/to/CA5GAbp9",
+												"https://calendly.com/deltaedgecapital/30min",
 												"_blank"
 											)
 										}

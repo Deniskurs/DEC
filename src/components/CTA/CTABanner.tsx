@@ -206,7 +206,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 					exit={{ y: 60, opacity: 0 }}
 					transition={{ type: "spring", damping: 30, stiffness: 400 }}
 				>
-					<div className="max-w-3xl mx-auto pointer-events-auto">
+					<div className="max-w-4xl mx-auto pointer-events-auto">
 						<motion.div
 							className="relative  rounded-xl shadow-lg"
 							whileHover={{ scale: 1.01 }}
@@ -294,7 +294,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 										<motion.button
 											onClick={() =>
 												window.open(
-													"https://2znr0q4ymmj.typeform.com/to/CA5GAbp9",
+													"https://calendly.com/deltaedgecapital/30min",
 													"_blank"
 												)
 											}
@@ -353,7 +353,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 											/>
 
 											{/* Button content with animated icon */}
-											<span className="relative z-10 flex items-center ml-2">
+											<span className="relative z-10 flex items-center ml-4">
 												INVEST SMARTER
 												<motion.div
 													animate={{ x: [0, 4, 0] }}
