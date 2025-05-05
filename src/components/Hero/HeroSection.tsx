@@ -238,11 +238,6 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 					variant="premium"
 					urgencyType="exclusive-access"
 					useLiveData={true}
-					testimonial={{
-						quote: "The systematic approach has transformed my portfolio",
-						author: "Managing Director",
-						position: "Private Equity Firm",
-					}}
 				/>
 			</div>
 		</>

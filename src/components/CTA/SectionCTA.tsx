@@ -113,27 +113,27 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 		const deltaEdgeValue = () => {
 			if (isLoading || !accountData) return "+24%";
 
-			if (accountData.monthly) {
-				// First, log the raw value to help with debugging
+			// if (accountData.monthly) {
+			// 	// First, log the raw value to help with debugging
 
-				// Determine if the monthly value is already decimal or percentage
-				// If accountData.monthly is something like 1.3 (meaning 1.3%)
-				const monthlyRateDecimal = accountData.monthly / 100;
+			// 	// Determine if the monthly value is already decimal or percentage
+			// 	// If accountData.monthly is something like 1.3 (meaning 1.3%)
+			// 	const monthlyRateDecimal = accountData.monthly / 100;
 
-				// Calculate compound annual return
-				const compoundAnnualRate =
-					(Math.pow(1 + monthlyRateDecimal, 12) - 1) * 100;
+			// 	// Calculate compound annual return
+			// 	const compoundAnnualRate =
+			// 		(Math.pow(1 + monthlyRateDecimal, 12) - 1) * 100;
 
-				// Log the calculated value
+			// 	// Log the calculated value
 
-				return `+${compoundAnnualRate.toFixed(2)}%`;
-			}
+			// 	return `+${compoundAnnualRate.toFixed(2)}%`;
+			// }
 
-			return "+24%";
+			return `+${accountData.gain}`;
 		};
 
 		return {
-			label: "Annual Return",
+			label: "Since Inception",
 			value: `${deltaEdgeValue()}`,
 			trend: "up",
 		};

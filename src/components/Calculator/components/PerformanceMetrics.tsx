@@ -57,8 +57,9 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
 
 			<div className="mt-6 p-4 bg-gradient-to-r from-rich-blue-50 to-transparent border-l-4 border-rich-blue-500 rounded-r-lg">
 				<p className="text-sm text-rich-blue-600/90 font-medium">
-					These returns represent our proprietary algorithmic trading
-					performance
+					These projections are purely hypothetical and assume consistent
+					performance. Past performance is not indicative of future results. All
+					investments carry risk, including the potential loss of capital.
 				</p>
 			</div>
 		</motion.div>

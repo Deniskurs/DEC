@@ -3,38 +3,31 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { LuArrowLeft } from "react-icons/lu";
 import TeamHero from "./TeamHero";
 import { useState } from "react";
-import {
-	LuLinkedin,
-	LuTwitter,
-	LuGithub,
-	LuMail,
-	LuExternalLink,
-	LuChevronDown,
-} from "react-icons/lu";
+import { LuLinkedin, LuTwitter, LuGithub, LuMail } from "react-icons/lu";
 
 const TEAM_MEMBERS = [
 	{
 		id: 1,
+		name: "Umair Tariq",
+		role: "Managing Director",
+		image: "/images/team/3.png", // Using umair variable in actual implementation
+		bio: `As Managing Director of Delta Edge Capital, Umair recruits and manages a performance-driven team of talent, setting clear targets and risk parameters to ensure consistent excellence. He oversees our client acquisition pipeline, working closely with our BDR team and onboards new investors to maintain high standards of trust, transparency, and compliance. His focus is on building a resilient trading operation backed by institutional-level discipline, while delivering exceptional value to our clients.`,
+		social: {},
+	},
+	{
+		id: 2,
 		name: "Omar Black",
-		role: "CEO & Portfolio Manager",
+		role: "Portfolio Manager",
 		image: "/images/team/1.png", // Using omar variable in actual implementation
 		bio: `Omar Black leads investments at Delta Edge Capital with over six years of experience trading and developing quantitative systems. Formerly a Algo Developer at Cherokee Acquisition, his foundation in mechanical engineering has been key to crafting advanced algorithmic strategies. Omar's approach focuses on building resilient, automated investment strategies that leverage both his technical expertise and market insights for consistent performance.`,
 		social: {},
 	},
 	{
-		id: 2,
+		id: 3,
 		name: "Jacob Fecunda",
 		role: "Chief Technology Officer (CTO)",
 		image: "/images/team/2.png", // Using jacob variable in actual implementation
 		bio: `Jacob is a seasoned proffesional with a strong background in computer science, machine learning, and data-driven systems. He leads the development of scalable architectures and trading solutions, focusing on optimising system performance and reducing operational risk. Jacob is the architect behind efficient, automated systems that prioritise reliability and stability, driving research and development efforts to improve infrastructure and ensure seamless operations. His work integrates advanced technologies to deliver high-impact, risk-averse solutions across multiple sectors.`,
-		social: {},
-	},
-	{
-		id: 3,
-		name: "Umair Tariq",
-		role: "Managing Director",
-		image: "/images/team/3.png", // Using umair variable in actual implementation
-		bio: `As Managing Director of Delta Edge Capital, Umair recruits and manages a performance-driven team of talent, setting clear targets and risk parameters to ensure consistent excellence. He oversees our client acquisition pipeline, working closely with our BDR team and onboards new investors to maintain high standards of trust, transparency, and compliance. His focus is on building a resilient trading operation backed by institutional-level discipline, while delivering exceptional value to our clients.`,
 		social: {},
 	},
 	{

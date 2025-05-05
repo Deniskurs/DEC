@@ -44,23 +44,23 @@ const CTABanner: React.FC<CTABannerProps> = ({
 	const getPerformanceValue = () => {
 		if (isLoading || !accountData) return "+24%";
 
-		if (accountData.monthly) {
-			// First, log the raw value to help with debugging
+		// if (accountData.monthly) {
+		// 	// First, log the raw value to help with debugging
 
-			// Determine if the monthly value is already decimal or percentage
-			// If accountData.monthly is something like 1.3 (meaning 1.3%)
-			const monthlyRateDecimal = accountData.monthly / 100;
+		// 	// Determine if the monthly value is already decimal or percentage
+		// 	// If accountData.monthly is something like 1.3 (meaning 1.3%)
+		// 	const monthlyRateDecimal = accountData.monthly / 100;
 
-			// Calculate compound annual return
-			const compoundAnnualRate =
-				(Math.pow(1 + monthlyRateDecimal, 12) - 1) * 100;
+		// 	// Calculate compound annual return
+		// 	const compoundAnnualRate =
+		// 		(Math.pow(1 + monthlyRateDecimal, 12) - 1) * 100;
 
-			// Log the calculated value
+		// 	// Log the calculated value
 
-			return `+${compoundAnnualRate.toFixed(2)}%`;
-		}
+		// 	return `+${compoundAnnualRate.toFixed(2)}%`;
+		// }
 
-		return "+24%";
+		return `+${accountData.gain}`;
 	};
 
 	// Minimal variant (compact design for mobile or less intrusive display)
@@ -206,7 +206,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 					exit={{ y: 60, opacity: 0 }}
 					transition={{ type: "spring", damping: 30, stiffness: 400 }}
 				>
-					<div className="max-w-4xl mx-auto pointer-events-auto">
+					<div className="max-w-5xl mx-auto pointer-events-auto">
 						<motion.div
 							className="relative  rounded-xl shadow-lg"
 							whileHover={{ scale: 1.01 }}
@@ -230,7 +230,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 							{/* Content */}
 							<div className="relative flex items-center justify-between p-4">
 								{/* Left side with text and performance */}
-								<div className="flex items-center gap-4">
+								<div className="flex justify-between w-full md:justify-start items-center gap-4">
 									{/* Performance indicator - always visible */}
 									<div className="flex items-center gap-2 px-3 py-2 bg-rich-blue-700/50 rounded-lg border border-rich-blue-600/20">
 										<div className="flex flex-col">
@@ -241,7 +241,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 												<LuTrendingUp className="h-4 w-4 text-green-400" />
 											</div>
 											<span className="text-xs text-cream-50/70">
-												Annual Return
+												Since Inception
 											</span>
 										</div>
 									</div>
@@ -258,6 +258,86 @@ const CTABanner: React.FC<CTABannerProps> = ({
 											</p>
 										</div>
 									)}
+									{/* Button with 3D effect */}
+									<motion.button
+										onClick={() =>
+											window.open(
+												"https://calendly.com/deltaedgecapital/30min",
+												"_blank"
+											)
+										}
+										className="relative overflow-hidden bg-cream-50 text-rich-blue-800 px-4 min-w-[155px] lg:px-6 py-2 sm:py-3 rounded-lg font-bold text-sm hover:bg-cream-100 flex items-center whitespace-nowrap border border-cream-200/20
+                      shadow-[0_2px_0_0_rgba(0,0,0,0.05),0_0_0_0_rgba(0,0,0,0.05)]
+                      hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.1),0_1px_0_0_rgba(0,0,0,0.05)]
+                      active:shadow-[0_0px_0px_0_rgba(0,0,0,0.05),inset_0_1px_2px_0_rgba(0,0,0,0.1)]"
+										whileHover={{
+											y: -2,
+											scale: 1.05,
+											transition: {
+												type: "spring",
+												stiffness: 400,
+												damping: 10,
+											},
+										}}
+										whileTap={{
+											y: 0,
+											scale: 0.98,
+											transition: {
+												type: "spring",
+												stiffness: 400,
+												damping: 10,
+											},
+										}}
+									>
+										{/* Animated gradient border */}
+										<motion.div
+											className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100"
+											style={{
+												background:
+													"linear-gradient(90deg, rgba(0,82,204,0) 0%, rgba(0,82,204,0.1) 50%, rgba(0,82,204,0) 100%)",
+											}}
+											animate={{
+												backgroundPosition: ["0% 0%", "100% 0%"],
+											}}
+											transition={{
+												duration: 1.5,
+												ease: "linear",
+												repeat: Infinity,
+											}}
+										/>
+
+										{/* Elegant shimmer effect */}
+										<motion.div
+											className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-rich-blue-600/20 to-transparent -skew-x-12"
+											animate={{
+												x: ["-100%", "100%"],
+											}}
+											transition={{
+												duration: 1.5,
+												ease: "easeInOut",
+												repeat: Infinity,
+												repeatDelay: 1,
+											}}
+										/>
+
+										{/* Button content with animated icon */}
+										<span className="relative z-10  flex items-center ">
+											INVEST SMARTER
+											<motion.div
+												animate={{ x: [0, 4, 0] }}
+												transition={{
+													duration: 1.5,
+													repeat: Infinity,
+													repeatType: "reverse",
+													ease: "easeInOut",
+													repeatDelay: 0.5,
+												}}
+												className="hidden lg:flex"
+											>
+												<LuArrowRight className="ml-2 h-4 w-4" />
+											</motion.div>
+										</span>
+									</motion.button>
 								</div>
 
 								{/* Right side with CTA button and close */}
@@ -289,86 +369,6 @@ const CTABanner: React.FC<CTABannerProps> = ({
 												ease: "easeInOut",
 											}}
 										/>
-
-										{/* Button with 3D effect */}
-										<motion.button
-											onClick={() =>
-												window.open(
-													"https://calendly.com/deltaedgecapital/30min",
-													"_blank"
-												)
-											}
-											className="relative overflow-hidden bg-cream-50 text-rich-blue-800 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-bold text-sm hover:bg-cream-100 flex items-center whitespace-nowrap border border-cream-200/20
-                      shadow-[0_2px_0_0_rgba(0,0,0,0.05),0_0_0_0_rgba(0,0,0,0.05)]
-                      hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.1),0_1px_0_0_rgba(0,0,0,0.05)]
-                      active:shadow-[0_0px_0px_0_rgba(0,0,0,0.05),inset_0_1px_2px_0_rgba(0,0,0,0.1)]"
-											whileHover={{
-												y: -2,
-												scale: 1.05,
-												transition: {
-													type: "spring",
-													stiffness: 400,
-													damping: 10,
-												},
-											}}
-											whileTap={{
-												y: 0,
-												scale: 0.98,
-												transition: {
-													type: "spring",
-													stiffness: 400,
-													damping: 10,
-												},
-											}}
-										>
-											{/* Animated gradient border */}
-											<motion.div
-												className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100"
-												style={{
-													background:
-														"linear-gradient(90deg, rgba(0,82,204,0) 0%, rgba(0,82,204,0.1) 50%, rgba(0,82,204,0) 100%)",
-												}}
-												animate={{
-													backgroundPosition: ["0% 0%", "100% 0%"],
-												}}
-												transition={{
-													duration: 1.5,
-													ease: "linear",
-													repeat: Infinity,
-												}}
-											/>
-
-											{/* Elegant shimmer effect */}
-											<motion.div
-												className="absolute inset-0 z-10 bg-gradient-to-r from-transparent via-rich-blue-600/20 to-transparent -skew-x-12"
-												animate={{
-													x: ["-100%", "100%"],
-												}}
-												transition={{
-													duration: 1.5,
-													ease: "easeInOut",
-													repeat: Infinity,
-													repeatDelay: 1,
-												}}
-											/>
-
-											{/* Button content with animated icon */}
-											<span className="relative z-10 flex items-center ml-4">
-												INVEST SMARTER
-												<motion.div
-													animate={{ x: [0, 4, 0] }}
-													transition={{
-														duration: 1.5,
-														repeat: Infinity,
-														repeatType: "reverse",
-														ease: "easeInOut",
-														repeatDelay: 0.5,
-													}}
-												>
-													<LuArrowRight className="ml-2 h-4 w-4" />
-												</motion.div>
-											</span>
-										</motion.button>
 									</div>
 
 									{/* Close button */}

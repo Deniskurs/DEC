@@ -56,12 +56,6 @@ const HomePage = () => {
 					value: "+24%",
 					trend: "up",
 				}}
-				testimonial={{
-					quote:
-						"Switching to DEC's strategies was the best financial decision I've made. The performance speaks for itself.",
-					author: "James R.",
-					position: "Client since 2022",
-				}}
 				disclaimerText="Past performance is not indicative of future results. Investment involves risk."
 				useLiveData={true}
 			/>
