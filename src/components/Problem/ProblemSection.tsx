@@ -72,7 +72,7 @@ const ProblemSection: React.FC = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 1, delay: 0.3 }}
 							>
-								Your Capital Deserves <br className="hidden sm:block" />
+								Capital Deserves <br className="hidden sm:block" />
 								<span className="text-rich-blue-400">
 									Elite-Level Algorithms
 								</span>
@@ -85,8 +85,10 @@ const ProblemSection: React.FC = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 1, delay: 0.2 }}
 							>
-								You're already ahead of 80% of the market - but you know deep
-								down that being 'almost there' isn't enough.
+								While most managers report monthly or quarterly, Delta Edge
+								Capital provides near real-time updates on portfolio-level
+								metrics following trade execution. This reporting approach
+								offers qualified investors a high-frequency view of activity.
 							</motion.p>
 						</div>
 					</motion.div>
@@ -94,86 +96,6 @@ const ProblemSection: React.FC = () => {
 					{/* Enhanced Card Grid */}
 					<div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
 						{/* Left Card */}
-						<motion.div
-							initial={{ opacity: 0, x: -30 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							viewport={{ once: true }}
-							transition={{ duration: 1, delay: 0.3 }}
-							onMouseEnter={() => setActiveCard("left")}
-							onMouseLeave={() => setActiveCard(null)}
-							className="relative group"
-						>
-							<motion.div
-								className="absolute inset-0 bg-gradient-to-r from-rich-blue-400/20 to-rich-blue-500/20 rounded-2xl blur-xl transition-opacity duration-300"
-								animate={{ opacity: activeCard === "left" ? 1 : 0 }}
-							/>
-
-							<div className="relative bg-gradient-to-br from-cream-50/10 to-cream-50/5 rounded-2xl backdrop-blur-sm border border-cream-50/10 h-full overflow-hidden">
-								<div className="absolute inset-0 bg-gradient-to-r from-cream-50/0 via-cream-50/10 to-cream-50/0 animate-shimmer" />
-
-								<div className="relative p-8 lg:p-10 space-y-8">
-									{/* <LuTarget className="h-12 w-12 text-rich-blue-400 transform group-hover:scale-110 transition-transform duration-300" /> */}
-
-									<h3 className="text-2xl sm:text-3xl font-bold text-cream-50">
-										We See Your Potential
-									</h3>
-
-									<div className="space-y-6">
-										<p className="text-lg text-cream-100/90">
-											You've built something remarkable. Your success isn't just
-											luck - it's the result of:
-										</p>
-										<div className="relative space-y-6">
-											{[
-												"Strategic thinking and calculated risks",
-												"Dedication to continuous growth",
-												"Understanding the value of smart investments",
-											].map((item, index) => (
-												<motion.div
-													key={index}
-													onMouseEnter={() => setHoveredItem(index)}
-													onMouseLeave={() => setHoveredItem(null)}
-													className="relative"
-												>
-													<AnimatePresence>
-														{hoveredItem === index && (
-															<motion.div
-																initial={{ opacity: 0, scale: 0.95 }}
-																animate={{ opacity: 1, scale: 1 }}
-																exit={{ opacity: 0, scale: 0.95 }}
-																className="absolute inset-0 bg-rich-blue-400/10 rounded-xl"
-															/>
-														)}
-													</AnimatePresence>
-													<div className="relative flex items-center gap-3 p-4 rounded-xl border border-cream-50/10 transition-colors duration-300">
-														<span className="text-cream-50">{item}</span>
-													</div>
-													{index < 2 && (
-														<motion.div
-															className="absolute -bottom-6 left-7 h-6 w-px bg-gradient-to-b from-cream-50/30 to-transparent"
-															animate={{
-																height:
-																	hoveredItem === index ||
-																	hoveredItem === index + 1
-																		? 32
-																		: 24,
-																opacity:
-																	hoveredItem === index ||
-																	hoveredItem === index + 1
-																		? 1
-																		: 0.3,
-															}}
-														/>
-													)}
-												</motion.div>
-											))}
-										</div>
-									</div>
-								</div>
-							</div>
-						</motion.div>
-
-						{/* Right Card */}
 						<motion.div
 							initial={{ opacity: 0, x: 30 }}
 							whileInView={{ opacity: 1, x: 0 }}
@@ -193,14 +115,15 @@ const ProblemSection: React.FC = () => {
 
 								<div className="relative p-8 lg:p-10 space-y-8">
 									<h3 className="text-2xl sm:text-3xl font-bold text-cream-50">
-										Let's Take It Further
+										Detailed Insights
 									</h3>
 
 									<div className="space-y-6">
 										<p className="text-lg text-cream-100/90">
-											Your next level of success requires next-level tools. Our
-											algorithmic trading system is designed for leaders like
-											you who are ready to:
+											Where opacity is still common across the industry, we take
+											a fundamentally different approach—offering investors
+											on-demand visibility into portfolio activity, execution,
+											and risk
 										</p>
 
 										<div className="grid gap-6">
@@ -257,6 +180,87 @@ const ProblemSection: React.FC = () => {
 															{stat.value}
 														</div>
 													</div>
+												</motion.div>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
+						</motion.div>
+
+						{/* Right Card */}
+						<motion.div
+							initial={{ opacity: 0, x: -30 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							viewport={{ once: true }}
+							transition={{ duration: 1, delay: 0.3 }}
+							onMouseEnter={() => setActiveCard("left")}
+							onMouseLeave={() => setActiveCard(null)}
+							className="relative group"
+						>
+							<motion.div
+								className="absolute inset-0 bg-gradient-to-r from-rich-blue-400/20 to-rich-blue-500/20 rounded-2xl blur-xl transition-opacity duration-300"
+								animate={{ opacity: activeCard === "left" ? 1 : 0 }}
+							/>
+
+							<div className="relative bg-gradient-to-br from-cream-50/10 to-cream-50/5 rounded-2xl backdrop-blur-sm border border-cream-50/10 h-full overflow-hidden">
+								<div className="absolute inset-0 bg-gradient-to-r from-cream-50/0 via-cream-50/10 to-cream-50/0 animate-shimmer" />
+
+								<div className="relative p-8 lg:p-10 space-y-8">
+									{/* <LuTarget className="h-12 w-12 text-rich-blue-400 transform group-hover:scale-110 transition-transform duration-300" /> */}
+
+									<h3 className="text-2xl sm:text-3xl font-bold text-cream-50">
+										Let's Take It Further
+									</h3>
+
+									<div className="space-y-6">
+										<p className="text-lg text-cream-100/90">
+											Clients receive ongoing visibility into the management of
+											their capital, including trade-level reporting, position
+											tracking, and risk updates in near real time
+										</p>
+										<div className="relative space-y-6">
+											{[
+												"Strategic thinking and calculated risks",
+												"Dedication to continuous growth",
+												"Understanding the value of smart investments",
+											].map((item, index) => (
+												<motion.div
+													key={index}
+													onMouseEnter={() => setHoveredItem(index)}
+													onMouseLeave={() => setHoveredItem(null)}
+													className="relative"
+												>
+													<AnimatePresence>
+														{hoveredItem === index && (
+															<motion.div
+																initial={{ opacity: 0, scale: 0.95 }}
+																animate={{ opacity: 1, scale: 1 }}
+																exit={{ opacity: 0, scale: 0.95 }}
+																className="absolute inset-0 bg-rich-blue-400/10 rounded-xl"
+															/>
+														)}
+													</AnimatePresence>
+													<div className="relative flex items-center gap-3 p-4 rounded-xl border border-cream-50/10 transition-colors duration-300">
+														<span className="text-cream-50">{item}</span>
+													</div>
+													{index < 2 && (
+														<motion.div
+															className="absolute -bottom-6 left-7 h-6 w-px bg-gradient-to-b from-cream-50/30 to-transparent"
+															animate={{
+																height:
+																	hoveredItem === index ||
+																	hoveredItem === index + 1
+																		? 32
+																		: 24,
+																opacity:
+																	hoveredItem === index ||
+																	hoveredItem === index + 1
+																		? 1
+																		: 0.3,
+															}}
+														/>
+													)}
 												</motion.div>
 											))}
 										</div>

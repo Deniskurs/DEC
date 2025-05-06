@@ -45,9 +45,9 @@ const HomePage = () => {
 				<InvestmentCalculator />
 			</section>
 			<SectionCTA
-				title="Don't Let Your Wealth Stagnate in Traditional Markets"
-				description="Every day you wait is another day of potential growth missed."
-				buttonText="START INVESTING NOW"
+				title="Traditional markets can limit flexibility and diversification for experienced investors."
+				description="Our approach is designed to offer alternative exposure and institutional-grade insight."
+				buttonText="LEARN MORE"
 				darkMode={true}
 				variant="premium"
 				urgencyType="limited-capacity"

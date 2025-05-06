@@ -15,31 +15,21 @@ import SectionCTA from "../CTA/SectionCTA";
 const features = [
 	{
 		Icon: LuBrain,
-		title: "Performance-Driven Intelligence",
+		title: "Real Time Oversight",
 		description:
-			"Our AI isn't just advanced, it's evolving constantly. Leveraging cutting-edge algorithms and machine learning to target consistent growth through sophisticated algorithmic trading strategies. Each decision is data-driven, each strategy refined through extensive testing",
+			"Every trade executed by our algorithms is subject to continuous oversight from our dedicated risk management team, ensuring human judgment is embedded throughout the process. The team actively monitors exposure and enforces strict adherence to predefined risk parameters, combining performance targeting with disciplined risk control",
 		stats: {
 			value: "24%",
 			label: "Annual Target",
 		},
-		iconLabel: "AI-Powered",
+		iconLabel: "Duedilligent",
 	},
-	{
-		Icon: LuEye,
-		title: "Fully Audited Excellence",
-		description:
-			"Complete transparency through comprehensive third-party audits. Our performance metrics and operational processes undergo rigorous independent verification. Every aspect of our operation adheres to the highest standards of financial integrity and regulatory compliance",
-		stats: {
-			value: "100%",
-			label: "Audit Verified",
-		},
-		iconLabel: "Verified",
-	},
+
 	{
 		Icon: LuClock,
-		title: "24/7 Expert Support",
+		title: "Client Support",
 		description:
-			"Speak to a real expert within minutes. No scripts, no waiting. Our team is as committed to your success as you are. Elite service for elite investors",
+			"Allocators receive daily reporting with performance data structured to reflect their specific exposure. Clients are given direct access to our investment and risk teams for updates, discussions, and clarification—without layers of delay or communication barriers.",
 		stats: {
 			value: "<2min",
 			label: "Response Time",
@@ -92,25 +82,24 @@ const FeaturesSection: React.FC = () => {
 								</motion.div>
 
 								<h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-5">
-									Your Wealth, 24/7
+									Capital
 									<span className="block mt-2 bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
 										Without Compromise
 									</span>
 								</h2>
 
 								<p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-									At Delta Edge Capital, we've built a system that embodies what
-									the top 1% value most:{" "}
-									<span className="font-semibold">
-										PRECISION, SPEED, TRANSPARENCY
-									</span>
-									. Our AI isn't just advanced, it's evolving constantly.
+									Our trading approach combines algorithmic execution with
+									real-time oversight from a dedicated human risk team. This
+									hybrid framework enables responsive intervention during
+									periods of volatility, strengthening control over exposures
+									and operational risk.
 								</p>
 							</div>
 						</div>
 
 						{/* Optimized Feature Cards Grid with staggered loading */}
-						<div className="grid md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+						<div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
 							{features.map((feature, index) => (
 								<motion.div
 									key={index}
@@ -174,8 +163,8 @@ const FeaturesSection: React.FC = () => {
 				<div className="relative">
 					<SectionCTA
 						title="Technology-Driven Investment Excellence"
-						description="Our proprietary algorithms work 24/7 to identify opportunities and optimize positions, something traditional fund managers simply cannot match."
-						buttonText="ELEVATE YOUR INVESTMENTS"
+						description="Our proprietary algorithms work around the clock to identify opportunities and optimise positions in ways that are fundamentally different to the traditional approach"
+						buttonText="Talk With A Proffeffsional"
 						darkMode={true}
 						variant="compact"
 						urgencyType="exclusive-access"

@@ -118,7 +118,9 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 							variants={subtitleVariants}
 						>
 							<span className="relative">
-								<span className="relative z-10">TIME IS MONEY</span>
+								<span className="relative z-10">
+									Precision. Performance. Transparency
+								</span>
 								<motion.span
 									className="absolute bottom-0 left-0 w-full h-[1px] bg-cream-50/30"
 									initial={{ scaleX: 0 }}
@@ -139,12 +141,12 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 									animate={{ y: 0 }}
 									transition={{ duration: 1.2, ease: [0.25, 0.1, 0, 1] }}
 								>
-									You Didn't Get Here
+									Precision Trading
 								</motion.span>
 							</span>
 							<span className="block overflow-hidden mt-2">
 								<motion.span
-									className="block bg-gradient-to-r from-cream-50 via-cream-50/90 to-cream-50 bg-clip-text text-transparent"
+									className="block bg-gradient-to-r h-[130px]  from-cream-50 via-cream-50/90 to-cream-50 bg-clip-text text-transparent"
 									initial={{ y: "100%" }}
 									animate={{ y: 0 }}
 									transition={{
@@ -153,7 +155,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 										ease: [0.25, 0.1, 0, 1],
 									}}
 								>
-									By Settling. Why Start Now?
+									Through Advanced Algorithms
 								</motion.span>
 							</span>
 						</motion.h1>
@@ -234,7 +236,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 				<SectionCTA
 					title="Algorithmic Precision for Superior Returns"
 					description="Our quantitative approach identifies inefficiencies that conventional analysis misses."
-					buttonText="OPTIMIZE YOUR PORTFOLIO"
+					buttonText="LEARN MORE"
 					variant="premium"
 					urgencyType="exclusive-access"
 					useLiveData={true}

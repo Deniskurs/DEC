@@ -118,7 +118,7 @@ const InvestmentCalculator: React.FC = () => {
 
 	return (
 		<TooltipProvider>
-			<div className="min-h-screen bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50">
+			<div className="min-h-screen bg-gradient-to-b from-cream-50 via-cream-100 to-cream-50 pb-10">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					{/* Mobile-optimized padding */}
 					<div className="py-8 sm:py-12 lg:py-16">
@@ -170,7 +170,7 @@ const InvestmentCalculator: React.FC = () => {
 							</div>
 
 							{/* Opportunity Cost Card with mobile spacing */}
-							<div className="mt-6 sm:mt-8 lg:mt-12">
+							{/* <div className="mt-6 sm:mt-8 lg:mt-12">
 								{metrics ? (
 									<OpportunityCostCard
 										dailyOpportunityCost={dailyOpportunityCost}
@@ -183,7 +183,7 @@ const InvestmentCalculator: React.FC = () => {
 										<div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
 									</div>
 								)}
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

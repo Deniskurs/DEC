@@ -2,12 +2,12 @@
 import type { BlogPost } from "../types/blog";
 
 export const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    title: "The Future of Trading Belongs to AI—Are You Ready?",
-    excerpt:
-      "There are two types of traders today: those who embrace AI… and those who are losing to it.",
-    content: `# Let’s Talk About the Game We’re Really Playing  
+	{
+		id: 1,
+		title: "The Future of Trading Belongs to AI—Are You Ready?",
+		excerpt:
+			"There are two types of traders today: those who embrace AI… and those who are losing to it.",
+		content: `# Let’s Talk About the Game We’re Really Playing  
 
 Trading used to be a game of instincts. A handful of traders sitting in a room, making calls based on experience, gut feelings, and (let’s be honest) a little bit of luck.  
 
@@ -93,24 +93,24 @@ So the real question is: **Are you evolving with it?**
 At **DEC**, we’re committed to staying ahead of the curve. If you’re curious about what AI-powered trading looks like inside a structured, systematic investment framework, **let’s talk**.  
 
     `,
-    image: "images/AI_algorithmic-trading.jpg",
-    slug: "ai-powered-algorithmic-trading",
-    publishedAt: "2025-02-07",
-    readTime: 6,
-    category: {
-      name: "AI-Powered Trading",
-      slug: "AI-Powered-Trading",
-      count: 15,
-    },
-    tags: ["Algorithmic Trading", "FinTech", "Investment Strategies"],
-  },
-  {
-    id: 2,
-    title:
-      "Crypto vs. Fiat: The Future of Money or Just Another Speculative Cycle?",
-    excerpt:
-      "Crypto was supposed to replace fiat. It hasn’t. So where does that leave us?",
-    content: `
+		image: "images/AI_algorithmic-trading.jpg",
+		slug: "ai-powered-algorithmic-trading",
+		publishedAt: "2025-02-07",
+		readTime: 6,
+		category: {
+			name: "AI-Powered Trading",
+			slug: "AI-Powered-Trading",
+			count: 15,
+		},
+		tags: ["Algorithmic Trading", "FinTech", "Investment Strategies"],
+	},
+	{
+		id: 2,
+		title:
+			"Crypto vs. Fiat: The Future of Money or Just Another Speculative Cycle?",
+		excerpt:
+			"Crypto was supposed to replace fiat. It hasn’t. So where does that leave us?",
+		content: `
 # The Big Debate: Is Crypto the Future, or Is Fiat Here to Stay?  
 
 If you listen to hardcore Bitcoin believers, fiat is dead—governments are inflating currencies into oblivion, and crypto will soon take over.  
@@ -208,28 +208,28 @@ Markets change. Speculation rises and falls. But **sound investment principles n
 If you’re looking for a **stable, AI-powered approach to investing in traditional markets**, we’d love to talk.  
 
     `,
-    image: "images/Crypto-VS-Fiat.jpg",
-    slug: "crypto-vs-fiat-future-of-money",
-    publishedAt: "2025-01-16",
-    readTime: 8,
-    category: {
-      name: "Fiat vs Crypto",
-      slug: "Fiat vs Crypto",
-      count: 8,
-    },
-    tags: [
-      "Traditional Finance vs Digital Assets",
-      "CBDCs (Central Banks & Digital Currency)",
-      "Financial Markets & AI Trading",
-    ],
-  },
-  {
-    id: 3,
-    title:
-      "The AI That Reads the Markets: How LLMs Are Quietly Reshaping Finance",
-    excerpt:
-      "Imagine having a financial analyst who never sleeps, speaks every language, and can read a decade’s worth of financial data in a second. That’s not the future—that’s happening right now.",
-    content: `# What Are LLMs (And Why Should You Care)?  
+		image: "images/Crypto-VS-Fiat.jpg",
+		slug: "crypto-vs-fiat-future-of-money",
+		publishedAt: "2025-01-16",
+		readTime: 8,
+		category: {
+			name: "Fiat vs Crypto",
+			slug: "Fiat vs Crypto",
+			count: 8,
+		},
+		tags: [
+			"Traditional Finance vs Digital Assets",
+			"CBDCs (Central Banks & Digital Currency)",
+			"Financial Markets & AI Trading",
+		],
+	},
+	{
+		id: 3,
+		title:
+			"The AI That Reads the Markets: How LLMs Are Quietly Reshaping Finance",
+		excerpt:
+			"Imagine having a financial analyst who never sleeps, speaks every language, and can read a decade’s worth of financial data in a second. That’s not the future—that’s happening right now.",
+		content: `# What Are LLMs (And Why Should You Care)?  
 
 For decades, finance was ruled by **numbers, charts, and data models**. If you wanted insight, you looked at spreadsheets, technical indicators, and economic reports.  
 
@@ -333,28 +333,28 @@ At **DEC**, we specialize in **AI-powered, systematic investment strategies** th
 
 If you want to see how **AI is reshaping investment strategies**, **let’s talk**.  
 `,
-    image: "images/llmimage.jpg",
-    slug: "llms-revolutionizing-financial-analysis",
-    publishedAt: "2024-12-05",
-    readTime: 5,
-    category: {
-      name: "AI in Financial Markets",
-      slug: "AI in Financial Markets",
-      count: 15,
-    },
-    tags: [
-      "Large Languiage Models",
-      "Algorithmic Trading & AI",
-      "Market Analysis with AI",
-    ],
-  },
-  {
-    id: 4,
-    title:
-      "The Ultimate Guide to Investing: How to Build Wealth Like the Smart Money",
-    excerpt:
-      "Investing isn’t about luck. It’s about strategy, discipline, and making your money work for you. Whether you’re just starting or refining your portfolio, this guide breaks down how smart investors build wealth.",
-    content: `# Why Investing Matters: The Harsh Truth About Money  
+		image: "images/llmimage.jpg",
+		slug: "llms-revolutionizing-financial-analysis",
+		publishedAt: "2024-12-05",
+		readTime: 5,
+		category: {
+			name: "AI in Financial Markets",
+			slug: "AI in Financial Markets",
+			count: 15,
+		},
+		tags: [
+			"Large Languiage Models",
+			"Algorithmic Trading & AI",
+			"Market Analysis with AI",
+		],
+	},
+	{
+		id: 4,
+		title:
+			"The Ultimate Guide to Investing: How to Build Wealth Like the Smart Money",
+		excerpt:
+			"Investing isn’t about luck. It’s about strategy, discipline, and making your money work for you. Whether you’re just starting or refining your portfolio, this guide breaks down how smart investors build wealth.",
+		content: `# Why Investing Matters: The Harsh Truth About Money  
 
 Let’s get real—saving money alone won’t make you wealthy.  
 
@@ -413,7 +413,7 @@ Institutional investors and hedge funds aren’t relying on gut feelings anymore
 #### **AI-driven models can:**  
 ✅ **Analyze thousands of market signals** in real time.  
 ✅ **Remove emotional bias** from investment decisions.  
-✅ **Optimize risk management** better than traditional methods.  
+✅ **Optimise risk management** better than traditional methods.  
 
 Firms like **DEC** use **AI-powered trading strategies** to capitalize on inefficiencies in fiat markets.  
 
@@ -443,7 +443,7 @@ Not all investing strategies are equal. **Your approach depends on your experien
 ### **Advanced Investment Strategies:**  
 🔹 **Options Trading** – Higher risk, but can be lucrative when managed correctly.  
 🔹 **Hedge Funds & Alternative Investments** – Requires high capital but offers unique market exposure.  
-🔹 **AI-Driven Trading & Quantitative Strategies** – Used by firms like **DEC** to optimize performance in fiat markets.  
+🔹 **AI-Driven Trading & Quantitative Strategies** – Used by firms like **DEC** to optimise performance in fiat markets.  
 
 ---
 
@@ -462,7 +462,7 @@ AI-driven investing isn’t a trend—it’s **the next evolution of finance**.
 
 ### **📌 What AI Can Do in Markets:**  
 ✅ **Process financial news, sentiment, and data** faster than humans.  
-✅ **Optimize portfolio risk** using machine learning.  
+✅ **Optimise portfolio risk** using machine learning.  
 ✅ **Identify trading opportunities** that humans might miss.  
 
 At **Delta Edge Capital (DEC)**, we specialize in **AI-powered investment strategies** that leverage market inefficiencies in fiat-based markets.  
@@ -485,19 +485,19 @@ At **DEC**, we help investors **navigate financial markets with precision, strat
 
 If you’re serious about **taking your investments to the next level**, **let’s talk**.  
 `,
-    image: "images/investing-cat.jpg",
-    slug: "investing",
-    publishedAt: "2024-11-12",
-    readTime: 8,
-    category: {
-      name: "How to Invest Money Wisely ",
-      slug: "How to Invest Money Wisely ",
-      count: 12,
-    },
-    tags: [
-      "Best Investment Strategies for Beginners",
-      "Diversification in Investing",
-      "AI Investing vs. Human Investing ",
-    ],
-  },
+		image: "images/investing-cat.jpg",
+		slug: "investing",
+		publishedAt: "2024-11-12",
+		readTime: 8,
+		category: {
+			name: "How to Invest Money Wisely ",
+			slug: "How to Invest Money Wisely ",
+			count: 12,
+		},
+		tags: [
+			"Best Investment Strategies for Beginners",
+			"Diversification in Investing",
+			"AI Investing vs. Human Investing ",
+		],
+	},
 ];

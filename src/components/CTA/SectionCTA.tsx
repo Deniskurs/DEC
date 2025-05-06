@@ -48,7 +48,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 	buttonText,
 	darkMode = false,
 	variant = "standard",
-	urgencyType = "limited-capacity",
+	urgencyType,
 	performanceMetric,
 	testimonial,
 	disclaimerText,
@@ -477,7 +477,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 									/>
 
 									{/* Button content with animated icon */}
-									<span className="relative z-10 flex items-center justify-center whitespace-nowrap">
+									<span className="relative z-10 flex uppercase items-center justify-center whitespace-nowrap">
 										{buttonText}
 										<motion.div
 											animate={{ x: [0, 4, 0] }}

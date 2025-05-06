@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import NewsletterPopup from "./NewsletterPopup";
 
-const STORAGE_KEY = "hasSeenNewsletterPopup";
+const STORAGE_KEY = "hasSeenNewsletterPopupDEC";
 const MAX_DISPLAYS = 1; // Maximum number of times to show the popup
 const REDISPLAY_DELAY = 100000; // 100 seconds in milliseconds
 const INITIAL_DELAY = 100000; // 45 seconds before first popup
@@ -38,6 +38,8 @@ const NewsletterController: React.FC = () => {
 	const handleClose = () => {
 		setShowPopup(false);
 		setLastDismissalTime(Date.now());
+
+		localStorage.setItem(STORAGE_KEY, "true");
 
 		// Start timer to allow showing again after delay
 		setTimeout(() => {

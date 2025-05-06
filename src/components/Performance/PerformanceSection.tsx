@@ -91,8 +91,10 @@ const PerformanceSection: React.FC = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.8, delay: 0.2 }}
 							>
-								Our Delta Edge Hybrid Fund delivers risk-adjusted returns with
-								sophisticated risk management.
+								Unlike conventional models with periodic or delayed reporting,
+								Delta Edge Capital delivers continuous, verifiable transparency.
+								Investors can access real-time data on positions and portfolio
+								risk.
 							</motion.p>
 						</div>
 					</motion.div>
@@ -241,12 +243,11 @@ const PerformanceSection: React.FC = () => {
 			</div>
 
 			<SectionCTA
-				title="Your Capital Deserves Better Performance"
+				title="Machine learning algorithms"
 				description="While traditional investments struggle with market volatility, our algorithms adapt continuously to deliver more consistent returns."
-				buttonText="OUTPERFORM THE MARKET"
+				buttonText="REQUEST MORE INFORMATION"
 				darkMode={true}
 				variant="compact"
-				urgencyType="time-limited"
 				useLiveData={true}
 				disclaimerText="Past performance is not indicative of future results. All investments involve risk and may lose value."
 			/>

@@ -266,7 +266,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 												"_blank"
 											)
 										}
-										className="relative overflow-hidden bg-cream-50 text-rich-blue-800 px-4 min-w-[155px] lg:px-6 py-2 sm:py-3 rounded-lg font-bold text-sm hover:bg-cream-100 flex items-center whitespace-nowrap border border-cream-200/20
+										className="relative overflow-hidden bg-cream-50 text-rich-blue-800 px-4 min-w-fit lg:px-6 py-2 sm:py-3 rounded-lg font-bold text-sm hover:bg-cream-100 flex items-center whitespace-nowrap border border-cream-200/20
                       shadow-[0_2px_0_0_rgba(0,0,0,0.05),0_0_0_0_rgba(0,0,0,0.05)]
                       hover:shadow-[0_4px_8px_0_rgba(0,0,0,0.1),0_1px_0_0_rgba(0,0,0,0.05)]
                       active:shadow-[0_0px_0px_0_rgba(0,0,0,0.05),inset_0_1px_2px_0_rgba(0,0,0,0.1)]"
@@ -322,7 +322,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 
 										{/* Button content with animated icon */}
 										<span className="relative z-10  flex items-center ">
-											INVEST SMARTER
+											ENQUIRE
 											<motion.div
 												animate={{ x: [0, 4, 0] }}
 												transition={{

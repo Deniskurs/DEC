@@ -472,7 +472,7 @@ const PerformanceMetrics: React.FC = () => {
 			label: "Returns",
 			value: accountData?.gain ? `${accountData.gain.toFixed(2)}%` : "+27.5%",
 			description:
-				"Our algorithmic strategies aim to optimize returns while managing risk. Past performance is not indicative of future results",
+				"Our algorithmic strategies aim to optimise returns while managing risk. Past performance is not indicative of future results",
 		},
 		{
 			icon: <LuChartSpline />,
