@@ -30,7 +30,7 @@ const CalculatorHeader = () => {
 					transition={{ duration: 0.8, delay: 0.3 }}
 				>
 					<span className="inline-block bg-gradient-to-r from-rich-blue-800 via-rich-blue-600 to-rich-blue-800 bg-clip-text text-transparent pb-2">
-						Ideal
+						Return
 					</span>
 					<motion.span
 						className="block mt-2 text-green-500"
@@ -40,7 +40,7 @@ const CalculatorHeader = () => {
 						}}
 						transition={{ duration: 0.5, delay: 0.8 }}
 					>
-						Return Simulation
+						Illustration Tool
 					</motion.span>
 				</motion.h2>
 
@@ -52,10 +52,12 @@ const CalculatorHeader = () => {
 					transition={{ duration: 0.8, delay: 1 }}
 				>
 					<p className="text-xl sm:text-2xl text-rich-blue-600/90 leading-relaxed font-light">
-						This calculator shows hypothetical returns based on assumptions that
-						our returns remain consistent. Past results are no guarantee of
-						future outcomes. Actual returns may differ. This is not financial
-						advice or a financial promotion.
+						This tool provides a hypothetical example of how returns might
+						evolve based on consistent input assumptions. It is for illustrative
+						purposes only and does not represent actual or projected fund
+						performance. Past performance is not a reliable indicator of future
+						results. Assumptions may not reflect actual conditions. This content
+						is intended only for professional investors
 					</p>
 
 					{/* Scroll Indicator */}

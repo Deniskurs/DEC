@@ -164,7 +164,7 @@ const FeaturesSection: React.FC = () => {
 					<SectionCTA
 						title="Technology-Driven Investment Excellence"
 						description="Our proprietary algorithms work around the clock to identify opportunities and optimise positions in ways that are fundamentally different to the traditional approach"
-						buttonText="Talk With A Proffeffsional"
+						buttonText="Talk With A Proffesional"
 						darkMode={true}
 						variant="compact"
 						urgencyType="exclusive-access"

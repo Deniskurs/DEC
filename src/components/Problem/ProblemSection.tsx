@@ -74,7 +74,7 @@ const ProblemSection: React.FC = () => {
 							>
 								Capital Deserves <br className="hidden sm:block" />
 								<span className="text-rich-blue-400">
-									Elite-Level Algorithms
+									Elite-Level Transparency
 								</span>
 							</motion.h2>
 

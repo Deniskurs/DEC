@@ -38,16 +38,16 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ metrics }) => {
 					description="Algorithmic Precision Trading"
 					tooltip="Our proprietary algorithms deliver steady monthly returns through advanced quantitative strategies."
 				/>
-				<MetricCard
+				{/* <MetricCard
 					icon={LuTrendingUp}
 					label="Annualised Projected Growth"
 					value={`+${metrics.yearlyReturn.toFixed(2)}%`}
 					description="Compound Acceleration Protocol"
 					tooltip="Experience exponential wealth growth through our compound acceleration protocol, maximizing your returns year over year."
-				/>
+				/> */}
 				<MetricCard
 					icon={LuArrowUpRight}
-					label="Total Wealth Amplification"
+					label="Hypothetical Return"
 					value={formatCurrency(metrics.totalReturn)}
 					description="Your Market Profit Advantage"
 					tooltip="This represents your total wealth creation potential - the additional capital you'll generate above traditional investment methods."

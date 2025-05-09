@@ -254,7 +254,7 @@ const CTABanner: React.FC<CTABannerProps> = ({
 											</h3>
 											<p className=" text-cream-50/80 text-sm">
 												Discover our sophisticated investment approach and learn
-												how we may help you achieve your financial goals.
+												about how we target attractive risk-adjusted returns.
 											</p>
 										</div>
 									)}
