@@ -7,6 +7,7 @@ import {
 	LuLock,
 	LuShield,
 	LuZap,
+	LuChartCandlestick,
 } from "react-icons/lu";
 import FeatureCard from "./FeatureCard";
 import SectionCTA from "../CTA/SectionCTA";
@@ -17,24 +18,34 @@ const features = [
 		Icon: LuBrain,
 		title: "Real Time Oversight",
 		description:
-			"Every trade executed by our algorithms is subject to continuous oversight from our dedicated risk management team, ensuring human judgment is embedded throughout the process. The team actively monitors exposure and enforces strict adherence to predefined risk parameters, combining performance targeting with disciplined risk control",
+			"Our internal risk management team meticulously monitors our algorithm and the execution of every single trade ensuring the process aheres to our risk framework. The team monitors exposure and ensures our returns remain risk adjusted and actively fine tune it depending on current market conditions",
 		stats: {
-			value: "24%",
-			label: "Annual Target",
+			value: "100%",
+			label: "Trades Monitored",
 		},
-		iconLabel: "Duedilligent",
+		iconLabel: "DUE DILIGENCE",
 	},
-
+	{
+		Icon: LuChartCandlestick,
+		title: "Value At Risk",
+		description:
+			"Our 95% monthly Value at Risk (VaR) is currently 1.88%; this reflects our risk management team's commitment to capital preservation. This figure is independently tracked and updates in line with current market conditions. VaR is a statistical estimate and does not account for tail events",
+		stats: {
+			value: "1.88%",
+			label: "95% Monthly VaR",
+		},
+		iconLabel: "RISK METRICS",
+	},
 	{
 		Icon: LuClock,
 		title: "Client Support",
 		description:
-			"Allocators receive daily reporting with performance data structured to reflect their specific exposure. Clients are given direct access to our investment and risk teams for updates, discussions, and clarification—without layers of delay or communication barriers.",
+			"Allocators can receive tailored reports with the ability to request any specific performance data on a basis of their choosing whether daily, monthly or quarterly. ur clients have a direct line to the investment and risk management team to ensure that any questions they have are adressed to the best of our ability whilst removing delays or barriers",
 		stats: {
-			value: "<2min",
-			label: "Response Time",
+			value: "100%",
+			label: "Tailored Reporting",
 		},
-		iconLabel: "Always On",
+		iconLabel: "HERE TO HELP",
 	},
 ];
 
@@ -89,17 +100,17 @@ const FeaturesSection: React.FC = () => {
 								</h2>
 
 								<p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-									Our trading approach combines algorithmic execution with
-									real-time oversight from a dedicated human risk team. This
-									hybrid framework enables responsive intervention during
-									periods of volatility, strengthening control over exposures
-									and operational risk.
+									To ensure capital preservation we combine our algorithmic
+									execution with a dedicated risk management team. This hybrid
+									framework ensures real-time human oversight to maintain
+									control over risk, especially during periods of volatility and
+									uncertainty.
 								</p>
 							</div>
 						</div>
 
 						{/* Optimized Feature Cards Grid with staggered loading */}
-						<div className="grid md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
+						<div className="grid lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
 							{features.map((feature, index) => (
 								<motion.div
 									key={index}
@@ -162,14 +173,15 @@ const FeaturesSection: React.FC = () => {
 				{/* Actual CTA Component */}
 				<div className="relative">
 					<SectionCTA
-						title="Technology-Driven Investment Excellence"
+						title="Technology-Driven Investment"
 						description="Our proprietary algorithms work around the clock to identify opportunities and optimise positions in ways that are fundamentally different to the traditional approach"
-						buttonText="Talk With A Proffesional"
+						buttonText="Talk With A Professional"
 						darkMode={true}
 						variant="compact"
 						urgencyType="exclusive-access"
 						useLiveData={true}
 						disclaimerText="Investment strategies involve risk and are not suitable for all investors."
+						dataShown="current-month"
 					/>
 				</div>
 			</div>

@@ -50,7 +50,7 @@ const HomePage = () => {
 				buttonText="LEARN MORE"
 				darkMode={true}
 				variant="premium"
-				urgencyType="limited-capacity"
+				urgencyType="exclusive-access"
 				performanceMetric={{
 					label: "Historical Annual Return",
 					value: "+24%",

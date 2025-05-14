@@ -14,7 +14,7 @@ import { useInView } from "react-intersection-observer";
 
 const TITLE = "Everything You Need to Know";
 const SUBTITLE =
-	"Get comprehensive answers to common questions about our elite investment strategies and processes.";
+	"Get comprehensive answers to common questions about our investment strategies and processes.";
 
 interface FAQItem {
 	question: string;

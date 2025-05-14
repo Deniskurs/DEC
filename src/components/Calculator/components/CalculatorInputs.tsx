@@ -36,7 +36,7 @@ const CalculatorInputs: React.FC<CalculatorInputsProps> = ({
 				<div className="flex items-center gap-2 text-rich-blue-600">
 					<LuArrowUpRight className="h-5 w-5 animate-bounce" />
 					<span className="text-sm font-medium">
-						Proffesional Investors Only
+						Professional Investors Only
 					</span>
 				</div>
 			</div>

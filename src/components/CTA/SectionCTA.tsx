@@ -40,6 +40,7 @@ interface SectionCTAProps {
 	testimonial?: TestimonialProps;
 	disclaimerText?: string;
 	useLiveData?: boolean;
+	dataShown?: "inception" | "ytd" | "current-month";
 }
 
 const SectionCTA: React.FC<SectionCTAProps> = ({
@@ -53,6 +54,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 	testimonial,
 	disclaimerText,
 	useLiveData = false,
+	dataShown = "inception",
 }) => {
 	// Media query for responsive design - used for conditional rendering
 	const isMobile = useMediaQuery("(max-width: 768px)");
@@ -95,7 +97,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 							}`}
 						/>
 					),
-					text: "Exclusive Access",
+					text: "Explore Exclusive Access",
 				};
 			case "none":
 			default:
@@ -132,11 +134,25 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 			return `+${accountData.gain}`;
 		};
 
-		return {
-			label: "Since Inception",
-			value: `${deltaEdgeValue()}`,
-			trend: "up",
+		const dataMapping = {
+			inception: {
+				label: "Since Inception",
+				value: `${deltaEdgeValue()}`,
+				trend: "up",
+			},
+			ytd: {
+				label: "Year to Date",
+				value: `+${accountData.ytdGain.toFixed(2)}%`,
+				trend: "up",
+			},
+			"current-month": {
+				label: "This Month's Gain",
+				value: `+${accountData.currentMonthGain.toFixed(2)}%`,
+				trend: "up",
+			},
 		};
+
+		return dataMapping[dataShown] as PerformanceMetricProps;
 	};
 
 	const activeMetric = getLiveMetric() || performanceMetric;
@@ -745,7 +761,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 						</div>
 
 						{/* Trustpilot Rating */}
-						<div className="flex items-center gap-2 mt-2">
+						{/* <div className="flex items-center gap-2 mt-2">
 							<div
 								className={`flex items-center text-sm font-semibold ${
 									darkMode ? "text-cream-50" : "text-rich-blue-800"
@@ -770,7 +786,7 @@ const SectionCTA: React.FC<SectionCTAProps> = ({
 							>
 								5.0 / 5.0
 							</span>
-						</div>
+						</div> */}
 					</motion.div>
 				</div>
 			</motion.div>

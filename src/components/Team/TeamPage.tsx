@@ -27,7 +27,7 @@ const TEAM_MEMBERS = [
 		name: "Jacob Fecunda",
 		role: "Chief Technology Officer (CTO)",
 		image: "/images/team/2.png", // Using jacob variable in actual implementation
-		bio: `Jacob is a seasoned proffesional with a strong background in computer science, machine learning, and data-driven systems. He leads the development of scalable architectures and trading solutions, focusing on optimising system performance and reducing operational risk. Jacob is the architect behind efficient, automated systems that prioritise reliability and stability, driving research and development efforts to improve infrastructure and ensure seamless operations. His work integrates advanced technologies to deliver high-impact, risk-averse solutions across multiple sectors.`,
+		bio: `Jacob is a seasoned professional with a strong background in computer science, machine learning, and data-driven systems. He leads the development of scalable architectures and trading solutions, focusing on optimising system performance and reducing operational risk. Jacob is the architect behind efficient, automated systems that prioritise reliability and stability, driving research and development efforts to improve infrastructure and ensure seamless operations. His work integrates advanced technologies to deliver high-impact, risk-averse solutions across multiple sectors.`,
 		social: {},
 	},
 	{

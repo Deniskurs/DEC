@@ -86,9 +86,10 @@ const ProblemSection: React.FC = () => {
 								transition={{ duration: 1, delay: 0.2 }}
 							>
 								While most managers report monthly or quarterly, Delta Edge
-								Capital provides near real-time updates on portfolio-level
-								metrics following trade execution. This reporting approach
-								offers qualified investors a high-frequency view of activity.
+								Capital takes a different approach. We provide investors near
+								real time updates on our metrics following every trade
+								execution. Our approach offers qualified investors a deep
+								insight into how their capital is managed.
 							</motion.p>
 						</div>
 					</motion.div>
@@ -120,10 +121,9 @@ const ProblemSection: React.FC = () => {
 
 									<div className="space-y-6">
 										<p className="text-lg text-cream-100/90">
-											Where opacity is still common across the industry, we take
-											a fundamentally different approach—offering investors
-											on-demand visibility into portfolio activity, execution,
-											and risk
+											Where opacity is still common across the industry we take
+											a fundamentally different stance. Our approach offers
+											investors a high level of transparency.
 										</p>
 
 										<div className="grid gap-6">
@@ -141,6 +141,13 @@ const ProblemSection: React.FC = () => {
 														? `${accountData.successRate}%`
 														: "88%",
 													desc: "Proven Track Record",
+												},
+												{
+													label: "Maximum Drawdown",
+													value: accountData
+														? `${accountData.drawdown}%`
+														: "2.28%",
+													desc: "Minimised Risk",
 												},
 											].map((stat, index) => (
 												<motion.div
@@ -215,52 +222,71 @@ const ProblemSection: React.FC = () => {
 
 									<div className="space-y-6">
 										<p className="text-lg text-cream-100/90">
-											Clients receive ongoing visibility into the management of
-											their capital, including trade-level reporting, position
-											tracking, and risk updates in near real time
+											Clients receive clear visibility into the management of
+											their capital. As we believe transparency means showing
+											what's happening as it happens.
 										</p>
-										<div className="relative space-y-6">
+										<div className="grid gap-6">
 											{[
-												"Strategic thinking and calculated risks",
-												"Dedication to continuous growth",
-												"Understanding the value of smart investments",
-											].map((item, index) => (
+												{
+													label: "This Week's Gain",
+													value: accountData
+														? `${
+																accountData.weekGain >= 0 ? "+" : ""
+														  }${accountData.weekGain.toFixed(2)}%`
+														: "0.8%",
+												},
+												{
+													label: "This Month's Gain",
+													value: accountData
+														? `${
+																accountData.currentMonthGain >= 0 ? "+" : ""
+														  }${accountData.currentMonthGain.toFixed(2)}%`
+														: "1.28%",
+												},
+												{
+													label: "This Year's Gain",
+													value: accountData
+														? `${
+																accountData.ytdGain >= 0 ? "+" : ""
+														  }${accountData.ytdGain.toFixed(2)}%`
+														: "10.28%",
+												},
+											].map((stat, index) => (
 												<motion.div
 													key={index}
+													initial={{ opacity: 0, y: 20 }}
+													whileInView={{ opacity: 1, y: 0 }}
+													viewport={{ once: true }}
+													transition={{
+														duration: 0.5,
+														delay: 0.7 + index * 0.1,
+													}}
 													onMouseEnter={() => setHoveredItem(index)}
 													onMouseLeave={() => setHoveredItem(null)}
-													className="relative"
+													className="relative overflow-hidden"
 												>
 													<AnimatePresence>
 														{hoveredItem === index && (
 															<motion.div
-																initial={{ opacity: 0, scale: 0.95 }}
-																animate={{ opacity: 1, scale: 1 }}
-																exit={{ opacity: 0, scale: 0.95 }}
-																className="absolute inset-0 bg-rich-blue-400/10 rounded-xl"
+																initial={{ opacity: 0, x: "-100%" }}
+																animate={{ opacity: 1, x: 0 }}
+																exit={{ opacity: 0, x: "100%" }}
+																transition={{ duration: 0.3 }}
+																className="absolute inset-0 bg-rich-blue-400/10"
 															/>
 														)}
 													</AnimatePresence>
-													<div className="relative flex items-center gap-3 p-4 rounded-xl border border-cream-50/10 transition-colors duration-300">
-														<span className="text-cream-50">{item}</span>
+													<div className="relative flex items-center gap-4 bg-cream-50/5 rounded-xl p-4 border border-cream-50/10">
+														<div className="flex-1">
+															<div className="text-sm text-cream-100/80">
+																{stat.label}
+															</div>
+														</div>
+														<div className="text-2xl font-bold text-cream-50">
+															{stat.value}
+														</div>
 													</div>
-													{index < 2 && (
-														<motion.div
-															className="absolute -bottom-6 left-7 h-6 w-px bg-gradient-to-b from-cream-50/30 to-transparent"
-															animate={{
-																height:
-																	hoveredItem === index ||
-																	hoveredItem === index + 1
-																		? 32
-																		: 24,
-																opacity:
-																	hoveredItem === index ||
-																	hoveredItem === index + 1
-																		? 1
-																		: 0.3,
-															}}
-														/>
-													)}
 												</motion.div>
 											))}
 										</div>

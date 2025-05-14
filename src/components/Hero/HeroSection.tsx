@@ -119,7 +119,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 						>
 							<span className="relative">
 								<span className="relative z-10">
-									Precision. Performance. Transparency
+									Precision. Performance. Transparency.
 								</span>
 								<motion.span
 									className="absolute bottom-0 left-0 w-full h-[1px] bg-cream-50/30"
@@ -141,7 +141,7 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 									animate={{ y: 0 }}
 									transition={{ duration: 1.2, ease: [0.25, 0.1, 0, 1] }}
 								>
-									Precision Trading
+									Precise Returns
 								</motion.span>
 							</span>
 							<span className="block overflow-hidden mt-2">
@@ -234,8 +234,8 @@ const HeroSection = React.forwardRef<HTMLDivElement>((_, ref) => {
 
 			<div className="bg-gradient-to-b from-cream-50/50 to-white">
 				<SectionCTA
-					title="Algorithmic Precision for Superior Returns"
-					description="Our quantitative approach identifies inefficiencies that conventional analysis misses."
+					title="Algorithmic Precision"
+					description="Our quantitative approach identifies inefficiencies in the market."
 					buttonText="LEARN MORE"
 					variant="premium"
 					urgencyType="exclusive-access"

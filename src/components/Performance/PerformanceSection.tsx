@@ -69,15 +69,15 @@ const PerformanceSection: React.FC = () => {
 							<div className="overflow-hidden">
 								<h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8 relative">
 									{/* First line - simplified animation for better performance */}
-									<span className="block bg-gradient-to-r from-rich-blue-800 to-rich-blue-600 bg-clip-text text-transparent relative font-bold">
-										Unrivaled Performance.
+									<span className=" capitalize block bg-gradient-to-r from-rich-blue-800 to-rich-blue-600 bg-clip-text text-transparent relative font-bold">
+										Consistent performance.
 										{/* Static highlight underline */}
 										<div className="absolute h-[3px] bg-gradient-to-r from-rich-blue-600/0 via-rich-blue-500/60 to-rich-blue-600/0 bottom-1 left-[20%] w-[60%]" />
 									</span>
 
 									{/* Second line - no animation to ensure visibility on mobile */}
-									<span className="block mt-2 text-rich-blue-900 relative font-bold">
-										Verified Excellence.
+									<span className=" capitalize block mt-2 text-rich-blue-900 relative font-bold">
+										Real-time tracking.
 										{/* Static dot accent */}
 										<div className="absolute w-1.5 h-1.5 rounded-full bg-rich-blue-500 right-[-10px] bottom-3" />
 									</span>
@@ -91,10 +91,9 @@ const PerformanceSection: React.FC = () => {
 								viewport={{ once: true }}
 								transition={{ duration: 0.8, delay: 0.2 }}
 							>
-								Unlike conventional models with periodic or delayed reporting,
-								Delta Edge Capital delivers continuous, verifiable transparency.
-								Investors can access real-time data on positions and portfolio
-								risk.
+								Delta Edge Capital delivers on continuous transparency unlike
+								conventional models with delayed or periodic reporting.Investors
+								have real time updates on positions and risk.
 							</motion.p>
 						</div>
 					</motion.div>
@@ -243,13 +242,15 @@ const PerformanceSection: React.FC = () => {
 			</div>
 
 			<SectionCTA
-				title="Machine learning algorithms"
+				title="Machine Learning Algorithms"
 				description="While traditional investments struggle with market volatility, our algorithms adapt continuously to deliver more consistent returns."
 				buttonText="REQUEST MORE INFORMATION"
 				darkMode={true}
 				variant="compact"
+				urgencyType="exclusive-access"
 				useLiveData={true}
 				disclaimerText="Past performance is not indicative of future results. All investments involve risk and may lose value."
+				dataShown="ytd"
 			/>
 		</>
 	);
