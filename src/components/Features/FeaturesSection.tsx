@@ -40,7 +40,7 @@ const features = [
 		Icon: LuClock,
 		title: "Client Support",
 		description:
-			"Allocators can receive tailored reports with the ability to request any specific performance data on a basis of their choosing whether daily, monthly or quarterly. ur clients have a direct line to the investment and risk management team to ensure that any questions they have are adressed to the best of our ability whilst removing delays or barriers",
+			"Allocators can receive tailored reports with the ability to request any specific performance data on a basis of their choosing whether daily, monthly or quarterly. Our clients have a direct line to the investment and risk management team to ensure that any questions they have are adressed to the best of our ability whilst removing delays or barriers",
 		stats: {
 			value: "100%",
 			label: "Tailored Reporting",
@@ -174,7 +174,7 @@ const FeaturesSection: React.FC = () => {
 				<div className="relative">
 					<SectionCTA
 						title="Technology-Driven Investment"
-						description="Our proprietary algorithms work around the clock to identify opportunities and optimise positions in ways that are fundamentally different to the traditional approach"
+						description="Our proprietary algorithms work around the clock to identify opportunities and optimise positions in ways that are fundamentally different to the traditional approach."
 						buttonText="Talk With A Professional"
 						darkMode={true}
 						variant="compact"

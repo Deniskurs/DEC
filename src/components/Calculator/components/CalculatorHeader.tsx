@@ -57,7 +57,7 @@ const CalculatorHeader = () => {
 						purposes only and does not represent actual or projected fund
 						performance. Past performance is not a reliable indicator of future
 						results. Assumptions may not reflect actual conditions. This content
-						is intended only for professional investors
+						is intended only for professional investors.
 					</p>
 
 					{/* Scroll Indicator */}

@@ -92,8 +92,8 @@ const PerformanceSection: React.FC = () => {
 								transition={{ duration: 0.8, delay: 0.2 }}
 							>
 								Delta Edge Capital delivers on continuous transparency unlike
-								conventional models with delayed or periodic reporting.Investors
-								have real time updates on positions and risk.
+								conventional models with delayed or periodic reporting.
+								Investors have real time updates on positions and risk.
 							</motion.p>
 						</div>
 					</motion.div>
