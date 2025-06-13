@@ -9,6 +9,7 @@ import {
 	LuChevronDown
 } from "react-icons/lu";
 import TeamHero from "./TeamHero";
+import TeamVSL from "./TeamVSL";
 
 // Executive team member interface
 interface ExecutiveMember {
@@ -402,6 +403,9 @@ const TeamPage: React.FC = () => {
 				</motion.button>
 			</motion.div>
 
+			{/* VSL section */}
+			<TeamVSL />
+			
 			{/* Hero section */}
 			<TeamHero />
 
