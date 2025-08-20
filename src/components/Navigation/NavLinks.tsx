@@ -14,12 +14,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
 	buttonBgClass,
 }) => {
 	const navItems = [
-		{ label: "The Team", href: "/team" },
-		{ label: "Problem", href: "#problem" },
-		{ label: "Performance", href: "#performance" },
-		{ label: "Features", href: "#features" },
-		{ label: "Liquidity", href: "#liquidity" },
-		{ label: "FAQ", href: "#faq" },
+		{ label: "Home", href: "/" },
 	];
 
 	return (
@@ -46,17 +41,17 @@ const NavLinks: React.FC<NavLinksProps> = ({
 					)}
 				</li>
 			))}
-			{/* Desktop CTA Button - Enhanced Design */}
+			{/* Desktop Contact Button */}
 			<li>
-				<Link
-					to="https://2znr0q4ymmj.typeform.com/to/CA5GAbp9?typeform-source=localhost"
+				<a
+					href="mailto:info@deltaedgecapital.co.uk"
 					className="relative inline-flex items-center px-6 py-2.5 rounded-xl font-bold overflow-hidden group transition-all duration-300 shadow-md"
 					style={{
 						background: "linear-gradient(135deg, #1E3A8A, #2563EB)",
 					}}
 				>
 					<span className="relative z-10 text-white transform transition-transform duration-300 group-hover:scale-105 flex items-center">
-						<span>Enquire</span>
+						<span>Contact</span>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="h-4 w-4 ml-2 transform transition-transform duration-300 group-hover:translate-x-1"
@@ -73,7 +68,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
 						</svg>
 					</span>
 					<span className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-blue-400/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-				</Link>
+				</a>
 			</li>
 		</ul>
 	);

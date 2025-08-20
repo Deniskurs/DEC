@@ -16,29 +16,23 @@ const Footer: React.FC = () => {
 							/>
 						</a>
 						<p className="text-cream-100/80 max-w-md leading-relaxed">
-							Delta Edge Capital combines cutting-edge technology with proven
-							trading strategies to deliver consistent returns in any market
-							condition.
+							Delta Edge Capital is a holdings company focused on acquiring, 
+							developing, and scaling innovative digital SaaS products that 
+							drive transformation across industries.
 						</p>
 					</div>
 
 					<div>
-						<h3 className="text-cream-50 font-semibold mb-4">Quick Links</h3>
+						<h3 className="text-cream-50 font-semibold mb-4">Company</h3>
 						<ul className="space-y-3">
-							{["About", "Services", "Performance", "Contact"].map((item) => (
-								<li key={item}>
-									<a
-										href={`#${
-											item.toLowerCase() === "contact"
-												? "https://calendly.com/deltaedgecapital/30min"
-												: item.toLowerCase()
-										}`}
-										className="text-cream-100/80 hover:text-cream-50 transition-colors duration-200"
-									>
-										{item}
-									</a>
-								</li>
-							))}
+							<li>
+								<a
+									href="mailto:info@deltaedgecapital.co.uk"
+									className="text-cream-100/80 hover:text-cream-50 transition-colors duration-200"
+								>
+									Contact Us
+								</a>
+							</li>
 						</ul>
 					</div>
 

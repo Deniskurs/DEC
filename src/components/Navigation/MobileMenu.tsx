@@ -28,12 +28,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 	}, [isMenuOpen]);
 
 	const menuItems = [
-		{ label: "The Team", href: "/team" },
-		{ label: "Problem", href: "#problem" },
-		{ label: "Features", href: "#features" },
-		{ label: "Performance", href: "#performance" },
-		{ label: "Liquidity", href: "#liquidity" },
-		{ label: "FAQ", href: "#faq" },
+		{ label: "Home", href: "/" },
 	];
 
 	return (
@@ -107,8 +102,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 									))}
 								</nav>
 								<div className="mt-8">
-									<Link
-										to="https://2znr0q4ymmj.typeform.com/to/CA5GAbp9?typeform-source=localhost"
+									<a
+										href="mailto:info@deltaedgecapital.co.uk"
 										onClick={() => setIsMenuOpen(false)}
 										className="block w-full py-3.5 text-center rounded-xl font-bold relative overflow-hidden group transition-all duration-300 shadow-lg"
 										style={{
@@ -118,7 +113,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 										aria-hidden={!isMenuOpen}
 									>
 										<span className="relative z-10 inline-flex items-center justify-center text-white transform transition-transform duration-300 group-hover:scale-105">
-											<span className="mr-2">Enquire</span>
+											<span className="mr-2">Contact</span>
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
 												className="h-5 w-5 transform transition-transform duration-300 group-hover:translate-x-1"
@@ -135,7 +130,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 											</svg>
 										</span>
 										<span className="absolute inset-0 opacity-0 group-hover:opacity-60 transition-opacity duration-300 bg-gradient-to-r from-blue-600/40 to-blue-400/40"></span>
-									</Link>
+									</a>
 								</div>
 							</div>
 						</div>
