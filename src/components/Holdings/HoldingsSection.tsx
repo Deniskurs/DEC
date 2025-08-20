@@ -1,10 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { LuBuilding2, LuCode, LuTrendingUp } from "react-icons/lu";
+import SEO from "../SEO/SEO";
 
 const HoldingsSection: React.FC = () => {
 	return (
-		<div className="relative min-h-screen flex items-center bg-gradient-to-br from-rich-blue-900 via-rich-blue-800 to-rich-blue-700 overflow-hidden">
+		<>
+			<SEO 
+				title="Delta Edge Capital | SaaS Holdings Company - Building Digital Futures"
+				description="Delta Edge Capital acquires, develops, and scales innovative SaaS companies driving digital transformation. Strategic acquisitions, product development, and sustainable growth focus."
+				keywords="SaaS holdings, software acquisition, digital transformation, SaaS portfolio, tech investments, software development, business growth, delta edge capital"
+			/>
+			<div className="relative min-h-screen flex items-center bg-gradient-to-br from-rich-blue-900 via-rich-blue-800 to-rich-blue-700 overflow-hidden">
 			{/* Enhanced Background Effects */}
 			<motion.div className="absolute inset-0 w-full h-full">
 				{/* Animated radial gradients */}
@@ -146,6 +153,7 @@ const HoldingsSection: React.FC = () => {
 			{/* Bottom Gradient */}
 			<div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-rich-blue-900 to-transparent" />
 		</div>
+		</>
 	);
 };
 

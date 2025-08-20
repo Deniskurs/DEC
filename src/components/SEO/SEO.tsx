@@ -16,9 +16,9 @@ interface SEOProps {
 }
 
 const SEO: React.FC<SEOProps> = ({
-	title = "Delta Edge Capital | Alternative Investments",
-	description = "Delta Edge Capital is an alternate investment fund delivering consistent, risk-managed returns through proprietary trading systems. Discover how we scale precision into profit.",
-	keywords = "investment, wealth management, financial growth, delta edge",
+	title = "Delta Edge Capital | SaaS Holdings Company",
+	description = "Delta Edge Capital is a holdings company focused on acquiring, developing, and scaling innovative digital SaaS products that drive transformation across industries.",
+	keywords = "SaaS, software as a service, holdings company, digital transformation, software acquisition, tech investments, delta edge capital",
 	ogType = "website",
 	ogImage = "/images/og-default-image.png",
 	ogUrl,
